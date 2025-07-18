@@ -1,3 +1,5 @@
+App retrieved from the official store for updating.
+
 # WordPress - The Ultimate Content Management System
 
 WordPress is the quintessential content management system (CMS) that has revolutionized the way websites and blogs are created, managed, and published on the internet. With its robust features, unparalleled flexibility, and user-friendly interface, WordPress has become the go-to choice for individuals, businesses, and organizations of all sizes.
@@ -37,3 +39,4 @@ Whether you're building a personal blog, a corporate website, an online store, o
 **WordPress Plugins:** [WordPress Plugin Directory](https://wordpress.org/plugins/)
 
 **WordPress Themes:** [WordPress Theme Directory](https://wordpress.org/themes/)
+

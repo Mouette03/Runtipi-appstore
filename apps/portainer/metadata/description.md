@@ -1,3 +1,4 @@
+App retrieved from the official store for updating.
 
 ![Screenshot](https://github.com/portainer/portainer/blob/develop/app/assets/images/portainer-github-banner.png?raw=true)
 
