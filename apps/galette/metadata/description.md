@@ -2,7 +2,7 @@
 
 
 
-👉Après installation redémarrer celle-ci pour que les permissions soient accordées.
+👉Après installation, ouvrir une premiere fois et redémarrer celle-ci pour que les permissions soient accordées.
 
 
 
@@ -45,8 +45,4 @@ Galette est une application web de gestion d’adhérents, adaptée aux associat
 * Historique d'utilisation
 
 👉 Plus d’info : [galette.eu](https://galette.eu/)
-
-
-
-
 
