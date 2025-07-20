@@ -12,6 +12,7 @@
   "short_desc": "An open-source, self-hosted Notion alterative",
   "author": "Trilliumnext",
   "source": "https://hub.docker.com/r/triliumnext/notes/",
+  "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1752620152000,
   "updated_at": 1752620152000,
