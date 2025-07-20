@@ -36,7 +36,7 @@ You can also [get support for Nextcloud](https://nextcloud.com/support)!
 # Do not change this file
 ```
 
-2) Insert these lines into the USER CONFIG parameter and docker-compose.yml by modifying (mounting point of your external drive) by your mount point.
+2) Make a first installation and don't open it, insert these lines into the USER CONFIG parameter and docker-compose.yml by modifying (mounting point of your external drive) by your mount point and save the configuration.Then stop the application and uninstall it, this allows you to keep the modification of the docker-compose.yml. Install the app again and everything should work.
  
 ```bash
 services:
