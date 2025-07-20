@@ -27,6 +27,8 @@ Enterprise? Public Sector or Education user? You may want to have a look into [*
 You can also [get support for Nextcloud](https://nextcloud.com/support)!
 
 ## To configure the file storage folder on an external drive
+⚠️WARNING: if you choose to change the original DATA storage directory, the backup via Runtipi of your Nextcloud application will not save the files contained in the new location.
+
 1) To create a file named .ncdata at the root of your external drive or in the folder of your external drive that will receive the files next, insert this text into the file:
 
 ```bash
