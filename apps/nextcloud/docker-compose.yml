@@ -73,7 +73,7 @@ services:
   redis-nextcloud:
     container_name: redis-nextcloud
     user: "1000:1000"
-    image: redis:8.0.3
+    image: redis:7.4.5
     restart: on-failure
     volumes:
       - "${APP_DATA_DIR}/data/redis:/data"
