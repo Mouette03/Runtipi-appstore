@@ -27,8 +27,15 @@ Enterprise? Public Sector or Education user? You may want to have a look into [*
 You can also [get support for Nextcloud](https://nextcloud.com/support)!
 
 ## To configure the file storage folder on an external drive
-Insert these lines into the USER CONFIG parameter docker-compose.yml
+1) To create a file named.ncdata at the root of your external drive or in the folder of your external drive that will receive the files next, insert this text into the file:
 
+```bash
+# Nextcloud data directory
+# Do not change this file
+```
+
+2) Insert these lines into the USER CONFIG parameter docker-compose.yml
+ 
 ```bash
 services:
   nextcloud:
