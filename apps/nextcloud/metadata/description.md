@@ -34,7 +34,7 @@ You can also [get support for Nextcloud](https://nextcloud.com/support)!
 # Do not change this file
 ```
 
-2) Insert these lines into the USER CONFIG parameter docker-compose.yml
+2) Insert these lines into the USER CONFIG parameter and docker-compose.yml by modifying (mounting point of your external drive) by your mount point.
  
 ```bash
 services:
