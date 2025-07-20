@@ -26,6 +26,21 @@ Enterprise? Public Sector or Education user? You may want to have a look into [*
 
 You can also [get support for Nextcloud](https://nextcloud.com/support)!
 
+## To configure the file storage folder on an external drive
+Insert these lines into the USER CONFIG parameter docker-compose.yml
+
+```bash
+services:
+  nextcloud:
+    volumes:
+      - /mounting point of your external drive/nextcloud:/var/www/html/data
+
+  cron:
+    volumes:
+      - /mounting point of your external drive/nextcloud:/var/www/html/data
+    entrypoint: /cron.sh
+```
+
 ## Reset password
 Nextcloud does not support password resets from environment variables. If you want to change your password run the following commands in your terminal:
     
@@ -33,5 +48,3 @@ Nextcloud does not support password resets from environment variables. If you wa
 sudo docker exec -u www-data -it nextcloud /bin/bash
 php occ user:resetpassword username
 ```
-
-![](https://raw.githubusercontent.com/nextcloud/screenshots/master/files/Files%20Sharing.png)

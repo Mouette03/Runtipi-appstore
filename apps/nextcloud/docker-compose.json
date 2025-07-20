@@ -55,7 +55,7 @@
     },
     {
       "name": "redis-nextcloud",
-      "image": "redis:6.2.6",
+      "image": "redis:8.0.3",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/redis",
