@@ -26,29 +26,6 @@ Enterprise? Public Sector or Education user? You may want to have a look into [*
 
 You can also [get support for Nextcloud](https://nextcloud.com/support)!
 
-## To configure the file storage folder on an external drive
-⚠️WARNING: if you choose to change the original DATA storage directory, the backup via Runtipi of your Nextcloud application will not save the files contained in the new location.
-
-1) To create a file named .ncdata at the root of your external drive or in the folder of your external drive that will receive the files next, insert this text into the file:
-
-```bash
-# Nextcloud data directory
-# Do not change this file
-```
-
-2) Make a first installation and don't open it, insert these lines into the USER CONFIG parameter and docker-compose.yml by modifying (mounting point of your external drive) by your mount point and save the configuration.Then stop the application and uninstall it, this allows you to keep the modification of the docker-compose.yml. Install the app again and everything should work.
- 
-```bash
-services:
-  nextcloud:
-    volumes:
-      - /mounting point of your external drive/nextcloud:/var/www/html/data
-
-  cron:
-    volumes:
-      - /mounting point of your external drive/nextcloud:/var/www/html/data
-    entrypoint: /cron.sh
-```
 
 ## Reset password
 Nextcloud does not support password resets from environment variables. If you want to change your password run the following commands in your terminal:
