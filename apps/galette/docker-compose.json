@@ -95,6 +95,13 @@
           "private": false
         },
         {
+          "hostPath": "${APP_DATA_DIR}/galette_tempimages",
+          "containerPath": "/var/www/galette/data/tempimages",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
           "hostPath": "${APP_DATA_DIR}/galette_templates_c",
           "containerPath": "/var/www/galette/data/templates_c",
           "readOnly": false,
