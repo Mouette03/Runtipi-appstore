@@ -20,6 +20,10 @@
 
 
 
+👉Pour revenir à l'accueil d'installation en cas de besoins, ou juste par curiosité : votre-nom-de-domaine/installer.php
+
+
+
 
 
 Galette est une application web de gestion d’adhérents, adaptée aux associations.
