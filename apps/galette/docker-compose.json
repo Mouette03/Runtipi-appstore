@@ -38,13 +38,6 @@
           "shared": false,
           "private": false
         },
- 	{
-          "hostPath": "${APP_DATA_DIR}/galette_plugins",
-          "containerPath": "/var/www/galette/plugins",
-          "readOnly": false,
-          "shared": false,
-          "private": false
-        },
         {
           "hostPath": "${APP_DATA_DIR}/galette_attachments",
           "containerPath": "/var/www/galette/data/attachments",
