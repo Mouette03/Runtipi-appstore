@@ -37,7 +37,7 @@
           "readOnly": false,
           "shared": false,
           "private": false
-        }
+        },
         {
           "hostPath": "${APP_DATA_DIR}/galette_config",
           "containerPath": "/var/www/galette/config",
