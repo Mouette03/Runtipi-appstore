@@ -1,0 +1,127 @@
+{
+  "services": [
+    {
+      "name": "mariadb",
+      "image": "mariadb:11",
+      "environment": {
+        "MARIADB_ROOT_PASSWORD": "rootpass",
+        "MYSQL_DATABASE": "galettedb",
+        "MYSQL_USER": "galetteuser",
+        "MYSQL_PASSWORD": "galettepwd"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_db",
+          "containerPath": "/var/lib/mysql",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ]
+    },
+    {
+      "name": "galette",
+      "image": "galette/galette:1.1.5.2",
+      "environment": {
+        "DB_TYPE": "mysqli",
+        "DB_HOST": "mariadb",
+        "DB_NAME": "galettedb",
+        "DB_USER": "galetteuser",
+        "DB_PASS": "galettepwd"
+      },
+      "internalPort": 80,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_config",
+          "containerPath": "/var/www/galette/config",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+ 	{
+          "hostPath": "${APP_DATA_DIR}/galette_plugins",
+          "containerPath": "/var/www/galette/plugins",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_attachments",
+          "containerPath": "/var/www/galette/data/attachments",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_cache",
+          "containerPath": "/var/www/galette/data/cache",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_files",
+          "containerPath": "/var/www/galette/data/files",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+ 	{
+          "hostPath": "${APP_DATA_DIR}/galette_documents",
+          "containerPath": "/var/www/galette/data/documents",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_logs",
+          "containerPath": "/var/www/galette/data/logs",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_photos",
+          "containerPath": "/var/www/galette/data/photos",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+	{
+          "hostPath": "${APP_DATA_DIR}/galette_exports",
+          "containerPath": "/var/www/galette/data/exports",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+	{
+          "hostPath": "${APP_DATA_DIR}/galette_imports",
+          "containerPath": "/var/www/galette/data/imports",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+	{
+          "hostPath": "${APP_DATA_DIR}/galette_tempimages",
+          "containerPath": "/var/www/galette/data/tempimages",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/galette_templates_c",
+          "containerPath": "/var/www/galette/data/templates_c",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "dependsOn": {
+        "mariadb": {
+          "condition": "service_started"
+        }
+      },
+      "isMain": true
+    }
+  ]
+}
