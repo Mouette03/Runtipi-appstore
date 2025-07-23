@@ -74,27 +74,6 @@
           "private": false
         },
         {
-          "hostPath": "${APP_DATA_DIR}/galette_documents",
-          "containerPath": "/var/www/galette/data/documents",
-          "readOnly": false,
-          "shared": false,
-          "private": false
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/galette_exports",
-          "containerPath": "/var/www/galette/data/exports",
-          "readOnly": false,
-          "shared": false,
-          "private": false
-        },
-        {
-          "hostPath": "${APP_DATA_DIR}/galette_imports",
-          "containerPath": "/var/www/galette/data/imports",
-          "readOnly": false,
-          "shared": false,
-          "private": false
-        },
-        {
           "hostPath": "${APP_DATA_DIR}/galette_templates",
           "containerPath": "/var/www/galette/data/templates_c",
           "readOnly": false,
