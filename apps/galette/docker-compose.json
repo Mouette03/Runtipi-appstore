@@ -32,6 +32,13 @@
       "internalPort": 80,
       "volumes": [
         {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/var/www/galette/data",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+        {
           "hostPath": "${APP_DATA_DIR}/galette_config",
           "containerPath": "/var/www/galette/config",
           "readOnly": false,
