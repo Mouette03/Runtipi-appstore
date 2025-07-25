@@ -1,0 +1,59 @@
+{
+  "services": [
+    {
+      "name": "dolibarr",
+      "image": "dolibarr/dolibarr:21.0.1",
+      "internalPort": 80,
+      "isMain": true,
+      "environment": {
+        "DOLI_INIT_DEMO": "0",
+        "DOLI_DB_HOST": "mariadb",
+        "DOLI_DB_NAME": "dolibarrdb",
+        "DOLI_DB_USER": "doli",
+        "DOLI_DB_PASSWORD": "dolibarrpwd",
+        "DOLI_ADMIN_LOGIN": "${DOLIBARR_ADMIN_USER}",
+        "DOLI_ADMIN_PASSWORD": "${DOLIBARR_ADMIN_PASSWORD}",
+        "DOLI_CRON": "0",
+        "DOLI_CRON_KEY": "securekey",
+        "DOLI_COMPANY_NAME": "${DOLI_COMPANY_NAME}",
+        "WWW_USER_ID": "1000",
+        "WWW_GROUP_ID": "1000"
+      },
+      "volumes": [
+        {
+   	  "hostPath": "${APP_DATA_DIR}/dolibarr/documents",
+   	  "containerPath": "/var/www/documents"
+  	},
+ 	{
+          "hostPath": "${APP_DATA_DIR}/dolibarr/conf",
+          "containerPath": "/var/www/html/conf"
+        },
+	{
+          "hostPath": "${APP_DATA_DIR}/dolibarr/custom",
+          "containerPath": "/var/www/html/custom"
+        }
+      ],
+      "dependsOn": {
+        "mariadb": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "mariadb",
+      "image": "mariadb:11.4",
+      "environment": {
+        "MYSQL_ROOT_PASSWORD": "rootpass",
+        "MYSQL_DATABASE": "dolibarrdb",
+        "MYSQL_USER": "doli",
+        "MYSQL_PASSWORD": "dolibarrpwd"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/db_data",
+          "containerPath": "/var/lib/mysql"
+        }
+      ]
+    }
+  ]
+}
