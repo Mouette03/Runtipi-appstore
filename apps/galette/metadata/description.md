@@ -128,7 +128,6 @@ et ajouter ceci à votre USER CONFIG
 
 
 ```bash
-
 services:
 
 &nbsp; galette:
