@@ -1,4 +1,4 @@
-# Dolibarr ERP/CRM
+# Dolibarr ERP/CRM beta
 
 
 
