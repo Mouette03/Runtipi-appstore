@@ -6,13 +6,13 @@
   "dynamic_config": true,
   "port": 8015,
   "id": "dolibarr",
-  "tipi_version": 14,
+  "tipi_version": 1,
   "version": "21.0.1",
-  "categories": ["data"],
+  "categories": ["finance"],
   "description": "Dolibarr ERP & CRM auto-hébergé pour Runtipi",
-  "short_desc": "Dolibarr ERP & CRM auto-hébergé pour Runtipi",
+  "short_desc": "Dolibarr pour Runtipi",
   "author": "Dolibarr",
-  "source": "https://github.com/",
+  "source": "https://hub.docker.com/r/dolibarr/dolibarr",
   "form_fields": [
     {
       "type": "text",
@@ -35,11 +35,12 @@
       "label": "Company",
       "max": 50,
       "min": 1,
+      "default": "my business",
       "required": true,
       "env_variable": "DOLI_COMPANY_NAME"
     }
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1753138178187,
-  "updated_at": 1753138178187
+  "updated_at": 1753486361114
 }
