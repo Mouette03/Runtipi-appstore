@@ -6,12 +6,12 @@
   "dynamic_config": true,
   "id": "wordpress",
   "description": "WordPress is a popular content management system for creating websites and blogs.",
-  "tipi_version": 1,
-  "version": "6.8.1",
+  "tipi_version": 2,
+  "version": "6.8.2",
   "categories": ["social"],
   "short_desc": "Popular CMS for websites and blogs",
   "author": "WordPress.org",
-  "source": "https://github.com/WordPress/WordPress",
+  "source": "https://hub.docker.com/_/wordpress",
   "website": "https://wordpress.org",
   "form_fields": [
     {
@@ -29,6 +29,6 @@
   ],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1691943801422,
-  "updated_at": 1752457249000,
+  "updated_at": 1753646325687,
   "$schema": "../app-info-schema.json"
 }
