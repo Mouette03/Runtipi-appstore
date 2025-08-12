@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "dolibarr",
-      "image": "dolibarr/dolibarr:21.0.2",
+      "image": "dolibarr/dolibarr:22.0.0",
       "internalPort": 80,
       "isMain": true,
       "environment": {
