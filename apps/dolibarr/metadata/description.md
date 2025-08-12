@@ -18,7 +18,7 @@
 
 
 
-After an update of DOLIBARR, you have to remove the "install.lock" file located in /home/name/runtipi/app-data/my-store/dolibarr/dolibarr/documents and replace it once the migration is done during the first boot after updates. This file prevents anyone from being able to restart the Dolibarr installation by accessing the address.../dolibarr/install
+Before updating DOLIBARR, you must remove the "install.lock" file located in /home/name/runtipi/app-data/my-store/dolibarr/dolibarr/documents. This file prevents anyone from being able to restart the Dolibarr installation by accessing the address.../dolibarr/install
 
 
 
@@ -42,7 +42,7 @@ After an update of DOLIBARR, you have to remove the "install.lock" file located 
 
 
 
-Après une mise à jour de DOLIBARR, il faut enlever le fichier "install.lock" situé dans /home/name/runtipi/app-data/mon-store/dolibarr/dolibarr/documents et le replacer une fois la migration effectuer lors du premier démarrage aprés mise à jours. Ce fichier permet d’éviter que n’importe qui puisse relancer l’installation de Dolibarr en accédant à l’adresse …/dolibarr/install 
+Avant une mise à jour de DOLIBARR, il faut enlever le fichier "install.lock" situé dans /home/name/runtipi/app-data/mon-store/dolibarr/dolibarr/documents. Ce fichier permet d’éviter que n’importe qui puisse relancer l’installation de Dolibarr en accédant à l’adresse …/dolibarr/install
 
 
 
