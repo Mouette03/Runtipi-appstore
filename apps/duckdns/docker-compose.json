@@ -2,7 +2,7 @@
   "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
-      "image": "lscr.io/linuxserver/duckdns:latest",
+      "image": "lscr.io/linuxserver/duckdns:992f1854-ls62",
       "name": "duckdns",
       "volumes": [
         {
