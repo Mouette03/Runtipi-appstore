@@ -2,7 +2,7 @@ version: '3.9'
 services:
   duckdns:
     container_name: duckdns # Should be exact same name as "id" field in config.json
-    image: lscr.io/linuxserver/duckdns:b14c520a-ls8 # Try to avoid "latest" tag. As it may break configs in the future.
+    image: lscr.io/linuxserver/duckdns:992f1854-ls62 # Try to avoid "latest" tag. As it may break configs in the future.
     environment:
       - PUID=1000
       - PGID=1000
