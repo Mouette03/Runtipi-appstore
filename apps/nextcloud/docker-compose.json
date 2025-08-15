@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "nextcloud",
-      "image": "nextcloud:31.0.7-apache",
+      "image": "nextcloud:31.0.8-apache",
       "environment": {
         "POSTGRES_HOST": "db-nextcloud",
         "REDIS_HOST": "redis-nextcloud",
