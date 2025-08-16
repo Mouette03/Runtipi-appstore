@@ -1,5 +1,4 @@
 {
-  "$schema": "../dynamic-compose-schema.json",
   "services": [
     {
       "name": "portainer",
