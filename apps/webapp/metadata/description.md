@@ -8,7 +8,7 @@ RC version test application
 
 Host database = mariadb
 
-\*\*WebApp\*\* is a containerized PHP/Apache application designed to host and expose your website effortlessly. It combines a clean structure with an extended set of PHP extensions and system libraries, making it suitable not just for simple sites but also for more complex applications requiring features like LDAP, SOAP, or image manipulation.
+\*\*WebApp\*\* is a containerized application based on PHP and Apache, designed to easily host your site. Simple structure and wide range of PHP extensions and system libraries.
 
 
 
@@ -92,7 +92,7 @@ Includes development libraries for:
 
 Host base de données = mariadb
 
-\*\*WebApp\*\* est une application conteneurisée basée sur PHP et Apache, conçue pour héberger votre site facilement. Grâce à une structure simple et à un large éventail d’extensions PHP et de bibliothèques système, elle est adaptée aussi bien aux petits sites qu’aux applications web plus complexes (LDAP, SOAP, traitement d’images…).
+\*\*WebApp\*\* est une application conteneurisée basée sur PHP et Apache, conçue pour héberger votre site facilement. Structure simple et large éventail d’extensions PHP et de bibliothèques système.
 
 
 
