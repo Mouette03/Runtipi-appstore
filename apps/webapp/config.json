@@ -8,8 +8,8 @@
   "tipi_version": 26,
   "version": "1",
   "categories": ["utilities", "network", "development"],
-  "description": "Conteneur PHP générique (Apache + extensions communes) pour héberger des sites PHP.",
-  "short_desc": "Hebergement de site Web",
+  "description": "Generic PHP container (Apache + common extensions) for hosting PHP sites.",
+  "short_desc": "website hosting",
   "author": "Mouette03",
   "source": "https://github.com/Mouette03",
   "form_fields": [
