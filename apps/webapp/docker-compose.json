@@ -1,0 +1,62 @@
+{
+  "services": [
+    {
+      "name": "webapp",
+      "image": "mouette03/php-apache-tipi-webapp:1.0",
+      "internalPort": 80,
+      "isMain": true,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/www",
+          "containerPath": "/var/www/html",
+          "readOnly": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/conf.d/zz-custom-settings.ini",
+          "containerPath": "/usr/local/etc/php/conf.d/zz-custom-settings.ini",
+          "readOnly": false
+        }
+      ],
+      "environment": {
+        "APACHE_DOCUMENT_ROOT": "/var/www/html"
+      },
+      "command": [
+        "apache2-foreground"
+      ],
+      "dependsOn": {
+        "mariadb": {
+          "condition": "service_started"
+        }  
+      },
+      "healthCheck": {
+        "test": "curl --fail http://localhost || exit 1",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3
+      }
+    },
+    {
+      "name": "mariadb",
+      "image": "mariadb:12",
+      "environment": {
+        "MYSQL_ROOT_PASSWORD": "${MYSQL_ROOT_PASSWORD}",
+        "MYSQL_DATABASE": "${MYSQL_DATABASE}",
+        "MYSQL_USER": "${MYSQL_USER}",
+        "MYSQL_PASSWORD": "${MYSQL_PASSWORD}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/database",
+          "containerPath": "/var/lib/mysql",
+          "readOnly": false
+        }
+      ],
+      "healthCheck": {
+          "test": "mysqladmin ping -h localhost -u root --password=${MYSQL_ROOT_PASSWORD}",
+          "retries": 15,
+          "interval": "10s",
+          "timeout": "5s"
+      }
+    }
+  ]
+}

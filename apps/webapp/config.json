@@ -1,0 +1,59 @@
+{
+  "name": "Webapp",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 7580,
+  "id": "webapp",
+  "tipi_version": 26,
+  "version": "1",
+  "categories": ["utilities", "network", "development"],
+  "description": "Conteneur PHP générique (Apache + extensions communes) pour héberger des sites PHP.",
+  "short_desc": "Hebergement de site Web",
+  "author": "Mouette03",
+  "source": "https://github.com/Mouette03",
+  "form_fields": [
+     {
+      "type": "text",
+      "label": "Name database",
+      "max": 50,
+      "min": 1,
+      "default": "My-Website",
+      "hint": "Do not use space.",
+      "required": true,
+      "env_variable": "MYSQL_DATABASE"
+    },
+    {
+      "type": "text",
+      "label": "Username database",
+      "max": 50,
+      "min": 3,
+      "default": "user-Website",
+      "hint": "Do not use space.",
+      "required": true,
+      "env_variable": "MYSQL_USER"
+    },
+    {
+      "type": "password",
+      "label": "Password database",
+      "max": 50,
+      "min": 6,
+      "default": "Websitedatabasepwd",
+      "required": true,
+      "env_variable": "MYSQL_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "Password root database",
+      "max": 50,
+      "min": 6,
+      "default": "Websitedatabaserootpwd",
+      "required": true,
+      "env_variable": "MYSQL_ROOT_PASSWORD"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1755645300000,
+  "updated_at": 1755645300000
+}
+
