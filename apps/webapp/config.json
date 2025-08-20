@@ -5,11 +5,11 @@
   "dynamic_config": true,
   "port": 7580,
   "id": "webapp",
-  "tipi_version": 26,
+  "tipi_version": 1,
   "version": "1",
   "categories": ["utilities", "network", "development"],
   "description": "Generic PHP container (Apache + common extensions) for hosting PHP sites.",
-  "short_desc": "website hosting",
+  "short_desc": "Website hosting",
   "author": "Mouette03",
   "source": "https://github.com/Mouette03",
   "form_fields": [
