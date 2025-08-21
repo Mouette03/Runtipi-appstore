@@ -34,7 +34,7 @@
         }
       ],
       "dependsOn": {
-        "mariadb": {
+        "db-dolibarr": {
           "condition": "service_started"
         }
       }
