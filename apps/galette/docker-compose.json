@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "name": "mariadb",
+      "name": "db-galette",
       "image": "mariadb:11",
       "environment": {
         "MARIADB_ROOT_PASSWORD": "rootpass",
@@ -21,7 +21,7 @@
       "image": "galette/galette:1.1.5.2",
       "environment": {
         "DB_TYPE": "mysqli",
-        "DB_HOST": "mariadb",
+        "DB_HOST": "db-galette",
         "DB_NAME": "galettedb",
         "DB_USER": "galetteuser",
         "DB_PASS": "${GALETTE_MYSQL_PASSWORD}"
@@ -38,7 +38,7 @@
         }
       ],
       "dependsOn": {
-        "mariadb": {
+        "db-galette": {
           "condition": "service_started"
         }
       },
