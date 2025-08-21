@@ -40,7 +40,7 @@
       }
     },
     {
-      "name": "mariadb",
+      "name": "db-dolibarr",
       "image": "mariadb:11",
       "environment": {
         "MYSQL_ROOT_PASSWORD": "rootpass",
