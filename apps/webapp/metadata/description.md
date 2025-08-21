@@ -6,7 +6,7 @@ RC version test application
 
 \## 🇬🇧 English Version
 
-Host database = mariadb
+Host database = db-webapp
 
 \*\*WebApp\*\* is a containerized application based on PHP and Apache, designed to easily host your site. Simple structure and wide range of PHP extensions and system libraries.
 
@@ -90,7 +90,7 @@ Includes development libraries for:
 
 \## 🇫🇷 Version Française
 
-Host base de données = mariadb
+Host base de données = db-webapp
 
 \*\*WebApp\*\* est une application conteneurisée basée sur PHP et Apache, conçue pour héberger votre site facilement. Structure simple et large éventail d’extensions PHP et de bibliothèques système.
 
