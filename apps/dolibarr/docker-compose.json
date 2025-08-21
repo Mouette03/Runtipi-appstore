@@ -7,7 +7,7 @@
       "isMain": true,
       "environment": {
         "DOLI_INIT_DEMO": "0",
-        "DOLI_DB_HOST": "mariadb",
+        "DOLI_DB_HOST": "db-dolibarr",
         "DOLI_DB_NAME": "dolibarrdb",
         "DOLI_DB_USER": "doli",
         "DOLI_DB_PASSWORD": "dolibarrpwd",
