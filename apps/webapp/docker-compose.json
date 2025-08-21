@@ -24,7 +24,7 @@
         "apache2-foreground"
       ],
       "dependsOn": {
-        "mariadb": {
+        "db-webapp": {
           "condition": "service_started"
         }  
       },
@@ -36,7 +36,7 @@
       }
     },
     {
-      "name": "mariadb",
+      "name": "db-webapp",
       "image": "mariadb:12",
       "environment": {
         "MYSQL_ROOT_PASSWORD": "${MYSQL_ROOT_PASSWORD}",
