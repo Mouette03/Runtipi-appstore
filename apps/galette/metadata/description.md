@@ -6,7 +6,7 @@ Galette
 
 👉Database connection information on first launch:
 
-HOST: mariadb
+HOST: db-galette
 DATABASE\_NAME: galettedb
 DB\_USER: galetteuser
 DB\_PASS: To be chosen at installation
@@ -58,7 +58,7 @@ This is before all a free software (as in free speech), community and free (as i
 
 👉Infos de connexion à la base de données au premier lancement:
 
-HOST: mariadb
+HOST: db-galette
 DATABASE\_NAME : galettedb
 DB\_USER : galetteuser
 DB\_PASS : A choisir à l'installation
