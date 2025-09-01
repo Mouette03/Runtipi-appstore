@@ -20,7 +20,7 @@ This repository contains several applications you can install directly via **Run
 - 🌐 [**WordPress**](./apps/wordpress) – Popular CMS to create and manage websites.
 - 🛠️ [**Webapp**](./apps/webapp) – Lightweight PHP & Apache container, allowing you to easily host a PHP site like Galette or WordPress.(created for this store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Free dynamic DNS service.
-- 📒 [**TrilliumNext**](./apps/trilliumnext) – Hierarchical note-taking and knowledge management tool.
+- 📒 [**TriliumNext**](./apps/triliumnext) – Hierarchical note-taking and knowledge management tool.
 
 ### 🚀 How to use this store
 1. Open the **Runtipi** interface.  
@@ -43,7 +43,7 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - 🌐 [**WordPress**](./apps/wordpress) – CMS populaire pour créer et gérer des sites web.
 - 🛠️ [**Webapp**](./apps/webapp) – Conteneur PHP & Apache léger, permettant d’héberger facilement un site PHP comme Galette ou WordPress.(créée pour ce store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Service de DNS dynamique gratuit.
-- 📒 [**TrilliumNext**](./apps/trilliumnext) – Outil de prise de notes hiérarchique et gestion de connaissances.
+- 📒 [**TriliumNext**](./apps/triliumnext) – Outil de prise de notes hiérarchique et gestion de connaissances.
 
 ### 🚀 Comment utiliser ce store
 1. Ouvrez l’interface **Runtipi**.  
