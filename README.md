@@ -18,7 +18,7 @@ This repository contains several applications you can install directly via **Run
 - ☁️ [**Nextcloud**](./apps/nextclood) – Personal cloud solution to store, share, and sync your files.
 - 🖥️ [**Portainer**](./apps/portainer) – Docker management interface with a simple web UI.
 - 🌐 [**WordPress**](./apps/wordpress) – Popular CMS to create and manage websites.
-- 🛠️ [**Webapp**](./apps/webapp) – Generic customizable web application (created for this store).
+- 🛠️ [**Webapp**](./apps/webapp) – Lightweight PHP & Apache container, allowing you to easily host a PHP site like Galette or WordPress.(created for this store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Free dynamic DNS service.
 - 📒 [**TrilliumNext**](./apps/trilliumnext) – Hierarchical note-taking and knowledge management tool.
 
@@ -41,7 +41,7 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - ☁️ [**Nextcloud**](./apps/nextclood) – Solution de cloud personnel pour stocker, partager et synchroniser vos fichiers.
 - 🖥️ [**Portainer**](./apps/portainer) – Interface de gestion Docker avec une interface web simple.
 - 🌐 [**WordPress**](./apps/wordpress) – CMS populaire pour créer et gérer des sites web.
-- 🛠️ [**Webapp**](./apps/webapp) – Application web générique personnalisable (créée pour ce store).
+- 🛠️ [**Webapp**](./apps/webapp) – Conteneur PHP & Apache léger, permettant d’héberger facilement un site PHP comme Galette ou WordPress.(créée pour ce store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Service de DNS dynamique gratuit.
 - 📒 [**TrilliumNext**](./apps/trilliumnext) – Outil de prise de notes hiérarchique et gestion de connaissances.
 
