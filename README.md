@@ -21,7 +21,6 @@ This repository contains several applications you can install directly via **Run
 - 🛠️ [**Webapp**](./apps/webapp) – Generic customizable web application (created for this store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Free dynamic DNS service.
 - 📒 [**TrilliumNext**](./apps/trilliumnext) – Hierarchical note-taking and knowledge management tool.
-- ✨ [**Asterix**](./apps/asterix) – Custom Runtipi application (description to complete).
 
 ### 🚀 How to use this store
 1. Open the **Runtipi** interface.  
@@ -45,7 +44,6 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - 🛠️ [**Webapp**](./apps/webapp) – Application web générique personnalisable (créée pour ce store).
 - 🦆 [**DuckDNS**](./apps/duckdns) – Service de DNS dynamique gratuit.
 - 📒 [**TrilliumNext**](./apps/trilliumnext) – Outil de prise de notes hiérarchique et gestion de connaissances.
-- ✨ [**Asterix**](./apps/asterix) – Application personnalisée pour Runtipi (description à compléter).
 
 ### 🚀 Comment utiliser ce store
 1. Ouvrez l’interface **Runtipi**.  
