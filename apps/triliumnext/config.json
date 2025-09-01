@@ -6,8 +6,8 @@
   "dynamic_config": true,
   "id": "triliumnext",
   "description": "Trilium Notes is a hierarchical note taking application with focus on building large personal knowledge bases. ",
-  "tipi_version": 5,
-  "version": "0.97.2",
+  "tipi_version": 6,
+  "version": "0.98.1",
   "categories": ["utilities"],
   "short_desc": "An open-source, self-hosted Notion alterative",
   "author": "Trilliumnext",
@@ -15,6 +15,5 @@
   "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1752620152000,
-  "updated_at": 1754678195264,
-  "$schema": "../app-info-schema.json"
+  "updated_at": 1756752274168,
 }
