@@ -35,7 +35,7 @@
       "label": "Company",
       "max": 50,
       "min": 1,
-      "default": "my business",
+      "default": "my-business",
       "required": true,
       "env_variable": "DOLI_COMPANY_NAME"
     }
