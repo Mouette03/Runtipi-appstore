@@ -12,6 +12,7 @@
   "short_desc": "Website hosting",
   "author": "Mouette03",
   "source": "https://hub.docker.com/r/mouette03/php-apache-tipi-webapp",
+  "website": "https://github.com/Mouette03/Runtipi-appstore",
   "form_fields": [
      {
       "type": "text",
