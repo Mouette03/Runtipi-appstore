@@ -12,6 +12,7 @@
   "short_desc": "Dolibarr pour Runtipi",
   "author": "Dolibarr",
   "source": "https://hub.docker.com/r/dolibarr/dolibarr",
+  "website": "https://www.dolibarr.org",
   "form_fields": [
     {
       "type": "text",
