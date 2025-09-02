@@ -11,7 +11,7 @@
   "description": "Generic PHP container (Apache + common extensions) for hosting PHP sites.",
   "short_desc": "Website hosting",
   "author": "Mouette03",
-  "source": "https://github.com/Mouette03",
+  "source": "https://hub.docker.com/r/mouette03/php-apache-tipi-webapp",
   "form_fields": [
      {
       "type": "text",
