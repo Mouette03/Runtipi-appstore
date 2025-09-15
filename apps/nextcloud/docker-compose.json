@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "nextcloud",
-      "image": "nextcloud:31.0.8-apache",
+      "image": "nextcloud:31.0.9-apache",
       "environment": {
         "POSTGRES_HOST": "db-nextcloud",
         "REDIS_HOST": "redis-nextcloud",
@@ -69,7 +69,7 @@
     },
     {
       "name": "cron",
-      "image": "nextcloud:31.0.8-apache",
+      "image": "nextcloud:31.0.9-apache",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
