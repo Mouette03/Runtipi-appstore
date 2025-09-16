@@ -14,8 +14,8 @@
         "NEXTCLOUD_TRUSTED_DOMAINS": "${APP_DOMAIN}",
         "TRUSTED_PROXIES": "172.16.0.0/12",
         "OVERWRITEPROTOCOL": "${APP_PROTOCOL:-http}",
-        "PHP_MEMORY_LIMIT": "1G",
-        "PHP_UPLOAD_LIMIT": "1024M"
+        "PHP_MEMORY_LIMIT": "2G",
+        "PHP_UPLOAD_LIMIT": "2048M"
       },
       "internalPort": 80,
       "volumes": [
@@ -73,8 +73,8 @@
       "name": "cron",
       "image": "nextcloud:31.0.9-apache",
       "environment": {
-        "PHP_MEMORY_LIMIT": "1G",
-        "PHP_UPLOAD_LIMIT": "1024M"
+        "PHP_MEMORY_LIMIT": "2G",
+        "PHP_UPLOAD_LIMIT": "2048M"
       },
       "volumes": [
         {
