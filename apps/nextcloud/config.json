@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 8083,
   "id": "nextcloud",
-  "tipi_version": 6,
+  "tipi_version": 7,
   "version": "31.0.9-apache",
   "categories": ["data"],
   "description": "Nextcloud is a self-hosted, open source, and fully-featured cloud storage solution for your personal files, office documents, and photos.",
@@ -32,5 +32,5 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1752437249000,
-  "updated_at": 1757969925592
+  "updated_at": 1758054012423
 }
