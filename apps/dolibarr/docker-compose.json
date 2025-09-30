@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "dolibarr",
-      "image": "dolibarr/dolibarr:22.0.0",
+      "image": "dolibarr/dolibarr:22.0.1",
       "internalPort": 80,
       "isMain": true,
       "environment": {
@@ -41,7 +41,7 @@
     },
     {
       "name": "db-dolibarr",
-      "image": "mariadb:11",
+      "image": "mariadb:12",
       "environment": {
         "MYSQL_ROOT_PASSWORD": "rootpass",
         "MYSQL_DATABASE": "dolibarrdb",
