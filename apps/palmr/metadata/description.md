@@ -1,4 +1,4 @@
-# Palmr
+# Palmr BETA
 
 ## 🇬🇧 Overview
 
