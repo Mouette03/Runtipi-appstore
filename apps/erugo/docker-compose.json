@@ -3,7 +3,7 @@
     {
       "name": "erugo",
       "image": "wardy784/erugo:0.1.1",
-      "internalPort": 90,
+      "internalPort": 80,
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/storage",
