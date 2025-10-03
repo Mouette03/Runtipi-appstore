@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "erugo",
-      "image": "docker pull wardy784/erugo:0.1.1",
+      "image": "wardy784/erugo:0.1.1",
       "internalPort": 80,
       "volumes": [
         {
