@@ -7,7 +7,7 @@
   "id": "palmr",
   "description": "Palmr is a fast and secure platform for sharing files, built with performance and privacy in mind.",
   "tipi_version": 1,
-  "version": "v3.2.2-beta",
+  "version": "v3.2.3-beta",
   "categories": ["data"],
   "short_desc": "Self-hosted application",
   "author": "Kyantech",
@@ -56,5 +56,5 @@
   ],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1759326300000,
-  "updated_at": 1759326300000
+  "updated_at": 1759522920000
 }
