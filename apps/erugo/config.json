@@ -1,0 +1,20 @@
+{
+  "name": "Erugo",
+  "available": true,
+  "port": 9998,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "Erugo",
+  "description": "Erugo is a totally free, powerful, self-hosted file-sharing platform.",
+  "tipi_version": 1,
+  "version": "0.1.1",
+  "categories": ["data"],
+  "short_desc": "Self-hosted application",
+  "author": "DeanWard",
+  "source": "https://github.com/ErugoOSS/Erugo",
+  "website": "https://erugo.app/",
+  "form_fields": [],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1759522920000,
+  "updated_at": 1759522920000
+}

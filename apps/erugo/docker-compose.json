@@ -1,0 +1,15 @@
+{
+  "services": [
+    {
+      "name": "erugo",
+      "image": "docker pull wardy784/erugo:0.1.1",
+      "internalPort": 80,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/storage",
+          "containerPath": "/var/www/html/storage"
+        }
+      ]
+    }
+  ]
+}
