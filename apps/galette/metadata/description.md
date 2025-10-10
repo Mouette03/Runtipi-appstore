@@ -1,8 +1,11 @@
 Galette
 
-
+New information in the description useful from version 1.2.0
+Nouvelles informations dans la description utiles à partir de a version 1.2.0
 
 🇬🇧 Description (English)
+
+🚨 In case of updates from version 1.1...to version 1.2.0 it is necessary to add a plugins folder in the Galette data directory. If new installation it will be added automatically. This is necessary following the changes made to the new version t allows to avoid having rights in the plugins' data directory
 
 👉Database connection information on first launch:
 
@@ -20,7 +23,7 @@ services:
       - /(path to favicon.png on host)/favicon.png:/var/www/galette/webroot/themes/default/images/favicon.png
 ```
 
-👉To persist disabled plugins across application restarts, you can specify a directory on the host where you store plugins (download here: Plugins) and add this to your USER CONFIG
+👉Useful for version up to 1.1.6.1. From version 1.2.0 onwards, the persistence of the deactivation is managed via the plugin folder in data (see above).To persist disabled plugins across application restarts, you can specify a directory on the host where you store plugins (download here: Plugins) and add this to your USER CONFIG
 
 ```yaml
 services:
@@ -56,6 +59,8 @@ This is before all a free software (as in free speech), community and free (as i
 
 🇫🇷 Description (Français)
 
+🚨 En cas de mise à jours depuis une version 1.1...vers version 1.2.0 il est nécessaire d'ajouter un dossier plugins dans le répertoire data de Galette. Si nouvelle installation il sera ajouté automatiquement. Celui-ci est nécessaire suite au modifications apporté a la nouvelle version t permet d’éviter d'avoir des droits dans le répertoire de donnée des plugins
+
 👉Infos de connexion à la base de données au premier lancement:
 
 HOST: db-galette
@@ -72,7 +77,8 @@ services:
       - /(chemin vers favicon.png sur hote):/var/www/galette/webroot/themes/default/images/favicon.png
 ```
 
-👉Pour avoir la persistance des plugins désactivés lors des redémmarages de l'application, vous pouver spécifier un répértoire sur l'hote ou vous stockez les plugins télécharger ici : https://doc.galette.eu/fr/master/plugins/index.html
+👉Utile pour version jusque 1.1.6.1. A partir de version 1.2.0 la persistance de la désactivation est gérée via le dossier plugin dans data ( voir ci-dessus )
+Pour avoir la persistance des plugins désactivés lors des redémmarages de l'application, vous pouver spécifier un répértoire sur l'hote ou vous stockez les plugins télécharger ici : https://doc.galette.eu/fr/master/plugins/index.html
 
 et ajouter ceci à votre USER CONFIG
 
