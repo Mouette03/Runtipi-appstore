@@ -3,8 +3,8 @@ Galette
 🚨New information in the description useful from version 1.2.0
 After updating to version 1.2.0, it is necessary to go back to the site address and add /installer.php after it to update the database.
 
-🚨Nouvelles informations dans la description utiles à partir de a version 1.2.0
-Après mise à jour vers version 1.2.0, il est nécessaire de repasser par adresse du site et ajouter /installer.php a la suite de celle-ci pour mettre à jours la base de donnée.
+🚨Nouvelles informations dans la description utiles à partir de la version 1.2.0
+Après mise à jour vers version 1.2.0, il est nécessaire de repasser par adresse du site et ajouter /installer.php à la suite de celle-ci pour mettre à jours la base de donnée.
 
 🇬🇧 Description (English)
 
