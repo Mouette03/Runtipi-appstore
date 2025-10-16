@@ -18,7 +18,7 @@
 
 
 
-Before updating DOLIBARR, you need to remove the "install.lock" file with SFTP located in /home/name/runtipi/app-data/my-store/dolibarr/dolibarr/documents. This file prevents anyone from being able to restart the Dolibarr installation by accessing the address.../dolibarr/install
+After updating DOLIBARR, you must remove the "install.lock" file via SFTP located in "/home/name/runtipi/app-data/name-of-store/dolibarr/dolibarr/documents" before the first launch and replace it after the migration is completed. This file prevents anyone from restarting the Dolibarr installation by accessing the address .../dolibarr/install
 
 
 
@@ -42,7 +42,7 @@ Before updating DOLIBARR, you need to remove the "install.lock" file with SFTP l
 
 
 
-Avant une mise à jour de DOLIBARR, il faut enlever le fichier "install.lock" via SFTP situé dans /home/name/runtipi/app-data/mon-store/dolibarr/dolibarr/documents. Ce fichier permet d’éviter que n’importe qui puisse relancer l’installation de Dolibarr en accédant à l’adresse …/dolibarr/install
+Après une mise à jour de DOLIBARR, il faut enlever le fichier "install.lock" via SFTP situé dans "/home/name/runtipi/app-data/nom-du-store/dolibarr/dolibarr/documents" avant premier lancement et le replacer après execution de la migration. Ce fichier permet d’éviter que n’importe qui puisse relancer l’installation de Dolibarr en accédant à l’adresse …/dolibarr/install
 
 
 
