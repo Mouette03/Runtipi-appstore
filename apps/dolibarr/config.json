@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 8015,
   "id": "dolibarr",
-  "tipi_version": 7,
+  "tipi_version": 8,
   "version": "22.0.2",
   "categories": ["finance"],
   "description": "Dolibarr ERP & CRM auto-hébergé pour Runtipi",
