@@ -3,51 +3,95 @@
     {
       "name": "dolibarr",
       "image": "dolibarr/dolibarr:22.0.2",
-      "internalPort": 80,
       "isMain": true,
-      "environment": {
-        "DOLI_INIT_DEMO": "0",
-        "DOLI_DB_HOST": "db-dolibarr",
-        "DOLI_DB_NAME": "dolibarrdb",
-        "DOLI_DB_USER": "doli",
-        "DOLI_DB_PASSWORD": "dolibarrpwd",
-        "DOLI_ADMIN_LOGIN": "${DOLIBARR_ADMIN_USER}",
-        "DOLI_ADMIN_PASSWORD": "${DOLIBARR_ADMIN_PASSWORD}",
-        "DOLI_CRON": "0",
-        "DOLI_CRON_KEY": "securekey",
-        "DOLI_COMPANY_NAME": "${DOLI_COMPANY_NAME}",
-        "WWW_USER_ID": "1000",
-        "WWW_GROUP_ID": "1000"
-      },
+      "internalPort": 80,
+      "environment": [
+        {
+          "key": "DOLI_INIT_DEMO",
+          "value": "0"
+        },
+        {
+          "key": "DOLI_DB_HOST",
+          "value": "db-dolibarr"
+        },
+        {
+          "key": "DOLI_DB_NAME",
+          "value": "dolibarrdb"
+        },
+        {
+          "key": "DOLI_DB_USER",
+          "value": "doli"
+        },
+        {
+          "key": "DOLI_DB_PASSWORD",
+          "value": "dolibarrpwd"
+        },
+        {
+          "key": "DOLI_ADMIN_LOGIN",
+          "value": "${DOLIBARR_ADMIN_USER}"
+        },
+        {
+          "key": "DOLI_ADMIN_PASSWORD",
+          "value": "${DOLIBARR_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "DOLI_CRON",
+          "value": "0"
+        },
+        {
+          "key": "DOLI_CRON_KEY",
+          "value": "securekey"
+        },
+        {
+          "key": "DOLI_COMPANY_NAME",
+          "value": "${DOLI_COMPANY_NAME}"
+        },
+        {
+          "key": "WWW_USER_ID",
+          "value": "1000"
+        },
+        {
+          "key": "WWW_GROUP_ID",
+          "value": "1000"
+        }
+      ],
+      "dependsOn": ["db-dolibarr"],
       "volumes": [
         {
-   	  "hostPath": "${APP_DATA_DIR}/dolibarr/documents",
-   	  "containerPath": "/var/www/documents"
-  	},
- 	{
+          "hostPath": "${APP_DATA_DIR}/dolibarr/documents",
+          "containerPath": "/var/www/documents"
+        },
+        {
           "hostPath": "${APP_DATA_DIR}/dolibarr/conf",
           "containerPath": "/var/www/html/conf"
         },
-	{
+        {
           "hostPath": "${APP_DATA_DIR}/dolibarr/custom",
           "containerPath": "/var/www/html/custom"
         }
-      ],
-      "dependsOn": {
-        "db-dolibarr": {
-          "condition": "service_started"
-        }
-      }
+      ]
     },
     {
       "name": "db-dolibarr",
       "image": "mariadb:12",
-      "environment": {
-        "MYSQL_ROOT_PASSWORD": "rootpass",
-        "MYSQL_DATABASE": "dolibarrdb",
-        "MYSQL_USER": "doli",
-        "MYSQL_PASSWORD": "dolibarrpwd"
-      },
+      "environment": [
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "rootpass"
+        },
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "dolibarrdb"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "doli"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "dolibarrpwd"
+        }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/db_data",
@@ -55,5 +99,7 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json"
 }

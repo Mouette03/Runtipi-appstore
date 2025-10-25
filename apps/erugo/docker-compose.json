@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "services": [
     {
       "name": "erugo",
@@ -8,7 +10,8 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/storage",
-          "containerPath": "/var/www/html/storage"
+          "containerPath": "/var/www/html/storage",
+          "readOnly": false
         }
       ]
     }

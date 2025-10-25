@@ -1,93 +1,112 @@
 {
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "services": [
     {
       "name": "nextcloud",
-      "image": "nextcloud:32.0.0-apache",
-      "environment": {
-        "POSTGRES_HOST": "db-nextcloud",
-        "REDIS_HOST": "redis-nextcloud",
-        "POSTGRES_PASSWORD": "tipi",
-        "POSTGRES_USER": "tipi",
-        "POSTGRES_DB": "nextcloud",
-        "NEXTCLOUD_ADMIN_USER": "${NEXTCLOUD_ADMIN_USER}",
-        "NEXTCLOUD_ADMIN_PASSWORD": "${NEXTCLOUD_ADMIN_PASSWORD}",
-        "NEXTCLOUD_TRUSTED_DOMAINS": "${APP_DOMAIN}",
-        "TRUSTED_PROXIES": "172.16.0.0/12",
-        "OVERWRITEPROTOCOL": "${APP_PROTOCOL:-http}"
-      },
+      "image": "nextcloud:32.0.1-apache",
+      "environment": [
+        {
+          "key": "POSTGRES_HOST",
+          "value": "db-nextcloud"
+        },
+        {
+          "key": "REDIS_HOST",
+          "value": "redis-nextcloud"
+        },
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "tipi"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "tipi"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "nextcloud"
+        },
+        {
+          "key": "NEXTCLOUD_ADMIN_USER",
+          "value": "${NEXTCLOUD_ADMIN_USER}"
+        },
+        {
+          "key": "NEXTCLOUD_ADMIN_PASSWORD",
+          "value": "${NEXTCLOUD_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "NEXTCLOUD_TRUSTED_DOMAINS",
+          "value": "${APP_DOMAIN}"
+        },
+        {
+          "key": "TRUSTED_PROXIES",
+          "value": "172.16.0.0/12"
+        },
+        {
+          "key": "OVERWRITEPROTOCOL",
+          "value": "${APP_PROTOCOL:-http}"
+        }
+      ],
       "internalPort": 80,
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
           "containerPath": "/var/www/html",
-          "readOnly": false,
-          "shared": false,
-          "private": false
+          "readOnly": false
         }
       ],
-      "dependsOn": {
-        "db-nextcloud": {
-          "condition": "service_started"
-        },
-        "redis-nextcloud": {
-          "condition": "service_started"
-        }
-      },
+      "dependsOn": ["db-nextcloud", "redis-nextcloud"],
       "isMain": true
     },
     {
       "name": "db-nextcloud",
       "image": "postgres:17",
-      "environment": {
-        "POSTGRES_PASSWORD": "tipi",
-        "POSTGRES_USER": "tipi",
-        "POSTGRES_DB": "nextcloud"
-      },
+      "environment": [
+        {
+          "key": "POSTGRES_PASSWORD",
+          "value": "tipi"
+        },
+        {
+          "key": "POSTGRES_USER",
+          "value": "tipi"
+        },
+        {
+          "key": "POSTGRES_DB",
+          "value": "nextcloud"
+        }
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/db",
           "containerPath": "/var/lib/postgresql/data",
-          "readOnly": false,
-          "shared": false,
-          "private": false
+          "readOnly": false
         }
       ]
     },
     {
       "name": "redis-nextcloud",
       "image": "redis:7.4.5",
+      "user": "1000:1000",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/redis",
           "containerPath": "/data",
-          "readOnly": false,
-          "shared": false,
-          "private": false
+          "readOnly": false
         }
-      ],
-      "user": "1000:1000"
+      ]
     },
     {
       "name": "cron",
-      "image": "nextcloud:32.0.0-apache",
+      "image": "nextcloud:32.0.1-apache",
+      "entrypoint": "/cron.sh",
+      "dependsOn": ["db-nextcloud", "redis-nextcloud"],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
           "containerPath": "/var/www/html",
-          "readOnly": false,
-          "shared": false,
-          "private": false
+          "readOnly": false
         }
-      ],
-      "entrypoint": "/cron.sh",
-      "dependsOn": {
-        "db-nextcloud": {
-          "condition": "service_started"
-        },
-        "redis-nextcloud": {
-          "condition": "service_started"
-        }
-      }
+      ]
     }
   ]
 }
