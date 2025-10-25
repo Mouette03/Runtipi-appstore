@@ -10,7 +10,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/storage",
-          "containerPath": "/var/www/html/storage",
+          "containerPath": "/var/www/html/storage"
         }
       ]
     }
