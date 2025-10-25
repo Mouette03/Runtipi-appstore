@@ -11,7 +11,6 @@
         {
           "hostPath": "${APP_DATA_DIR}/data/storage",
           "containerPath": "/var/www/html/storage",
-          "readOnly": false
         }
       ]
     }
