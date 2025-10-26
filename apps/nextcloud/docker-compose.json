@@ -48,7 +48,7 @@
         },
         {
           "key": "PHP_MEMORY_LIMIT",
-          "value": "1024M"
+          "value": "${PHP_MEMORY_LIMIT}"
         }
       ],
       "internalPort": 80,
