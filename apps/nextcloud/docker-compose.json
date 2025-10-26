@@ -51,8 +51,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
-          "containerPath": "/var/www/html",
-          "readOnly": false
+          "containerPath": "/var/www/html"
         }
       ],
       "dependsOn": ["db-nextcloud", "redis-nextcloud"],
@@ -75,15 +74,14 @@
           "value": "nextcloud"
         },
         {
-          "key": "PHP_MEMORY",
+          "key": "PHP_MEMORY_LIMIT",
           "value": "1024"
         }
       ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/db",
-          "containerPath": "/var/lib/postgresql/data",
-          "readOnly": false
+          "containerPath": "/var/lib/postgresql/data"
         }
       ]
     },
@@ -94,8 +92,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/redis",
-          "containerPath": "/data",
-          "readOnly": false
+          "containerPath": "/data"
         }
       ]
     },
@@ -107,8 +104,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
-          "containerPath": "/var/www/html",
-          "readOnly": false
+          "containerPath": "/var/www/html"
         }
       ]
     }
