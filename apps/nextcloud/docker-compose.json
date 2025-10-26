@@ -44,7 +44,7 @@
         },
         {
           "key": "OVERWRITEPROTOCOL",
-          "value": "${APP_PROTOCOL:-http}"
+          "value": "${APP_PROTOCOL}"
         }
       ],
       "internalPort": 80,
@@ -73,6 +73,10 @@
         {
           "key": "POSTGRES_DB",
           "value": "nextcloud"
+        },
+        {
+          "key": "PHP_MEMORY",
+          "value": "1024"
         }
       ],
       "volumes": [
