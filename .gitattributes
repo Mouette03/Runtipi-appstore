@@ -1,0 +1,101 @@
+# Normaliser automatiquement les fins de ligne pour tous les fichiers texte
+* text=auto eol=lf
+
+# Scripts shell (souvent présents dans les repos d'appstore)
+*.sh eol=lf
+*.bash eol=lf
+
+# TypeScript et JavaScript (code principal)
+*.ts eol=lf
+*.tsx eol=lf
+*.js eol=lf
+*.jsx eol=lf
+*.mjs eol=lf
+*.cjs eol=lf
+
+# PHP
+*.php eol=lf
+
+# Fichiers de configuration Node/TypeScript
+package.json eol=lf
+package-lock.json eol=lf
+tsconfig.json eol=lf
+tsconfig*.json eol=lf
+.eslintrc* eol=lf
+.prettierrc* eol=lf
+*.npmrc eol=lf
+*.nvmrc eol=lf
+
+# Fichiers Docker et compose
+Dockerfile* eol=lf
+*.dockerfile eol=lf
+docker-compose*.yml eol=lf
+docker-compose*.yaml eol=lf
+docker-compose*.json eol=lf
+
+# Fichiers de configuration d'applications
+*.json eol=lf
+*.yml eol=lf
+*.yaml eol=lf
+*.toml eol=lf
+*.ini eol=lf
+*.conf eol=lf
+*.config eol=lf
+*.xml eol=lf
+
+# Variables d'environnement
+*.env eol=lf
+*.env.* eol=lf
+.env.example eol=lf
+
+# Documentation
+*.md eol=lf
+*.txt eol=lf
+README* eol=lf
+LICENSE* eol=lf
+CHANGELOG* eol=lf
+
+# Fichiers web
+*.html eol=lf
+*.css eol=lf
+*.scss eol=lf
+
+# Fichiers de configuration Git/CI
+.gitignore eol=lf
+.gitattributes eol=lf
+.dockerignore eol=lf
+.editorconfig eol=lf
+*.gitkeep eol=lf
+
+# Fichiers CI/CD
+.github/**/* eol=lf
+
+# Fichiers binaires (ne jamais modifier)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.webp binary
+*.avif binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.bz2 binary
+*.7z binary
+*.rar binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.db binary
+*.sqlite binary
+*.node binary
