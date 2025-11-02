@@ -1,8 +1,6 @@
 # Home Assistant – Smart Home with Matter & Bluetooth 🏠✨
 # Home Assistant – Domotique intelligente avec Matter et Bluetooth 🏠✨
 
----
-
 ## English 🇬🇧
 
 Turn your home into a **smart and connected space** with Home Assistant! With the **built-in Matter server** and **Bluetooth support**, you can control and automate all your compatible devices easily.
@@ -19,8 +17,6 @@ Turn your home into a **smart and connected space** with Home Assistant! With th
 - 💡 Automatically turn on lights when you arrive home.  
 - 🎵 Control your Bluetooth devices from the dashboard or automation.  
 - 🏠 Create instant multi-device scenes with Matter.
-
----
 
 ## Français 🇫🇷
 
