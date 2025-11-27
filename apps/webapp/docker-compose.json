@@ -10,13 +10,11 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/www",
-          "containerPath": "/var/www/html",
-          "readOnly": false
+          "containerPath": "/var/www/html"
         },
         {
           "hostPath": "${APP_DATA_DIR}/data/conf.d/zz-custom-settings.ini",
-          "containerPath": "/usr/local/etc/php/conf.d/zz-custom-settings.ini",
-          "readOnly": false
+          "containerPath": "/usr/local/etc/php/conf.d/zz-custom-settings.ini"
         }
       ],
       "environment": [
@@ -64,8 +62,7 @@
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/database",
-          "containerPath": "/var/lib/mysql",
-          "readOnly": false
+          "containerPath": "/var/lib/mysql"
         }
       ],
       "healthCheck": {
