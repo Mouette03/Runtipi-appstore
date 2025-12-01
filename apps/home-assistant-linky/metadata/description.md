@@ -8,7 +8,6 @@ Fonctionnalités
     Serveur Matter intégré pour piloter les appareils compatibles (Thread / Wi‑Fi) directement depuis Home Assistant.
 
 ​
-
 HA-Linky en conteneur dédié, qui interroge Conso API pour importer chaque jour les consommations de votre compteur Linky (quotidien et pas horaire quand disponible) dans le dashboard Énergie.
 
 Prérequis côté Enedis / Linky
@@ -41,7 +40,6 @@ Dans le dossier de données de l’application, créer un fichier options.json p
 
 Démarrer ou redémarrer le service HA-Linky : il va initialiser l’historique (jusqu’à un an) puis synchroniser automatiquement les nouvelles données 1 à 2 fois par jour, avec un délai d’environ 24 h lié au traitement Enedis.
 
-    ​
 
 Utilisation dans Home Assistant
 
@@ -51,7 +49,6 @@ Utilisation dans Home Assistant
 
 Après la première synchronisation réussie, les graphiques journaliers et, lorsque disponibles, les détails horaires de la consommation Linky seront visibles dans ce tableau de bord.
 
-    ​
 
 Aide et documentation
 
