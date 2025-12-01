@@ -25,7 +25,6 @@ Mise en œuvre HA-Linky
     Créer un jeton d’accès longue durée Home Assistant (profil utilisateur > jetons longue durée) et le renseigner dans la configuration de l’application (variable SUPERVISOR_TOKEN).
 
 ​
-
 Dans le dossier de données de l’application, créer un fichier options.json pour HA-Linky avec au minimum :
 
     prm : numéro de PRM à 14 chiffres de votre compteur Linky,
@@ -46,7 +45,6 @@ Utilisation dans Home Assistant
     Ouvrir le tableau de bord Énergie de Home Assistant, ajouter une source de consommation électrique et sélectionner la statistique créée par HA-Linky correspondant au name défini dans options.json.
 
 ​
-
 Après la première synchronisation réussie, les graphiques journaliers et, lorsque disponibles, les détails horaires de la consommation Linky seront visibles dans ce tableau de bord.
 
 
@@ -54,5 +52,3 @@ Aide et documentation
 
     Documentation complète HA-Linky (add-on & mode Docker standalone, configuration détaillée, gestion des coûts, import CSV) :
     https://github.com/bokub/ha-linky
-
-​
