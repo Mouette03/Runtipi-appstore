@@ -11,8 +11,6 @@ Fonctionnalités
 
 HA-Linky en conteneur dédié, qui interroge Conso API pour importer chaque jour les consommations de votre compteur Linky (quotidien et pas horaire quand disponible) dans le dashboard Énergie.
 
-    ​
-
 Prérequis côté Enedis / Linky
 
     Compteur Linky installé en France et compte client Enedis actif.
