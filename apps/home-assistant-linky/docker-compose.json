@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "homeassistant",
+      "image": "ghcr.io/home-assistant/home-assistant:2025.11.3",
+      "internalPort": 8123,
+      "isMain": true,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/config",
+          "containerPath": "/config"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/localtime",
+          "containerPath": "/etc/localtime"
+        },
+        {
+          "hostPath": "/run/dbus",
+          "containerPath": "/run/dbus"
+        }
+      ],
+      "restart": "unless-stopped",
+      "depends_on": ["matter-server"]
+    },
+    {
+      "name": "matter-server",
+      "image": "ghcr.io/home-assistant-libs/python-matter-server:stable",
+      "networkMode": "host",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/matter",
+          "containerPath": "/data"
+        }
+      ],
+      "restart": "unless-stopped"
+    },
+    {
+      "name": "ha-linky",
+      "image": "ghcr.io/bokub/ha-linky-aarch64:1.6.0",
+      "environment": [
+        {
+          "key": "SUPERVISOR_TOKEN",
+          "value": "${SUPERVISOR_TOKEN}"
+        },
+        {
+          "key": "WS_URL",
+          "value": "ws://homeassistant:8123/api/websocket"
+        },
+        {
+          "key": "TZ",
+          "value": "${TIMEZONE}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/ha-linky",
+          "containerPath": "/data"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/ha-linky/config",
+          "containerPath": "/config"
+        }
+      ],
+      "restart": "unless-stopped",
+      "depends_on": ["homeassistant"]
+    }
+  ]
+}

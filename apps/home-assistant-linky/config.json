@@ -1,0 +1,41 @@
+{
+  "name": "Home Assistant with Linky",
+  "id": "homeassistant",
+  "available": true,
+  "short_desc": "Open source home automation.",
+  "author": "home-assistant",
+  "port": 7660,
+  "categories": ["automation"],
+  "description": "Home Assistant is an open-source home automation platform that lets you control, automate, and monitor all your smart devices from a single interface — locally and without relying on the cloud.",
+  "tipi_version": 1,
+  "version": "2025.11.3",
+  "source": "https://github.com/home-assistant/core",
+  "website": "https://www.home-assistant.io",
+  "dynamic_config": true,
+  "exposable": true,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Supervisor Token Home Assistant",
+      "max": 300,
+      "min": 3,
+      "default": "token",
+      "hint": "Do not use space.",
+      "required": true,
+      "env_variable": "SUPERVISOR_TOKEN"
+    },
+    {
+      "type": "text",
+      "label": "TimeZone",
+      "max": 50,
+      "min": 5,
+      "default": "Europe/Paris",
+      "required": true,
+      "env_variable": "TIMEZONE"
+    }
+  ],
+  "supported_architectures": [ "arm64"],
+  "created_at": 1764631031590,
+  "updated_at": 1764631031590,
+  "min_tipi_version": "4.5.0"
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Ghost",
+  "port": 5846,
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "ghost",
+  "tipi_version": 1,
+  "version": "6.9.1",
+  "categories": ["social"],
+  "description": "Ghost is a modern open-source CMS for writers with Markdown editor, newsletters, memberships.",
+  "short_desc": "Ghost is a simple, open-source CMS for publishing content and newsletters.",
+  "author": "TryGhost",
+  "source": "https://github.com/TryGhost/Ghost",
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Ghost Database password",
+      "min": 10,
+      "required": true,
+      "default": "ghostpassword",
+      "hint": "Your Ghost Database password",
+      "env_variable": "GHOST_DATABASE_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Mail Service name",
+      "hint": "The name of your mail service (ie. SendGrid, Mailjet, Google)",
+      "required": false,
+      "env_variable": "GHOST_MAIL_SERVICE"
+    },
+    {
+      "type": "text",
+      "label": "SMTP Host",
+      "hint": "Your SMTP Server (ie. smtp.sendgrid.net)",
+      "required": false,
+      "env_variable": "GHOST_MAIL_HOST"
+    },
+    {
+      "type": "text",
+      "label": "SMTP Port",
+      "hint": "Your SMTP Port (587 or 465)",
+      "required": false,
+      "env_variable": "GHOST_MAIL_PORT"
+    },
+    {
+      "type": "text",
+      "label": "SMTP Username",
+      "hint": "Your SMTP Server User/Username",
+      "required": false,
+      "env_variable": "GHOST_MAIL_USER"
+    },
+    {
+      "type": "password",
+      "label": "SMTP Password",
+      "hint": "Your SMTP Server Password",
+      "required": false,
+      "env_variable": "GHOST_MAIL_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Mail From Address",
+      "hint": "Email address for newsletters (ie. newsletter@your-domain.com)",
+      "required": false,
+      "env_variable": "GHOST_MAIL_FROM"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1764631199572,
+  "updated_at": 1764631199572,
+  "min_tipi_version": "4.5.0"
+}
