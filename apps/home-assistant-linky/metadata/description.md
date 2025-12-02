@@ -22,7 +22,7 @@ Mise en œuvre HA-Linky
     Créer un jeton d’accès longue durée Home Assistant (profil utilisateur > jetons longue durée) et le renseigner dans la configuration de l’application (variable SUPERVISOR_TOKEN).
 
 ​
-Dans le dossier de données de l'application, créer un fichier `options.json` pour HA-Linky avec la structure suivante :
+Dans le dossier de données de l'application, créer un fichier `options.json` pour HA-Linky avec la structure minimale suivante :
 
 ```json
 {
