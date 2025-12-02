@@ -1,36 +1,12 @@
 {
-"meters": [
-{
-"prm": "",
-"token": "",
-"name": "Linky consumption",
-"action": "sync",
-"production": false
-}
-],
-"costs": [
-{
-"price": 0.00,
-"before": "07:00"
-},
-{
-"price": 0.00,
-"after": "06:00",
-"before": "12:00"
-},
-{
-"price": 0.00,
-"after": "12:00",
-"before": "14:00"
-},
-{
-"price": 0.00,
-"after": "14:00",
-"before": "01:00"
-},
-{
-"price": 0.00,
-"after": "01:00"
-}
-]
+  "meters": [
+    {
+      "prm": "",
+      "token": "",
+      "name": "Linky consumption",
+      "action": "sync",
+      "production": false
+    }
+  ],
+  "costs": []
 }
