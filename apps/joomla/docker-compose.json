@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/v2/dynamic-compose.json",
+  "services": [
+    {
+      "name": "joomla",
+      "image": "joomla:6.0.1-php8.3-apache",
+      "internalPort": 80,
+      "isMain": true,
+      "dependsOn": {
+        "db-joomla": {
+          "condition": "service_healthy"
+        }
+      },
+      "environment": [
+        {
+          "key": "JOOMLA_DB_HOST",
+          "value": "db-joomla"
+        },
+        {
+          "key": "JOOMLA_DB_USER",
+          "value": "${MYSQL_USER}"
+        },
+        {
+          "key": "JOOMLA_DB_PASSWORD",
+          "value": "${MYSQL_PASSWORD}"
+        },
+        {
+          "key": "JOOMLA_DB_NAME",
+          "value": "joomla_db"
+        },
+        {
+          "key": "JOOMLA_DB_TYPE",
+          "value": "mysqli"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/html",
+          "containerPath": "/var/www/html"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/php.ini",
+          "containerPath": "/usr/local/etc/php/conf.d/php.ini"
+        }
+      ],
+      "healthCheck": {
+        "test": "curl -f http://127.0.0.1:80/ || exit 1",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3,
+        "startPeriod": "90s"
+      }
+    },
+    {
+      "name": "db-joomla",
+      "image": "mariadb:12",
+      "environment": [
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "${MYSQL_ROOT_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "${MYSQL_USER}"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "${MYSQL_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "joomla_db"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/var/lib/mysql"
+        }
+      ],
+      "healthCheck": {
+        "test": "mariadb-admin ping -h 127.0.0.1 -u root -p${MYSQL_ROOT_PASSWORD} || exit 1",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5,
+        "startPeriod": "30s"
+      }
+    }
+  ]
+}

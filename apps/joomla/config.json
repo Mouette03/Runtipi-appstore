@@ -1,0 +1,48 @@
+{
+  "name": "Joomla",
+  "available": true,
+  "exposable": true,
+  "port": 7614,
+  "dynamic_config": true,
+  "id": "joomla",
+  "tipi_version": 1,
+  "version": "6.0.1",
+  "categories": ["social"],
+  "description": "Joomla is a powerful and flexible open-source CMS for complex websites, blogs and applications with native multilingual support.",
+  "short_desc": "Flexible open-source CMS for websites and blogs.",
+  "author": "Joomla",
+  "source": "https://github.com/joomla/joomla-cms",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "User MySQL Joomla",
+      "min": 6,
+      "required": true,
+      "default": "joomlauser",
+      "hint": "Username for MySQL User",
+      "env_variable": "MYSQL_USER"
+    },
+    {
+      "type": "password",
+      "label": "Password MySQL User",
+      "min": 10,
+      "required": true,
+      "default": "joomlapass",
+      "hint": "Password for MySQL User",
+      "env_variable": "MYSQL_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "Password MySQL Root",
+      "min": 10,
+      "required": true,
+      "default": "joomladbrootpass",
+      "hint": "Root password for MySQL Database",
+      "env_variable": "MYSQL_ROOT_PASSWORD"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1764536382715,
+  "updated_at": 1764536382715,
+  "min_tipi_version": "4.5.0"
+}
