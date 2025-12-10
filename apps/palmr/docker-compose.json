@@ -16,7 +16,7 @@
       "environment": [
         {
           "key": "STORAGE_URL",
-          "value": "${STORAGE_PROTOCOL}://${APP_DOMAIN}:9379"
+          "value": "${APP_PROTOCOL}://${APP_HOST}:9379"
         },
         {
           "key": "SECURE_SITE",
