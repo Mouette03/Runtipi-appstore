@@ -6,10 +6,10 @@
   "dynamic_config": true,
   "id": "palmr",
   "description": "Palmr is a fast and secure platform for sharing files, built with performance and privacy in mind.",
-  "tipi_version": 6,
-  "version": "v3.2.5-beta",
+  "tipi_version": 7,
+  "version": "v3.3.2-beta",
   "categories": ["data"],
-  "short_desc": "Self-hosted application",
+  "short_desc": "Self-hosted file sharing platform",
   "author": "Kyantech",
   "source": "https://github.com/kyantech/Palmr",
   "website": "https://palmr.kyantech.com.br/",
@@ -26,36 +26,37 @@
     },
     {
       "type": "text",
-      "label": "Simultaneous downloads",
-      "max": 2,
-      "min": 1,
-      "required": false,
-      "hint": "Maximum number of simultaneous downloads (auto-scales based on system memory if not set)",
-      "env_variable": "DOWNLOAD_MAX_CONCURRENT"
-    },
-    {
-      "type": "text",
-      "label": "Active memory management",
-      "max": 3,
-      "min": 3,
-      "required": false,
-      "default": "3.0",
-      "hint": "Minimum file size before enabling active memory management (1.0,2.0,3.0)",
-      "env_variable": "ACTIVATE_MEMORY_MANAGEMENT"
-    },
-    {
-      "type": "text",
-      "label": "Reverse proxy",
+      "label": "Reverse proxy (HTTPS)",
       "max": 5,
       "min": 4,
       "required": true,
-      "default": "false",
-      "hint": "Enabling behind reverse proxy (false or true)",
+      "default": "true",
+      "hint": "Enable if behind reverse proxy with HTTPS (true or false)",
       "env_variable": "SECURE_SITE"
+    },
+    {
+      "type": "text",
+      "label": "Storage Protocol",
+      "max": 5,
+      "min": 4,
+      "required": true,
+      "default": "https",
+      "hint": "Protocol for storage URL - use 'https' if reverse proxy enabled, otherwise 'http'",
+      "env_variable": "STORAGE_PROTOCOL"
+    },
+    {
+      "type": "text",
+      "label": "Presigned URL Expiration",
+      "max": 6,
+      "min": 3,
+      "required": false,
+      "default": "3600",
+      "hint": "Presigned URL expiration time in seconds (default: 3600)",
+      "env_variable": "PRESIGNED_URL_EXPIRATION"
     }
   ],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1759326300000,
-  "updated_at": 1761393895564,
+  "updated_at": 1733842080000,
   "min_tipi_version": "4.5.0"
 }

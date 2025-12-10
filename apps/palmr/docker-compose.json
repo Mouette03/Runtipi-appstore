@@ -4,25 +4,31 @@
   "services": [
     {
       "name": "palmr",
-      "image": "kyantech/palmr:v3.2.5-beta",
+      "image": "kyantech/palmr:v3.3.2-beta",
       "internalPort": 5487,
       "isMain": true,
+      "addPorts": [
+        {
+          "containerPort": 9379,
+          "hostPort": 9379
+        }
+      ],
       "environment": [
         {
-          "key": "DOWNLOAD_MAX_CONCURRENT",
-          "value": "${DOWNLOAD_MAX_CONCURRENT}"
+          "key": "STORAGE_URL",
+          "value": "${STORAGE_PROTOCOL}://${APP_DOMAIN}:9379"
         },
         {
           "key": "SECURE_SITE",
           "value": "${SECURE_SITE}"
         },
         {
-          "key": "DOWNLOAD_MIN_FILE_SIZE_GB",
-          "value": "${ACTIVATE_MEMORY_MANAGEMENT}"
-        },
-        {
           "key": "DEFAULT_LANGUAGE",
           "value": "${DEFAULT_LANGUAGE}"
+        },
+        {
+          "key": "PRESIGNED_URL_EXPIRATION",
+          "value": "${PRESIGNED_URL_EXPIRATION}"
         }
       ],
       "volumes": [
