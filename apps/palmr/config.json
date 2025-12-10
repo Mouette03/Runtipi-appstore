@@ -1,6 +1,6 @@
 {
   "name": "Palmr",
-  "available": false,
+  "available": true,
   "port": 5487,
   "exposable": true,
   "dynamic_config": true,
