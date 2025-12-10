@@ -6,7 +6,7 @@
   "dynamic_config": true,
   "id": "palmr",
   "description": "Palmr is a fast and secure platform for sharing files, built with performance and privacy in mind.",
-  "tipi_version": 7,
+  "tipi_version": 8,
   "version": "v3.3.2-beta",
   "categories": ["data"],
   "short_desc": "Self-hosted file sharing platform",
@@ -33,16 +33,6 @@
       "default": "true",
       "hint": "Enable if behind reverse proxy with HTTPS (true or false)",
       "env_variable": "SECURE_SITE"
-    },
-    {
-      "type": "text",
-      "label": "Storage Protocol",
-      "max": 5,
-      "min": 4,
-      "required": true,
-      "default": "https",
-      "hint": "Protocol for storage URL - use 'https' if reverse proxy enabled, otherwise 'http'",
-      "env_variable": "STORAGE_PROTOCOL"
     },
     {
       "type": "text",
