@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "nextcloud",
-      "image": "nextcloud:32.0.2-apache",
+      "image": "nextcloud:32.0.3-apache",
       "environment": [
         {
           "key": "POSTGRES_HOST",
@@ -49,6 +49,10 @@
         {
           "key": "PHP_MEMORY_LIMIT",
           "value": "${PHP_MEMORY_LIMIT}"
+        },
+        {
+          "key": "PHP_UPLOAD_LIMIT",
+          "value": "${PHP_UPLOAD_LIMIT}"
         }
       ],
       "internalPort": 80,
@@ -98,7 +102,7 @@
     },
     {
       "name": "cron",
-      "image": "nextcloud:32.0.2-apache",
+      "image": "nextcloud:32.0.3-apache",
       "entrypoint": "/cron.sh",
       "dependsOn": ["db-nextcloud", "redis-nextcloud"],
       "volumes": [
