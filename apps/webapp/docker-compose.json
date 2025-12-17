@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "webapp",
-      "image": "mouette03/php-apache-tipi-webapp:1.0",
+      "image": "ghcr.io/mouette03/webapp:v1.0.0",
       "internalPort": 80,
       "isMain": true,
       "volumes": [

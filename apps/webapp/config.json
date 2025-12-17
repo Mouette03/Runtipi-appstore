@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 7580,
   "id": "webapp",
-  "tipi_version": 5,
+  "tipi_version": 6,
   "version": "1",
   "categories": ["utilities", "network", "development"],
   "description": "Generic PHP container (Apache + common extensions) for hosting PHP sites.",
@@ -55,6 +55,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1755645300000,
-  "updated_at": 1764280100450,
+  "updated_at": 1766009196408,
   "min_tipi_version": "4.5.0"
 }
