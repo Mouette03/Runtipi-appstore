@@ -46,7 +46,7 @@ describe("each app should have a valid config.json", async () => {
   for (const app of apps) {
     test(`app ${app} should have a valid config.json`, async () => {
       const fileContent = await getFile(app, 'config.json')
-      const parsed = appInfoSchema.omit({ urn: true }).safeParse(JSON.parse(fileContent || '{}'))
+      const parsed = appInfoSchema.safeParse(JSON.parse(fileContent || '{}'))
 
       if (!parsed.success) {
         const validationError = fromError(parsed.error);
