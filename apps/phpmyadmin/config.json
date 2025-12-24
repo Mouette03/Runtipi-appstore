@@ -22,7 +22,7 @@
       "default": "3306",
       "hint": "Default database port. Not needed if using config.user.inc.php for multiple databases with different ports.",
       "required": false,
-      "env_variable": "PMA_PORTS"
+      "env_variable": "PMA_PORT"
     }
   ],
   "supported_architectures": [

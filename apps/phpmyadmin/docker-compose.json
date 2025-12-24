@@ -20,8 +20,8 @@
           "value": "1"
         },
         {
-          "key": "PMA_PORTS",
-          "value": "${PMA_PORTS}"
+          "key": "PMA_PORT",
+          "value": "${PMA_PORT}"
         }
       ]
     }
