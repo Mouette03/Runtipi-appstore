@@ -20,6 +20,10 @@
           "value": "1"
         },
         {
+          "key": "PMA_HOST",
+          "value": "${PMA_HOST}"
+        },
+        {
           "key": "PMA_PORT",
           "value": "${PMA_PORT}"
         }

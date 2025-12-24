@@ -16,11 +16,21 @@
   "form_fields": [
     {
       "type": "text",
+      "label": "Database host",
+      "max": 100,
+      "min": 0,
+      "default": "",
+      "hint": "Database server address (hostname, IP, or Docker container name). Leave empty to enter manually at startup.",
+      "required": false,
+      "env_variable": "PMA_HOST"
+    },
+    {
+      "type": "text",
       "label": "host port",
       "max": 100,
       "min": 4,
-      "default": "3306",
-      "hint": "Default database port. Not needed if using config.user.inc.php for multiple databases with different ports.",
+      "default": "",
+      "hint": "Default database port (only used with PMA_HOST). Not needed if using config.user.inc.php for multiple databases with different ports.",
       "required": false,
       "env_variable": "PMA_PORT"
     }
