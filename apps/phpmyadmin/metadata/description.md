@@ -1,5 +1,3 @@
-
-
 # 🇬🇧 phpMyAdmin - RunTiPi App Description
 
 Multi-database graphical interface: external connections + Docker networks + automatic configuration!
