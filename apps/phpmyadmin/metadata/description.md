@@ -57,6 +57,14 @@ Edit the file: ${APP_DATA_DIR}/data/config.user.inc.php
 
 Generic template (adapt your credentials):
 
+**⚠️ Parts to modify in the file:**
+- `blowfish_secret`: replace with 32 random characters
+- `host`: database hostname or IP (e.g., `localhost`, `mariadb`, `192.168.1.100`)
+- `user`: your database username
+- `password`: your database password
+- `port`: database port (3306 for MySQL/MariaDB, 5432 for PostgreSQL)
+- `verbose`: display name for this connection
+
 ```
 <?php
 $cfg['blowfish_secret'] = 'string32caracteresUniqeiciPourLaSecurite';
@@ -154,6 +162,14 @@ networks:
 Modifier le fichier : ${APP_DATA_DIR}/data/config.user.inc.php
 
 Template générique (adaptez vos identifiants) :
+
+**⚠️ Parties à modifier dans le fichier :**
+- `blowfish_secret` : remplacer par 32 caractères aléatoires
+- `host` : nom d'hôte ou IP de la base (ex: `localhost`, `mariadb`, `192.168.1.100`)
+- `user` : votre nom d'utilisateur de la base
+- `password` : votre mot de passe de la base
+- `port` : port de la base (3306 pour MySQL/MariaDB, 5432 pour PostgreSQL)
+- `verbose` : nom d'affichage pour cette connexion
 
 ```
 <?php
