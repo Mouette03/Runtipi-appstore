@@ -1,5 +1,4 @@
 {
-  "$schema": "../app-info-schema.json",
   "name": "Ghost",
   "port": 5846,
   "available": true,
