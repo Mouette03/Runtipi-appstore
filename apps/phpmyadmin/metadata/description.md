@@ -48,6 +48,7 @@ networks:
     external: true
   APP2_network:
     external: true
+    
   ```
 
 ### 2. Pre-configured Connections (config.user.inc.php)###
