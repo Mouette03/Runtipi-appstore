@@ -1,4 +1,5 @@
 {
+  "$schema": "../app-info-schema.json",
   "name": "Dolibarr",
   "available": true,
   "exposable": true,

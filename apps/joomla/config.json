@@ -1,4 +1,5 @@
 {
+  "$schema": "../app-info-schema.json",
   "name": "Joomla",
   "available": true,
   "exposable": true,
