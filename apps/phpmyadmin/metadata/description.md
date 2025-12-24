@@ -51,7 +51,7 @@ networks:
     
   ```
 
-### 2. Pre-configured Connections (config.user.inc.php)###
+### 2. Pre-configured Connections (config.user.inc.php) ###
 
 Edit the file: ${APP_DATA_DIR}/data/config.user.inc.php
 
@@ -149,7 +149,7 @@ networks:
     external: true
   ```
 
-### 2. Connexions pré-configurées (config.user.inc.php)###
+### 2. Connexions pré-configurées (config.user.inc.php) ###
 
 Modifier le fichier : ${APP_DATA_DIR}/data/config.user.inc.php
 
