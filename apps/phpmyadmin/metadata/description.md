@@ -16,7 +16,25 @@ Multi-database graphical interface: external connections + Docker networks + aut
 
 ## 🚀 Advanced Configuration
 
-### 1. Connecting to Docker Networks (Container Databases)
+### 1. Simple Connection (Single Database)
+
+**Using environment variables:**
+
+In RunTiPi app configuration:
+- **Database host** (PMA_HOST): enter the server address (e.g., `mariadb`, `192.168.1.100`)
+- **Host ports** (PMA_PORTS): enter the port (default: `3306`)
+
+**Behavior:**
+- ✅ If **PMA_HOST is filled**: phpMyAdmin connects automatically to the specified server
+- ✅ If **PMA_HOST is empty**: connection form displayed at startup (manual entry)
+
+💡 **Recommended for:** single database access
+
+⚠️ **For multiple databases:** leave PMA_HOST empty and use `config.user.inc.php` (see section 3)
+
+---
+
+### 2. Connecting to Docker Networks (Container Databases)
 
 **Retrieve network names:**
 
@@ -51,7 +69,7 @@ networks:
     
   ```
 
-### 2. Pre-configured Connections (config.user.inc.php) ###
+### 3. Pre-configured Connections (config.user.inc.php) ###
 
 Edit the file: ${APP_DATA_DIR}/data/config.user.inc.php
 
@@ -123,7 +141,25 @@ Interface graphique multi-bases : connexions externes + Docker networks + config
 
 ## 🚀 Configuration avancée
 
-### 1. Connexion aux réseaux Docker (bases conteneurs)
+### 1. Connexion simple (base de données unique)
+
+**Utilisation des variables d'environnement :**
+
+Dans la configuration de l'app RunTiPi :
+- **Database host** (PMA_HOST) : saisir l'adresse du serveur (ex: `mariadb`, `192.168.1.100`)
+- **Host ports** (PMA_PORTS) : saisir le port (par défaut : `3306`)
+
+**Comportement :**
+- ✅ Si **PMA_HOST est rempli** : phpMyAdmin se connecte automatiquement au serveur spécifié
+- ✅ Si **PMA_HOST est vide** : formulaire de connexion affiché au démarrage (saisie manuelle)
+
+💡 **Recommandé pour :** accès à une seule base de données
+
+⚠️ **Pour plusieurs bases de données :** laisser PMA_HOST vide et utiliser `config.user.inc.php` (voir section 3)
+
+---
+
+### 2. Connexion aux réseaux Docker (bases conteneurs)
 
 **Récupérer les noms des réseaux :**
 
@@ -157,7 +193,7 @@ networks:
     external: true
   ```
 
-### 2. Connexions pré-configurées (config.user.inc.php) ###
+### 3. Connexions pré-configurées (config.user.inc.php) ###
 
 Modifier le fichier : ${APP_DATA_DIR}/data/config.user.inc.php
 
