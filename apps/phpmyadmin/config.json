@@ -1,0 +1,35 @@
+{
+  "name": "phpmyadmin",
+  "id": "phpMyAdmin",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 5485,
+  "tipi_version": 1,
+  "version": "5.2.3",
+  "short_desc": "Manage your MySQL/MariaDB.",
+  "author": "phpmyadmin",
+  "categories": ["data"],
+  "description": "Web interface to manage your MySQL/MariaDB databases.",
+  "source": "https://github.com/phpmyadmin/docker",
+  "website": "https://www.phpmyadmin.net/",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "host ports",
+      "max": 100,
+      "min": 4,
+      "default": "3306",
+      "hint": "Database listening port.",
+      "required": false,
+      "env_variable": "PMA_PORTS"
+    }
+  ],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1766443911500,
+  "updated_at": 1766443911500,
+  "min_tipi_version": "4.5.0"
+}

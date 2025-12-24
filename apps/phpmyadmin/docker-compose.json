@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "phpmyadmin",
+      "image": "phpmyadmin:5.2.3-apache",
+      "internalPort": 80,
+      "isMain": true,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/etc/phpmyadmin/conf.d",
+          "readOnly": true
+        }
+      ],
+      "environment": [
+        {
+          "key": "PMA_ARBITRARY",
+          "value": "1"
+        },
+        {
+          "key": "PMA_PORTS",
+          "value": "${PMA_PORTS}"
+        }
+      ]
+    }
+  ]
+}
