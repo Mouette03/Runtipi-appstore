@@ -1,3 +1,31 @@
+## ⚠️ Important - Startup Order / Ordre de démarrage
+
+### 🇬🇧 English
+
+**Start phpMyAdmin AFTER the applications whose databases you want to access.**
+
+If you start phpMyAdmin before the target applications, they may fail to start due to Docker network conflicts.
+
+**Recommended procedure:**
+1. Start your applications (MariaDB, PostgreSQL, etc.)
+2. Wait for them to be fully running
+3. Then start phpMyAdmin
+
+### 🇫🇷 Français
+
+**Démarrez phpMyAdmin APRÈS les applications dont vous souhaitez accéder aux bases de données.**
+
+Si vous démarrez phpMyAdmin avant les applications cibles, celles-ci risquent de ne pas pouvoir démarrer en raison de conflits de réseaux Docker.
+
+**Procédure recommandée :**
+1. Démarrez vos applications (MariaDB, PostgreSQL, etc.)
+2. Attendez qu'elles soient complètement lancées
+3. Démarrez ensuite phpMyAdmin
+
+---
+
+---
+
 # 🇬🇧 phpMyAdmin - RunTiPi App Description
 
 Multi-database graphical interface: external connections + Docker networks + automatic configuration!
@@ -108,6 +136,19 @@ User configuration + config.user.inc.php = automatic login! 🎉
 # 🇫🇷 phpMyAdmin - RunTiPi App Description
 
 Interface graphique multi-bases : connexions externes + Docker networks + configuration automatique !
+
+---
+
+## ⚠️ Important - Ordre de démarrage
+
+**Démarrez phpMyAdmin APRÈS les applications dont vous souhaitez accéder aux bases de données.**
+
+Si vous démarrez phpMyAdmin avant les applications cibles, celles-ci risquent de ne pas pouvoir démarrer en raison de conflits de réseaux Docker.
+
+**Procédure recommandée :**
+1. Démarrez vos applications (MariaDB, PostgreSQL, etc.)
+2. Attendez qu'elles soient complètement lancées
+3. Démarrez ensuite phpMyAdmin
 
 ---
 
