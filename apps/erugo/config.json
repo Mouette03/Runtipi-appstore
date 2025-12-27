@@ -6,8 +6,8 @@
   "dynamic_config": true,
   "id": "Erugo",
   "description": "Erugo is a totally free, powerful, self-hosted file-sharing platform.",
-  "tipi_version": 2,
-  "version": "0.1.1",
+  "tipi_version": 3,
+  "version": "0.2.3",
   "categories": ["data"],
   "short_desc": "Self-hosted application",
   "author": "DeanWard",
@@ -16,6 +16,6 @@
   "form_fields": [],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1759522920000,
-  "updated_at": 1761393895564,
+  "updated_at": 1766797418912,
   "min_tipi_version": "4.5.0"
 }
