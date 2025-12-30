@@ -1,0 +1,24 @@
+{
+  "name": "Music Assistant",
+  "id": "music-assistant",
+  "available": false,
+  "dynamic_config": true,
+  "exposable": true,
+  "port": 6875,
+  "tipi_version": 1,
+  "version": "2.7.0",
+  "short_desc": "Multiroom music server for Home Assistant.",
+  "description": "Music Assistant is an open source music management and playback system.",
+  "author": "music-assistant",
+  "categories": ["music"],
+  "source": "https://github.com/music-assistant/music-assistant",
+  "website": "https://www.music-assistant.io",
+  "form_fields": [],
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "created_at": 1766089098500,
+  "updated_at": 1766089098500,
+  "min_tipi_version": "4.5.0"
+}
