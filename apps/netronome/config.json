@@ -1,6 +1,6 @@
 {
   "name": "Netronome",
-  "available": false,
+  "available": true,
   "port": 7596,
   "exposable": true,
   "dynamic_config": true,
