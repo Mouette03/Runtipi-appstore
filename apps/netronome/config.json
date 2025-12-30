@@ -1,0 +1,21 @@
+{
+  "name": "Netronome",
+  "available": true,
+  "port": 7596,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "netronome",
+  "tipi_version": 1,
+  "version": "0.8.0",
+  "categories": ["network"],
+  "short_desc": "Advanced release monitoring and notification system.",
+  "description": "Netronome is a powerful tool for monitoring release announcements across multiple sources and sending intelligent notifications.",
+  "author": "autobrr",
+  "source": "https://github.com/autobrr/netronome",
+  "website": "https://github.com/autobrr/netronome",
+  "form_fields": [],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1767055448723,
+  "updated_at": 1767055448723,
+  "min_tipi_version": "4.5.0"
+}
