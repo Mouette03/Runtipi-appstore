@@ -1,19 +1,16 @@
-# ⚠️ BETA APPLICATION / APPLICATION EN BETA
-
-## 🔐 Default Credentials / Identifiants par défaut
-**Username / Nom d'utilisateur:** `arcane`  
-**Password / Mot de passe:** `arcane-admin`
-
-## 🐛 Bug Reports / Rapports de bugs
-**English:** Please report any bugs related to using this app with Runtipi, especially issues with domain exposure and reverse proxy configuration.
-
-**Français:** N'hésitez pas à me remonter les bugs éventuels concernant l'utilisation de l'application avec Runtipi, notamment le fonctionnement avec exposition via nom de domaine.
-
----
-
 # Arcane Docker
 
-##### 🇬🇧 Description (English)
+⚠️ **BETA APPLICATION / APPLICATION EN BETA**
+
+🔐 **Default Credentials / Identifiants par défaut**  
+Username / Nom d'utilisateur: `arcane`  
+Password / Mot de passe: `arcane-admin`
+
+🐛 **Bug Reports / Rapports de bugs**  
+Please report any bugs related to using this app with Runtipi, especially issues with domain exposure and reverse proxy configuration.  
+N'hésitez pas à me remonter les bugs éventuels concernant l'utilisation de l'application avec Runtipi, notamment le fonctionnement avec exposition via nom de domaine.
+
+🇬🇧 Description (English)
 
 **Arcane Docker** is a comprehensive Docker-based platform designed for secure and scalable deployment of containerized services. It provides a robust infrastructure for managing microservices, APIs, and distributed applications with built-in security and monitoring capabilities.
 
@@ -73,9 +70,7 @@ openssl rand -hex 32 && openssl rand -hex 32
 - Scalable microservices infrastructure
 - Docker Compose ready
 
----
-
-##### 🇫🇷 Description (Français)
+🇫🇷 Description (Français)
 
 **Arcane Docker** est une plateforme complète basée sur Docker conçue pour le déploiement sécurisé et évolutif de services conteneurisés. Elle fournit une infrastructure robuste pour gérer les microservices, les API et les applications distribuées avec des capacités intégrées de sécurité et de surveillance.
 
