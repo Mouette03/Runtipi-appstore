@@ -7,8 +7,8 @@
   "port": 7659,
   "categories": ["automation"],
   "description": "Home Assistant is an open-source home automation platform that lets you control, automate, and monitor all your smart devices from a single interface — locally and without relying on the cloud.",
-  "tipi_version": 7,
-  "version": "2025.12.4",
+  "tipi_version": 8,
+  "version": "2025.12.5",
   "source": "https://github.com/home-assistant/core",
   "website": "https://www.home-assistant.io",
   "dynamic_config": true,
@@ -19,6 +19,6 @@
     "amd64"
   ],
   "created_at": 1762119830199,
-  "updated_at": 1766751906186,
+  "updated_at": 1767541152979,
   "min_tipi_version": "4.5.0"
 }
