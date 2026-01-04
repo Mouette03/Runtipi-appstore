@@ -61,6 +61,11 @@ Before deploying Arcane Docker, you must generate authentication keys and tokens
 1. **Generate Authentication Keys**: Create secure API keys for service authentication
 2. **Generate Access Tokens**: Generate JWT tokens or similar authentication tokens for client access
 
+**Generate keys with this command:**
+```bash
+openssl rand -hex 32 && openssl rand -hex 32
+```
+
 ### Key Features
 
 - Containerized architecture for easy deployment
@@ -117,6 +122,11 @@ Avant de déployer Arcane Docker, vous devez générer des clés d'authentificat
 
 1. **Générer les clés d'authentification** : Créez des clés API sécurisées pour l'authentification des services
 2. **Générer les tokens d'accès** : Générez des tokens JWT ou des tokens d'authentification similaires pour l'accès client
+
+**Générez les clés avec cette commande :**
+```bash
+openssl rand -hex 32 && openssl rand -hex 32
+```
 
 ### Fonctionnalités principales
 
