@@ -13,7 +13,7 @@
 
 # Arcane Docker
 
-## English
+##### 🇬🇧 Description (English)
 
 **Arcane Docker** is a comprehensive Docker-based platform designed for secure and scalable deployment of containerized services. It provides a robust infrastructure for managing microservices, APIs, and distributed applications with built-in security and monitoring capabilities.
 
@@ -75,7 +75,7 @@ openssl rand -hex 32 && openssl rand -hex 32
 
 ---
 
-## Français
+##### 🇫🇷 Description (Français)
 
 **Arcane Docker** est une plateforme complète basée sur Docker conçue pour le déploiement sécurisé et évolutif de services conteneurisés. Elle fournit une infrastructure robuste pour gérer les microservices, les API et les applications distribuées avec des capacités intégrées de sécurité et de surveillance.
 
