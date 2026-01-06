@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "syncin",
+      "image": "syncin/server:1.9.6",
+      "internalPort": 8080,
+      "isMain": true,
+      "environment": [
+        {
+          "key": "SYNCIN_APPLICATIONS_FILES_DATAPATH",
+          "value": "/data"
+        },
+        {
+          "key": "SYNCIN_SERVER_HOST",
+          "value": "0.0.0.0"
+        },
+        {
+          "key": "INIT_ADMIN",
+          "value": "true"
+        },
+        {
+          "key": "INIT_ADMIN_LOGIN",
+          "value": "${SYNCIN_ADMIN_LOGIN}"
+        },
+        {
+          "key": "INIT_ADMIN_PASSWORD",
+          "value": "${SYNCIN_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "SYNCIN_AUTH_ENCRYPTIONKEY",
+          "value": "${SYNCIN_ENCRYPTION_KEY}"
+        },
+        {
+          "key": "SYNCIN_AUTH_TOKEN_ACCESS_SECRET",
+          "value": "${SYNCIN_ACCESS_SECRET}"
+        },
+        {
+          "key": "SYNCIN_AUTH_TOKEN_REFRESH_SECRET",
+          "value": "${SYNCIN_REFRESH_SECRET}"
+        },
+        {
+          "key": "SYNCIN_MYSQL_URL",
+          "value": "mysql://root:${SYNCIN_DB_ROOT_PASSWORD}@db-syncin:3306/sync_in"
+        },
+        {
+          "key": "SYNCIN_LOGGER_LEVEL",
+          "value": "info"
+        },
+        {
+          "key": "SYNCIN_MAIL_HOST",
+          "value": "${SYNCIN_MAIL_HOST}"
+        },
+        {
+          "key": "SYNCIN_MAIL_PORT",
+          "value": "${SYNCIN_MAIL_PORT}"
+        },
+        {
+          "key": "SYNCIN_MAIL_SENDER",
+          "value": "${SYNCIN_MAIL_SENDER}"
+        },
+        {
+          "key": "SYNCIN_MAIL_AUTH_USER",
+          "value": "${SYNCIN_MAIL_USER}"
+        },
+        {
+          "key": "SYNCIN_MAIL_AUTH_PASS",
+          "value": "${SYNCIN_MAIL_PASSWORD}"
+        },
+        {
+          "key": "SYNCIN_MAIL_SECURE",
+          "value": "${SYNCIN_MAIL_SECURE}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/sync-in",
+          "containerPath": "/data"
+        }
+      ],
+      "dependsOn": {
+        "db-syncin": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "db-syncin",
+      "image": "mariadb:11",
+      "environment": [
+        {
+          "key": "MARIADB_ROOT_PASSWORD",
+          "value": "${SYNCIN_DB_ROOT_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "sync_in"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/var/lib/mysql"
+        }
+      ]
+    }
+  ]
+}

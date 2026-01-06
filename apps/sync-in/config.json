@@ -1,0 +1,125 @@
+{
+  "name": "Sync-in",
+  "available": true,
+  "port": 5632,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "syncin",
+  "tipi_version": 1,
+  "version": "1.9.6",
+  "categories": ["data"],
+  "short_desc": "File synchronization and collaboration suite.",
+  "description": "Sync-in is a self-hosted file synchronization and collaboration solution, including user management and secure sharing.",
+  "author": "Sync-in",
+  "source": "https://github.com/Sync-in",
+  "website": "https://sync-in.com/",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Sync-in admin login",
+      "required": true,
+      "hint": "Username for the initial Sync-in administrator account.",
+      "env_variable": "SYNCIN_ADMIN_LOGIN"
+    },
+    {
+      "type": "password",
+      "label": "Sync-in admin password",
+      "max": 128,
+      "min": 8,
+      "required": true,
+      "hint": "Password for the initial Sync-in administrator account.",
+      "env_variable": "SYNCIN_ADMIN_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "Encryption key",
+      "max": 128,
+      "min": 32,
+      "required": true,
+      "hint": "Key used to encrypt sensitive Sync-in data. Do not change after deployment.",
+      "env_variable": "SYNCIN_ENCRYPTION_KEY"
+    },
+    {
+      "type": "password",
+      "label": "Access token secret",
+      "max": 128,
+      "min": 32,
+      "required": true,
+      "hint": "Secret to sign access tokens (sessions).",
+      "env_variable": "SYNCIN_ACCESS_SECRET"
+    },
+    {
+      "type": "password",
+      "label": "Refresh token secret",
+      "max": 128,
+      "min": 32,
+      "required": true,
+      "hint": "Secret to sign refresh tokens.",
+      "env_variable": "SYNCIN_REFRESH_SECRET"
+    },
+    {
+      "type": "password",
+      "label": "MariaDB root password",
+      "max": 128,
+      "min": 8,
+      "required": true,
+      "hint": "MariaDB root account password used by Sync-in.",
+      "env_variable": "SYNCIN_DB_ROOT_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "SMTP host",
+      "required": true,
+      "hint": "SMTP host (e.g. smtp.gmail.com, relay.mydomain.com)",
+      "env_variable": "SYNCIN_MAIL_HOST"
+    },
+    {
+      "type": "text",
+      "label": "SMTP port",
+      "required": true,
+      "options": [
+        {"label": "587 (STARTTLS)", "value": "587"},
+        {"label": "465 (SSL)", "value": "465"},
+        {"label": "25 (unsecured)", "value": "25"}
+      ],
+      "hint": "SMTP port",
+      "env_variable": "SYNCIN_MAIL_PORT"
+    },
+    {
+      "type": "text",
+      "label": "Sender",
+      "required": true,
+      "hint": "Visible address (e.g. Sync-in <notification@mydomain.com>)",
+      "env_variable": "SYNCIN_MAIL_SENDER"
+    },
+    {
+      "type": "text",
+      "label": "SMTP user",
+      "required": true,
+      "hint": "SMTP login (often = email address)",
+      "env_variable": "SYNCIN_MAIL_USER"
+    },
+    {
+      "type": "password",
+      "label": "SMTP password",
+      "required": true,
+      "hint": "Password SMTP",
+      "env_variable": "SYNCIN_MAIL_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "SMTP security",
+      "required": true,
+      "options": [
+        {"label": "true", "value": "true"},
+        {"label": "false", "value": "false"}
+      ],
+      "hint": "Defines if the connection should use SSL (if true) or not (if false) Note: setting `false` does not necessarily mean messages are sent in plaintext. If the server supports STARTTLS, the connection is usually upgraded to TLS automatically",
+      "env_variable": "SYNCIN_MAIL_SECURE"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1767659165292,
+  "updated_at": 1767659165292,
+  "min_tipi_version": "4.5.0"
+}
