@@ -8,7 +8,7 @@ Après mise à jour vers version 1.2.0, il est nécessaire de repasser par adres
 
 🇬🇧 Description (English)
 
-🚨 In case of updates from version 1.1...to version 1.2.0 it is necessary to add a plugins folder in the Galette data directory. If new installation it will be added automatically. This is necessary following the changes made to the new version t allows to avoid having rights in the plugins' data directory
+🚨 In case of updates from version 1.1...to version 1.2.0 it is necessary to add a plugins folder in the Galette data directory. If new installation it will be added automatically. This is necessary following the changes made to the new version that allows to avoid having rights in the plugins' data directory
 
 👉Database connection information on first launch:
 
@@ -62,7 +62,7 @@ This is before all a free software (as in free speech), community and free (as i
 
 🇫🇷 Description (Français)
 
-🚨 En cas de mise à jours depuis une version 1.1...vers version 1.2.0 il est nécessaire d'ajouter un dossier plugins dans le répertoire data de Galette. Si nouvelle installation il sera ajouté automatiquement. Celui-ci est nécessaire suite au modifications apporté a la nouvelle version t permet d’éviter d'avoir des droits dans le répertoire de donnée des plugins
+🚨 En cas de mise à jours depuis une version 1.1...vers version 1.2.0 il est nécessaire d'ajouter un dossier plugins dans le répertoire data de Galette. Si nouvelle installation il sera ajouté automatiquement. Celui-ci est nécessaire suite au modifications apporté a la nouvelle version et permet d’éviter d'avoir des droits dans le répertoire de donnée des plugins
 
 👉Infos de connexion à la base de données au premier lancement:
 
