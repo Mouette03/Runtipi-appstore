@@ -4,12 +4,11 @@
   "services": [
     {
       "name": "duckdns",
-      "image": "lscr.io/linuxserver/duckdns:992f1854-ls62",
+      "image": "lscr.io/linuxserver/duckdns:72c8259f-ls71",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/config",
-          "containerPath": "/config",
-          "readOnly": false
+          "containerPath": "/config"
         }
       ],
       "environment": [
