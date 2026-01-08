@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "syncin",
-      "image": "syncin/server:1.9.6",
+      "image": "syncin/server:1.10.0",
       "internalPort": 8080,
       "isMain": true,
       "environment": [
@@ -57,6 +57,10 @@
           "value": "${SYNCIN_MAIL_PORT}"
         },
         {
+          "key": "SYNCIN_MAIL_SECURE",
+          "value": "${SYNCIN_MAIL_SECURE}"
+        },
+        {
           "key": "SYNCIN_MAIL_SENDER",
           "value": "${SYNCIN_MAIL_SENDER}"
         },
@@ -67,10 +71,6 @@
         {
           "key": "SYNCIN_MAIL_AUTH_PASS",
           "value": "${SYNCIN_MAIL_PASSWORD}"
-        },
-        {
-          "key": "SYNCIN_MAIL_SECURE",
-          "value": "${SYNCIN_MAIL_SECURE}"
         }
       ],
       "volumes": [
