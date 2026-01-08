@@ -45,7 +45,7 @@
       "env_variable": "DUCKDNS_ENABLE_LOG_FILE"
     }
   ],
-  "created_at": 1767830459510,
+  "created_at": 1691943801422,
   "updated_at": 1767830459510,
   "min_tipi_version": "4.5.0",
   "$schema": "../app-info-schema.json",
