@@ -107,14 +107,10 @@
       "env_variable": "SYNCIN_MAIL_PASSWORD"
     },
     {
-      "type": "text",
-      "label": "SMTP security",
-      "required": true,
-      "options": [
-        {"label": "true", "value": "true"},
-        {"label": "false", "value": "false"}
-      ],
-      "hint": "Defines if the connection should use SSL (if true) or not (if false) Note: setting `false` does not necessarily mean messages are sent in plaintext. If the server supports STARTTLS, the connection is usually upgraded to TLS automatically",
+      "type": "boolean",
+      "label": "Enable SMTP security",
+      "required": false,
+      "hint": "Defines whether the connection should use SSL. Note: disabling does not necessarily mean that messages are sent in plain text. If the server supports STARTTLS, the connection is usually automatically upgraded to TLS.",
       "env_variable": "SYNCIN_MAIL_SECURE"
     }
   ],
