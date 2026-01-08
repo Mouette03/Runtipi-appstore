@@ -1,11 +1,11 @@
 {
   "name": "Sync-in",
-  "available": false,
+  "available": true,
   "port": 5632,
   "exposable": true,
   "dynamic_config": true,
   "id": "syncin",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "1.10.0",
   "categories": ["data"],
   "short_desc": "File synchronization and collaboration suite.",
