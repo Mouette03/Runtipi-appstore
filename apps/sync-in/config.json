@@ -82,7 +82,7 @@
         {"label": "465 (SSL)", "value": "465"},
         {"label": "25 (unsecured)", "value": "25"}
       ],
-      "hint": "SMTP port",
+      "hint": "SMTP server port. Use 587 for STARTTLS (recommended), 465 for SSL, or 25 for unencrypted connections",
       "env_variable": "SYNCIN_MAIL_PORT"
     },
     {
