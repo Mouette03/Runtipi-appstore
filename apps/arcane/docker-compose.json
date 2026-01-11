@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "arcane",
-      "image": "ghcr.io/getarcaneapp/arcane:latest",
+      "image": "ghcr.io/getarcaneapp/arcane:v1.12.2",
       "internalPort": 3552,
       "isMain": true,
       "volumes": [
@@ -40,7 +40,7 @@
         "docker-socket-proxy"
       ],
       "healthCheck": {
-        "test": "curl -fsS http://localhost:3552/api/health || exit 1",
+        "test": "curl -fsS http://127.0.0.1:3552/api/health || exit 1",
         "interval": "10s",
         "timeout": "3s",
         "retries": 5,
