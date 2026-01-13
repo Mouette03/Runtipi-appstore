@@ -27,10 +27,17 @@ With features like collaborative spaces, secure file sharing, and granular permi
 - `MAIL_PASSWORD=yourpassword`
 - `MAIL_FROM=noreply@example.com`
 
-**Generate authentication tokens:**  
-Run this command to generate the 3 required tokens:
+**Generate encryption key:**  
+Run this command to generate the required encryption key:
+
+**Linux/Mac:**
 ```bash
-for i in 1 2 3; do openssl rand -base64 48; done
+openssl rand -base64 48
+```
+
+**Windows (PowerShell):**
+```powershell
+$bytes = New-Object byte[] 48; (New-Object System.Security.Cryptography.RNGCryptoServiceProvider).GetBytes($bytes); [Convert]::ToBase64String($bytes)
 ```
 
 ---
@@ -62,8 +69,15 @@ Avec des fonctionnalités comme les espaces collaboratifs, le partage sécurisé
 - `MAIL_PASSWORD=yourpassword`
 - `MAIL_FROM=noreply@example.com`
 
-**Générer les tokens d'authentification :**  
-Exécutez cette commande pour générer les 3 tokens requis :
+**Générer la clé de chiffrement :**  
+Exécutez cette commande pour générer la clé de chiffrement requise :
+
+**Linux/Mac :**
 ```bash
-for i in 1 2 3; do openssl rand -base64 48; done
+openssl rand -base64 48
+```
+
+**Windows (PowerShell) :**
+```powershell
+$bytes = New-Object byte[] 48; (New-Object System.Security.Cryptography.RNGCryptoServiceProvider).GetBytes($bytes); [Convert]::ToBase64String($bytes)
 ```
