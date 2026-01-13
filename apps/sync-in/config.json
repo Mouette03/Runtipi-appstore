@@ -40,21 +40,17 @@
       "env_variable": "SYNCIN_ENCRYPTION_KEY"
     },
     {
-      "type": "password",
+      "type": "random",
       "label": "Access token secret",
-      "max": 128,
-      "min": 32,
-      "required": true,
-      "hint": "Secret to sign access tokens (sessions).",
+      "min": 64,
+      "max" : 64,
       "env_variable": "SYNCIN_ACCESS_SECRET"
     },
     {
-      "type": "password",
+      "type": "random",
       "label": "Refresh token secret",
-      "max": 128,
-      "min": 32,
-      "required": true,
-      "hint": "Secret to sign refresh tokens.",
+      "min": 64,
+      "max" : 64,
       "env_variable": "SYNCIN_REFRESH_SECRET"
     },
     {
