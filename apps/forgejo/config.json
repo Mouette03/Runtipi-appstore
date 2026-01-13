@@ -1,0 +1,52 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Forgejo",
+  "id": "forgejo",
+  "port": 6349,
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 1,
+  "version": "13.0.4",
+  "categories": ["development"],
+  "description": "Self-hosted Git service with MariaDB and optional CI/CD Actions runner. Lightweight, secure, and 100% FOSS.",
+  "short_desc": "Beyond coding. We forge.",
+  "author": "VotrePseudo",
+  "source": "https://codeberg.org/forgejo/forgejo/",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "FORGEJO_DB_PASSWORD",
+      "min": 16,
+      "env_variable": "FORGEJO_DB_ROOT_PASSWORD"
+    },
+    {
+      "type": "password",
+      "label": "Forgejo DB password",
+      "max": 32,
+      "min": 8,
+      "required": true,
+      "env_variable": "FORGEJO_DB_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Forgejo DB username",
+      "max": 32,
+      "min": 6,
+      "required": true,
+      "default": "forgejo",
+      "env_variable": "FORGEJO_DB_USERNAME"
+    },
+    {
+      "type": "boolean",
+      "label": "Disable SSH service",
+      "required": false,
+      "hint": "Defines whether the SSH service should be enabled. Disabling SSH can enhance security by preventing SSH access to the server.",
+      "env_variable": "APP_SSH_DISABLED"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1768309861894,
+  "updated_at": 1768309861894,
+  "min_tipi_version": "4.5.0"
+}

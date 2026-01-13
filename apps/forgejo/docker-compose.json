@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/v2/dynamic-compose.json",
+  "services": [
+    {
+      "name": "forgejo",
+      "image": "codeberg.org/forgejo/forgejo:13.0.4",
+      "isMain": true,
+      "internalPort": 3000,
+      "addPorts": [
+        {
+          "hostPort": 222,
+          "containerPort": 22
+        }
+      ],
+      "environment": [
+        {
+          "key": "FORGEJO__database__DB_TYPE",
+          "value": "mysql"
+        },
+        {
+          "key": "FORGEJO__database__HOST",
+          "value": "forgejo-db:3306"
+        },
+        {
+          "key": "FORGEJO__database__NAME",
+          "value": "forgejo"
+        },
+        {
+          "key": "FORGEJO__database__USER",
+          "value": "${FORGEJO_DB_USERNAME}"
+        },
+        {
+          "key": "FORGEJO__database__PASSWD",
+          "value": "${FORGEJO_DB_PASSWORD}"
+        },
+        {
+          "key": "FORGEJO__server__ROOT_URL",
+          "value": "${APP_PROTOCOL}://${APP_DOMAIN}/"
+        },
+        {
+          "key": "FORGEJO__server__DOMAIN",
+          "value": "${APP_HOST}"
+        },
+        {
+          "key": "FORGEJO__server__SSH_PORT",
+          "value": "222"
+        },
+        {
+          "key": "FORGEJO__actions__ENABLED",
+          "value": "false"
+        },
+        {
+          "key": "FORGEJO__server__DISABLE_SSH",
+          "value": "${APP_SSH_DISABLED}"
+        }
+      ],
+      "dependsOn": {
+        "forgejo-db": {
+          "condition": "service_healthy"
+        }
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/forgejo",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "wget --quiet --tries=1 --spider http://127.0.0.1:3000 || exit 1",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3
+      }
+    },
+    {
+      "name": "forgejo-db",
+      "image": "mariadb:12",
+      "environment": [
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "forgejo"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "${FORGEJO_DB_USERNAME}"
+        },
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "${FORGEJO_DB_ROOT_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "${FORGEJO_DB_PASSWORD}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/mariadb",
+          "containerPath": "/var/lib/mysql"
+        }
+      ],
+      "healthCheck": {
+        "test": "mariadb-admin ping -h 127.0.0.1 -u root --password=${FORGEJO_DB_ROOT_PASSWORD} || exit 1",
+        "interval": "5s",
+        "timeout": "5s",
+        "retries": 20,
+        "startPeriod": "30s"
+      }
+    }
+  ]
+}
