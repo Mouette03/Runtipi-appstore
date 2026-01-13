@@ -75,7 +75,7 @@
     },
     {
       "name": "forgejo-db",
-      "image": "mariadb:12",
+      "image": "mariadb:11",
       "environment": [
         {
           "key": "MYSQL_DATABASE",
