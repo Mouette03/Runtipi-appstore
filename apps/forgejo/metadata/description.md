@@ -16,7 +16,6 @@ Forgejo is a lightweight, self-hosted Git service for ARM64/AMD64 platforms. Thi
 ## Technical Details
 
 - **Database**: MariaDB with automatic initialization
-- **Default Port**: 3000 (web interface)
 - **SSH Port**: 222 (Git operations)
 - **Architectures**: ARM64, AMD64
 - **Actions**: Optional CI/CD runner
@@ -25,9 +24,9 @@ Forgejo is a lightweight, self-hosted Git service for ARM64/AMD64 platforms. Thi
 
 Upon installation, you'll configure:
 - MariaDB root password (auto-generated)
-- Forgejo database password (auto-generated)
+- Forgejo database password (user-provided)
 - Database username (default: forgejo)
-- Enable/disable Actions CI/CD
+- SSH service (enable/disable)
 
 ## Use Cases
 
@@ -57,7 +56,6 @@ Forgejo est un service Git léger et auto-hébergé pour plateformes ARM64/AMD64
 ## Détails techniques
 
 - **Base de données** : MariaDB avec initialisation automatique
-- **Port par défaut** : 3000 (interface web)
 - **Port SSH** : 222 (opérations Git)
 - **Architectures** : ARM64, AMD64
 - **Actions** : Runner CI/CD optionnel
@@ -66,9 +64,9 @@ Forgejo est un service Git léger et auto-hébergé pour plateformes ARM64/AMD64
 
 Lors de l'installation, vous configurerez :
 - Mot de passe root MariaDB (auto-généré)
-- Mot de passe de la base Forgejo (auto-généré)
+- Mot de passe de la base Forgejo (fourni par l'utilisateur)
 - Nom d'utilisateur de la base de données (défaut : forgejo)
-- Activation/désactivation des Actions CI/CD
+- Service SSH (activer/désactiver)
 
 ## Cas d'usage
 
@@ -76,4 +74,3 @@ Lors de l'installation, vous configurerez :
 - Gestion de dépôts privés
 - Pipelines CI/CD pour tests et déploiements automatisés
 - Suivi des issues et gestion de projet
-- Workflows de revue de code
