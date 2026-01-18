@@ -1,5 +1,7 @@
 Home Assistant avec Matter & HA-Linky compatible ARM64 uniquement.
 
+Il n'est plus possible d'utiliser les dernières version de l'add-on HA Linky avec une architecture armv7, i386 ou armhf avec la version 1.7.0
+
 Pack Home Assistant destiné uniquement aux utilisateurs en France équipés d’un compteur Linky, avec support Matter et intégration HA-Linky pour récupérer automatiquement les consommations Enedis dans les tableaux de bord Énergie de Home Assistant via Conso API.
 
 
