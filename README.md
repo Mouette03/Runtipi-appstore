@@ -25,7 +25,6 @@ This repository contains several applications you can install directly via **Run
 - 📰 [**Joomla**](./apps/joomla) – Content management system.
 - 📊 [**Netronome**](./apps/netronome) – Netronome application.
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Personal cloud solution to store, share, and sync your files.
-- 🌴 [**Palmr**](./apps/palmr) – Palmr application.
 - 🗄️ [**phpMyAdmin**](./apps/phpmyadmin) – Web interface for MySQL/MariaDB administration.
 - 🖥️ [**Portainer**](./apps/portainer) – Docker management interface with a simple web UI.
 - 🔄 [**Sync-in**](./apps/sync-in) – Sync-in application.
@@ -60,7 +59,6 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - 📰 [**Joomla**](./apps/joomla) – Système de gestion de contenu.
 - 📊 [**Netronome**](./apps/netronome) – Application Netronome.
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Solution de cloud personnel pour stocker, partager et synchroniser vos fichiers.
-- 🌴 [**Palmr**](./apps/palmr) – Application Palmr.
 - 🗄️ [**phpMyAdmin**](./apps/phpmyadmin) – Interface web pour l'administration MySQL/MariaDB.
 - 🖥️ [**Portainer**](./apps/portainer) – Interface de gestion Docker avec une interface web simple.
 - 🔄 [**Sync-in**](./apps/sync-in) – Application Sync-in.
