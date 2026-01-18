@@ -6,12 +6,12 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 2,
-  "version": "13.0.4",
+  "tipi_version": 3,
+  "version": "14.0.1",
   "categories": ["development"],
   "description": "Self-hosted Git service with MariaDB and optional CI/CD Actions runner. Lightweight, secure, and 100% FOSS.",
   "short_desc": "Beyond coding. We forge.",
-  "author": "VotrePseudo",
+  "author": "forgejo",
   "source": "https://codeberg.org/forgejo/forgejo/",
   "form_fields": [
     {
