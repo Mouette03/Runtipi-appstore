@@ -23,7 +23,6 @@ This repository contains several applications you can install directly via **Run
 - 🏠 [**Home Assistant**](./apps/home-assistant) – Open source home automation platform.
 - 🔌 [**Home Assistant Linky**](./apps/home-assistant-linky) – Home Assistant with Linky integration.
 - 📰 [**Joomla**](./apps/joomla) – Content management system.
-- 🎵 [**Music Assistant**](./apps/music-assistant) – Music management assistant.
 - 📊 [**Netronome**](./apps/netronome) – Netronome application.
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Personal cloud solution to store, share, and sync your files.
 - 🌴 [**Palmr**](./apps/palmr) – Palmr application.
@@ -59,7 +58,6 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - 🏠 [**Home Assistant**](./apps/home-assistant) – Plateforme de domotique open source.
 - 🔌 [**Home Assistant Linky**](./apps/home-assistant-linky) – Home Assistant avec intégration Linky.
 - 📰 [**Joomla**](./apps/joomla) – Système de gestion de contenu.
-- 🎵 [**Music Assistant**](./apps/music-assistant) – Assistant de gestion musicale.
 - 📊 [**Netronome**](./apps/netronome) – Application Netronome.
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Solution de cloud personnel pour stocker, partager et synchroniser vos fichiers.
 - 🌴 [**Palmr**](./apps/palmr) – Application Palmr.
