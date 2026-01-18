@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "homeassistant",
-      "image": "ghcr.io/home-assistant/home-assistant:2026.1.1",
+      "image": "ghcr.io/home-assistant/home-assistant:2026.1.2",
       "internalPort": 8123,
       "isMain": true,
       "volumes": [
@@ -38,7 +38,7 @@
     },
     {
       "name": "ha-linky",
-      "image": "ghcr.io/bokub/ha-linky-aarch64:1.6.0",
+      "image": "ghcr.io/bokub/ha-linky-aarch64:1.7.0",
       "environment": [
         {
           "key": "SUPERVISOR_TOKEN",
