@@ -6,7 +6,7 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 4,
+  "tipi_version": 5,
   "version": "14.0.1",
   "categories": ["development"],
   "description": "Self-hosted Git service with MariaDB and optional CI/CD Actions runner. Lightweight, secure, and 100% FOSS.",
