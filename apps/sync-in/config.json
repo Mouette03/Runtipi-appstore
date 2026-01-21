@@ -5,8 +5,8 @@
   "exposable": true,
   "dynamic_config": true,
   "id": "syncin",
-  "tipi_version": 2,
-  "version": "1.10.1",
+  "tipi_version": 3,
+  "version": "1.11.0",
   "categories": ["data"],
   "short_desc": "File synchronization and collaboration suite.",
   "description": "Sync-in is a self-hosted file synchronization and collaboration solution, including user management and secure sharing.",
@@ -112,6 +112,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1767659165292,
-  "updated_at": 1768309861894,
+  "updated_at": 1769006082727,
   "min_tipi_version": "4.5.0"
 }
