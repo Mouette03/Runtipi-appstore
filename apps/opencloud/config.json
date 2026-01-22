@@ -1,0 +1,104 @@
+{
+  "name": "OpenCloud",
+  "id": "opencloud",
+  "available": true,
+  "exposable": true,
+  "force_expose": true,
+  "port": 9482,
+  "dynamic_config": true,
+  "version": "4.0.1",
+  "tipi_version": 1,
+  "categories": ["data"],
+  "description": "OpenCloud is an open-source platform that provides a secure and private way to store, access and share your files. Fork of ownCloud with performance improvements.",
+  "short_desc": "Secure and private cloud storage solution",
+  "author": "https://opencloud.eu",
+  "source": "https://github.com/opencloud-eu/opencloud",
+  "website": "https://opencloud.eu",
+  "form_fields": [
+    {
+      "type": "password",
+      "label": "Administrator password",
+      "hint": "Set the password for the admin account",
+      "description": "Password for the OpenCloud administrator account (minimum 8 characters)",
+      "min": 8,
+      "max": 50,
+      "required": true,
+      "env_variable": "OPENCLOUD_ADMIN_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Enable notification service",
+      "hint": "Enable or disable the notification service",
+      "description": "Enable email notifications for various events in OpenCloud",
+      "required": false,
+      "env_variable": "OPENCLOUD_ENABLE_NOTIFICATIONS",
+      "options": [
+        { "label": "Yes", "value": "true" },
+        { "label": "No", "value": "false" }
+     ]
+    },
+    {
+      "type": "text",
+      "label": "SMTP host",
+      "hint": "Example: smtp.mailjet.com",
+      "description": "The SMTP server hostname for sending emails",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_HOST"
+    },
+    {
+      "type": "text",
+      "label": "SMTP port",
+      "hint": "Select the SMTP server port",
+      "description": "The port number to connect to the SMTP server",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_PORT",
+      "options": [
+        { "label": "587 (STARTTLS)", "value": "587" },
+        { "label": "465 (SSL/TLS)", "value": "465" },
+        { "label": "25 (unencrypted)", "value": "25" },
+        { "label": "1025 (Mailhog/Mailpit)", "value": "1025" }
+     ]
+    },
+    {
+      "type": "text",
+      "label": "SMTP sender (From)",
+      "hint": "Example: noreply@domain.tld",
+      "description": "The email address that will appear as the sender",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_SENDER"
+    },
+    {
+      "type": "text",
+      "label": "SMTP username",
+      "hint": "SMTP user/login",
+      "description": "The username to authenticate with the SMTP server",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_USERNAME"
+    },
+    {
+      "type": "password",
+      "label": "SMTP password",
+      "hint": "SMTP password",
+      "description": "The password to authenticate with the SMTP server",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "SMTP encryption",
+      "hint": "Select the encryption method for SMTP connection",
+      "description": "The encryption protocol to use when connecting to the SMTP server",
+      "required": false,
+      "env_variable": "OPENCLOUD_SMTP_TRANSPORT_ENCRYPTION",
+      "options": [
+        { "label": "STARTTLS (587)", "value": "starttls" },
+        { "label": "SSL/TLS (465) (ssltls)", "value": "ssltls" },
+        { "label": "None", "value": "none" }
+     ]
+    }
+  ],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1769123760487,
+  "updated_at": 1769123760487,
+  "min_tipi_version": "4.5.0"
+}

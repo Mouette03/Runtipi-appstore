@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "opencloud",
+      "image": "opencloudeu/opencloud:4.0.1",
+      "internalPort": 9200,
+      "isMain": true,
+      "entrypoint": "/bin/sh",
+      "command": [
+        "-c",
+        "opencloud init --insecure true || true; opencloud server"
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/config",
+          "containerPath": "/etc/opencloud"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/data",
+          "containerPath": "/var/lib/opencloud"
+        }
+      ],
+      "environment": [
+        {
+          "key": "OC_URL",
+          "value": "https://${APP_DOMAIN}"
+        },
+        {
+          "key": "OC_INSECURE",
+          "value": "true"
+        },
+        {
+          "key": "PROXY_HTTP_ADDR",
+          "value": "0.0.0.0:9200"
+        },
+        {
+          "key": "PROXY_TLS",
+          "value": "false"
+        },
+        {
+          "key": "IDM_ADMIN_PASSWORD",
+          "value": "${OPENCLOUD_ADMIN_PASSWORD}"
+        },
+        {
+          "key": "IDM_CREATE_DEMO_USERS",
+          "value": "false"
+        },
+        {
+          "key": "OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD",
+          "value": "false"
+        },
+        {
+          "key": "START_ADDITIONAL_SERVICES",
+          "value": "${OPENCLOUD_ENABLE_NOTIFICATIONS}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_HOST",
+          "value": "${OPENCLOUD_SMTP_HOST}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_PORT",
+          "value": "${OPENCLOUD_SMTP_PORT}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_SENDER",
+          "value": "${OPENCLOUD_SMTP_SENDER}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_USERNAME",
+          "value": "${OPENCLOUD_SMTP_USERNAME}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_PASSWORD",
+          "value": "${OPENCLOUD_SMTP_PASSWORD}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_TRANSPORT_ENCRYPTION",
+          "value": "${OPENCLOUD_SMTP_TRANSPORT_ENCRYPTION}"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_INSECURE",
+          "value": "false"
+        },
+        {
+          "key": "NOTIFICATIONS_SMTP_AUTHENTICATION",
+          "value": "auto"
+        }
+      ]
+    }
+  ]
+}
