@@ -22,7 +22,14 @@
         }
       ],
       "restart": "unless-stopped",
-      "depends_on": ["matter-server"]
+      "dependsOn": ["matter-server"],
+      "healthCheck": {
+        "test": "curl --fail --silent http://127.0.0.1:8123/ >/dev/null 2>&1 || exit 1",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 30,
+        "startPeriod": "60s"
+      }
     },
     {
       "name": "matter-server",
@@ -64,7 +71,11 @@
         }
       ],
       "restart": "unless-stopped",
-      "depends_on": ["homeassistant"]
+      "dependsOn": {
+        "homeassistant": {
+          "condition": "service_healthy"
+        }
+      }
     }
   ]
 }
