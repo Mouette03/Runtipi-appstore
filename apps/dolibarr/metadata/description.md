@@ -1,6 +1,36 @@
 # Dolibarr ERP/CRM beta
 
+## ⚠️ Important - Data Migration (v22.0.4 → v22.0.5)
 
+### 🇬🇧 English
+
+**Breaking change in the data folder structure!**
+
+If you are updating from version 22.0.4 to 22.0.5, you must manually migrate your data:
+
+1. **Stop** the Dolibarr application
+2. **Access** the storage folder: `/home/username/runtipi/app-data/store-name/dolibarr/data`
+3. **Delete** the newly created folders in `data/` (created after update)
+4. **Move** these 2 folders from the root: `/home/nom-d'utilisateur/runtipi/app-data/nom-du-store/dolibarr`
+   - `db_data` → move to `data/db_data`
+   - `dolibarr` → move to `data/dolibarr`
+5. **Start** the Dolibarr application
+
+### 🇫🇷 Français
+
+**Changement majeur dans la structure du dossier data !**
+
+Si vous passez de la version 22.0.4 à 22.0.5, vous devez migrer manuellement vos données :
+
+1. **Arrêtez** l'application Dolibarr
+2. **Accédez** au dossier de stockage : `/home/nom-d'utilisateur/runtipi/app-data/nom-du-store/dolibarr/data`
+3. **Supprimez** les nouveaux dossiers créés dans `data/` (créés après la mise à jour)
+4. **Déplacez** ces 2 dossiers depuis la racine : `/home/nom-d'utilisateur/runtipi/app-data/nom-du-store/dolibarr`
+   - `db_data` → déplacer vers `data/db_data`
+   - `dolibarr` → déplacer vers `data/dolibarr`
+5. **Démarrez** l'application Dolibarr
+
+---
 
 
 
@@ -23,8 +53,6 @@ To update DOLIBARR, stop the application, then update and before restarting the 
 
 
 🔗 Official Docker source: https://hub.docker.com/r/dolibarr/dolibarr
-
-
 
 
 
