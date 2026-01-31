@@ -16,6 +16,8 @@ If you are updating from version 22.0.4 to 22.0.5, you must manually migrate you
    - `dolibarr` → move to `data/dolibarr`
 5. **Start** the Dolibarr application
 
+Need help with the migration? Join the Discord support thread: https://discord.com/channels/976934649643294750/1396196206056701973
+
 ### 🇫🇷 Français
 
 **Changement majeur dans la structure du dossier data !**
@@ -29,6 +31,8 @@ Si vous passez de la version 22.0.4 à 22.0.5, vous devez migrer manuellement vo
    - `db_data` → déplacer vers `data/db_data`
    - `dolibarr` → déplacer vers `data/dolibarr`
 5. **Démarrez** l'application Dolibarr
+
+Besoin d’aide pour la migration ? Rejoignez le fil Discord : https://discord.com/channels/976934649643294750/1396196206056701973
 
 ---
 
