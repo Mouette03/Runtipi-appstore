@@ -58,15 +58,15 @@
       "dependsOn": ["db-dolibarr"],
       "volumes": [
         {
-          "hostPath": "${APP_DATA_DIR}/data/dolibarr/documents",
+          "hostPath": "${APP_DATA_DIR}/dolibarr/documents",
           "containerPath": "/var/www/documents"
         },
         {
-          "hostPath": "${APP_DATA_DIR}/data/dolibarr/conf",
+          "hostPath": "${APP_DATA_DIR}/dolibarr/conf",
           "containerPath": "/var/www/html/conf"
         },
         {
-          "hostPath": "${APP_DATA_DIR}/data/dolibarr/custom",
+          "hostPath": "${APP_DATA_DIR}/dolibarr/custom",
           "containerPath": "/var/www/html/custom"
         }
       ]
@@ -94,7 +94,7 @@
       ],
       "volumes": [
         {
-          "hostPath": "${APP_DATA_DIR}/data/db_data",
+          "hostPath": "${APP_DATA_DIR}/db_data",
           "containerPath": "/var/lib/mysql"
         }
       ]
