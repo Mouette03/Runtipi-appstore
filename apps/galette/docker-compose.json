@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "galette",
-      "image": "galette/galette:1.2.0.1",
+      "image": "galette/galette:1.2.1",
       "internalPort": 80,
       "isMain": true,
       "environment": [
