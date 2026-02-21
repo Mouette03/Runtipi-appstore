@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "arcane",
-      "image": "ghcr.io/getarcaneapp/arcane:v1.14.1",
+      "image": "ghcr.io/getarcaneapp/arcane:v1.15.3",
       "internalPort": 3552,
       "isMain": true,
       "volumes": [

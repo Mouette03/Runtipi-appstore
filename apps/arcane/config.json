@@ -5,8 +5,8 @@
   "dynamic_config": true,
   "port": 3552,
   "available": true,
-  "tipi_version": 6,
-  "version": "1.14.1",
+  "tipi_version": 7,
+  "version": "1.15.3",
   "categories": ["utilities"],
   "description": "Arcane is a modern Docker management interface designed for self-hosted environments. Secure socket proxy included. Manage containers, images, networks with granular permissions.",
   "short_desc": "Modern Docker management interface.",
@@ -35,6 +35,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1767488146261,
-  "updated_at": 1770763612253,
+  "updated_at": 1771685523943,
   "min_tipi_version": "4.5.0"
 }
