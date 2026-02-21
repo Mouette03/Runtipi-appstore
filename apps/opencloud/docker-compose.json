@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "opencloud",
-      "image": "opencloudeu/opencloud:4.0.1",
+      "image": "opencloudeu/opencloud:4.0.3",
       "internalPort": 9200,
       "isMain": true,
       "entrypoint": "/bin/sh",
