@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "joomla",
-      "image": "joomla:6.0.2-php8.3-apache",
+      "image": "joomla:6.0.3-php8.3-apache",
       "internalPort": 80,
       "isMain": true,
       "dependsOn": {

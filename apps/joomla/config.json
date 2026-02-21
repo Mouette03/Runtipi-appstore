@@ -5,8 +5,8 @@
   "port": 7614,
   "dynamic_config": true,
   "id": "joomla",
-  "tipi_version": 2,
-  "version": "6.0.2",
+  "tipi_version": 3,
+  "version": "6.0.3",
   "categories": ["social"],
   "description": "Joomla is a powerful and flexible open-source CMS for complex websites, blogs and applications with native multilingual support.",
   "short_desc": "Flexible open-source CMS for websites and blogs.",
@@ -43,6 +43,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1764536382715,
-  "updated_at": 1768760032646,
+  "updated_at": 1771685523943,
   "min_tipi_version": "4.5.0"
 }
