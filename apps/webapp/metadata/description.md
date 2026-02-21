@@ -1,5 +1,3 @@
-RC version test application
-
 \# WebApp – Lightweight PHP \& Apache Web Hosting with Extended Capabilities
 
 
