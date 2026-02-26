@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "nextcloud",
-      "image": "nextcloud:32.0.6-apache",
+      "image": "nextcloud:33.0.0-apache",
       "environment": [
         {
           "key": "POSTGRES_HOST",
@@ -102,7 +102,7 @@
     },
     {
       "name": "cron",
-      "image": "nextcloud:32.0.6-apache",
+      "image": "nextcloud:33.0.0-apache",
       "entrypoint": "/cron.sh",
       "dependsOn": ["db-nextcloud", "redis-nextcloud"],
       "volumes": [
