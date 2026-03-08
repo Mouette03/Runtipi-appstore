@@ -10,8 +10,8 @@
   "author": "phpmyadmin",
   "categories": ["data"],
   "description": "Web interface to manage your MySQL/MariaDB databases.",
-  "source": "https://github.com/phpmyadmin/docker",
   "website": "https://www.phpmyadmin.net/",
+  "source": "https://github.com/phpmyadmin/docker",
   "supported_architectures": [
     "arm64",
     "amd64"

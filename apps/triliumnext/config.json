@@ -11,6 +11,7 @@
   "categories": ["utilities"],
   "short_desc": "An open-source, self-hosted Notion alterative",
   "author": "Trilliumnext",
+  "website": "https://triliumnext.com/",
   "source": "https://github.com/TriliumNext",
   "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],

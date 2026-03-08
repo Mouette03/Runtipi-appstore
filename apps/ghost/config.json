@@ -11,6 +11,7 @@
   "description": "Ghost is a modern open-source CMS for writers with Markdown editor, newsletters, memberships.",
   "short_desc": "Ghost is a simple, open-source CMS for publishing content and newsletters.",
   "author": "TryGhost",
+  "website": "https://ghost.org/",
   "source": "https://github.com/TryGhost/Ghost",
   "form_fields": [
     {

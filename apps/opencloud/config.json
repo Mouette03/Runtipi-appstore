@@ -12,8 +12,8 @@
   "description": "OpenCloud is an open-source platform that provides a secure and private way to store, access and share your files. Fork of ownCloud with performance improvements.",
   "short_desc": "Secure and private cloud storage solution",
   "author": "https://opencloud.eu",
-  "source": "https://github.com/opencloud-eu/opencloud",
   "website": "https://opencloud.eu",
+  "source": "https://github.com/opencloud-eu/opencloud",
   "form_fields": [
     {
       "type": "password",

@@ -12,6 +12,7 @@
   "description": "Self-hosted Git service with MariaDB and optional CI/CD Actions runner. Lightweight, secure, and 100% FOSS.",
   "short_desc": "Beyond coding. We forge.",
   "author": "forgejo",
+  "website": "https://forgejo.org/",
   "source": "https://codeberg.org/forgejo/forgejo/",
   "form_fields": [
     {

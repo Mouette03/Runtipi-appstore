@@ -11,8 +11,8 @@
   "short_desc": "File synchronization and collaboration suite.",
   "description": "Sync-in is a self-hosted file synchronization and collaboration solution, including user management and secure sharing.",
   "author": "Sync-in",
-  "source": "https://github.com/Sync-in",
   "website": "https://sync-in.com/",
+  "source": "https://github.com/Sync-in",
   "form_fields": [
     {
       "type": "text",

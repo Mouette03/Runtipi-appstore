@@ -11,8 +11,8 @@
   "categories": ["social"],
   "short_desc": "Popular CMS for websites and blogs",
   "author": "WordPress.org",
-  "source": "https://hub.docker.com/_/wordpress",
   "website": "https://wordpress.org",
+  "source": "https://hub.docker.com/_/wordpress",
   "form_fields": [
     {
       "type": "random",

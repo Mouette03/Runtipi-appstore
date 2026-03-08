@@ -11,6 +11,7 @@
   "description": "Joomla is a powerful and flexible open-source CMS for complex websites, blogs and applications with native multilingual support.",
   "short_desc": "Flexible open-source CMS for websites and blogs.",
   "author": "Joomla",
+  "website": "https://www.joomla.org/",
   "source": "https://github.com/joomla/joomla-cms",
   "form_fields": [
     {
