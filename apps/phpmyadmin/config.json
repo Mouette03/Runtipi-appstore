@@ -1,5 +1,6 @@
 {
   "name": "Phpmyadmin",
+  "id": "phpmyadmin",
   "available": true,
   "exposable": true,
   "dynamic_config": true,
