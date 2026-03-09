@@ -1,11 +1,11 @@
 {
-  "name": "Phpmyadmin",
+  "name": "PhpMyAdmin",
   "id": "phpmyadmin",
   "available": true,
   "exposable": true,
   "dynamic_config": true,
   "port": 5485,
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "5.2.3",
   "short_desc": "Manage your MySQL/MariaDB.",
   "author": "phpmyadmin",
