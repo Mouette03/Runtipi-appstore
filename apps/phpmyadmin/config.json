@@ -12,10 +12,8 @@
   "description": "Web interface to manage your MySQL/MariaDB databases.",
   "website": "https://www.phpmyadmin.net/",
   "source": "https://github.com/phpmyadmin/docker",
-  "supported_architectures": [
-    "arm64",
-    "amd64"
-  ],
+  "form_fields": [],
+  "supported_architectures": ["arm64", "amd64"],
   "created_at": 1766443911500,
   "updated_at": 1766443911500,
   "min_tipi_version": "4.5.0"
