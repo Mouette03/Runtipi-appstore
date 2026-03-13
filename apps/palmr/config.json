@@ -1,10 +1,10 @@
 {
   "name": "Palmr",
+  "id": "palmr",
   "available": false,
   "port": 5487,
   "exposable": true,
   "dynamic_config": true,
-  "id": "palmr",
   "description": "Palmr is a fast and secure platform for sharing files, built with performance and privacy in mind.",
   "tipi_version": 9,
   "version": "v3.3.2-beta",
