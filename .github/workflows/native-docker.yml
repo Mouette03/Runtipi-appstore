@@ -1,0 +1,33 @@
+name: Runtipi Native Docker Migration
+
+on:
+  workflow_dispatch:          # déclenchement manuel depuis GitHub
+
+jobs:
+  codemod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run codemod (dry-run)
+        run: npx codemod@latest @runtipi/native-docker
+
+      - name: Run codemod (write)
+        run: npx codemod@latest @runtipi/native-docker --param write=true --param force=true --param delete_json=true
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "chore: migrate to native docker-compose.yml" || echo "Rien à commiter"
+          git push
