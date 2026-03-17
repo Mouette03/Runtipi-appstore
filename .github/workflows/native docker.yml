@@ -1,0 +1,67 @@
+name: Runtipi Native Docker Migration
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Execution mode"
+        required: true
+        default: 'dry-run'
+        type: choice
+        options:
+        - dry-run
+        - write
+      delete_json:
+        description: "Delete docker-compose.json after migration? (write mode only)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  codemod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Run codemod
+        run: |
+          echo "Mode: ${{ github.event.inputs.mode }}"
+          echo "Delete JSON: ${{ github.event.inputs.delete_json }}"
+
+          if [ "${{ github.event.inputs.mode }}" = "write" ]; then
+            echo "🚀 Running in WRITE mode"
+
+            if [ "${{ github.event.inputs.delete_json }}" = "true" ]; then
+              echo "🗑️ JSON deletion enabled"
+              npx codemod@latest @runtipi/native-docker --param write=true --param force=true --param delete_json=true
+            else
+              echo "📁 JSON files kept"
+              npx codemod@latest @runtipi/native-docker --param write=true --param force=true
+            fi
+
+          else
+            echo "🔍 Running in DRY-RUN mode (simulation)"
+            npx codemod@latest @runtipi/native-docker
+          fi
+
+      - name: Commit changes (write mode only)
+        if: github.event.inputs.mode == 'write'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "chore: migrate to native docker-compose.yml" || echo "No changes to commit"
+          git pull --rebase origin main
+          git push
