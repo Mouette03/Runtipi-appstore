@@ -6,7 +6,7 @@
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `GHOST_DATABASE_PASSWORD` | Database password (auto-generated) | Yes |
+| `GHOST_DATABASE_PASSWORD` | Database password (to be changed) | Yes |
 | `GHOST_MAIL_SERVICE` | Mail service name (SendGrid, Mailjet) | No |
 | `GHOST_MAIL_HOST` | SMTP Server | No |
 | `GHOST_MAIL_PORT` | SMTP Port (587/465) | No |
@@ -36,7 +36,7 @@ Showcase site + news + voter newsletter
 
 | Variable | Description | Requis |
 |----------|-------------|--------|
-| `GHOST_DATABASE_PASSWORD` | Mot de passe DB (généré auto) | Oui |
+| `GHOST_DATABASE_PASSWORD` | Mot de passe DB (à modifier) | Oui |
 | `GHOST_MAIL_SERVICE` | Nom service (SendGrid, Mailjet) | Non |
 | `GHOST_MAIL_HOST` | Serveur SMTP | Non |
 | `GHOST_MAIL_PORT` | Port SMTP (587/465) | Non |
