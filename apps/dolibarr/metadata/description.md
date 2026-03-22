@@ -1,12 +1,12 @@
 # Dolibarr ERP/CRM beta
 
-## ⚠️ Important - Data Migration (v22.0.4 → v22.0.5)
+## ⚠️ Important - Data Migration (v22.0.4 → v23.0.0)
 
 ### 🇬🇧 English
 
 **Breaking change in the data folder structure!**
 
-If you are updating from version 22.0.4 to 22.0.5, you must manually migrate your data:
+If you are updating from version 22.0.4 to 23.0.0, you must manually migrate your data:
 
 1. **Stop** the Dolibarr application
 2. **Access** the storage folder: `/home/username/runtipi/app-data/store-name/dolibarr/data`
@@ -22,7 +22,7 @@ Need help with the migration? Join the Discord support thread: https://discord.c
 
 **Changement majeur dans la structure du dossier data !**
 
-Si vous passez de la version 22.0.4 à 22.0.5, vous devez migrer manuellement vos données :
+Si vous passez de la version 22.0.4 à 23.0.0, vous devez migrer manuellement vos données :
 
 1. **Arrêtez** l'application Dolibarr
 2. **Accédez** au dossier de stockage : `/home/nom-d'utilisateur/runtipi/app-data/nom-du-store/dolibarr/data`
