@@ -5,6 +5,9 @@
     {
       "name": "nextcloud",
       "image": "nextcloud:33.0.0-apache",
+      "internalPort": 80,
+      "isMain": true,
+      "dependsOn": ["db-nextcloud", "redis-nextcloud"],
       "environment": [
         {
           "key": "POSTGRES_HOST",
@@ -12,7 +15,7 @@
         },
         {
           "key": "REDIS_HOST",
-          "value": "redis-nextcloud"
+          "value": "redis-nextcloud"  
         },
         {
           "key": "POSTGRES_PASSWORD",
@@ -55,15 +58,17 @@
           "value": "${PHP_UPLOAD_LIMIT}"
         }
       ],
-      "internalPort": 80,
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/nextcloud",
           "containerPath": "/var/www/html"
         }
       ],
-      "dependsOn": ["db-nextcloud", "redis-nextcloud"],
-      "isMain": true
+      "extraLabels": {
+        "traefik.http.middlewares.hsts.headers.stsSeconds": "15552000",
+        "traefik.http.middlewares.hsts.headers.stsIncludeSubdomains": "true",
+        "traefik.http.routers.{{RUNTIPI_APP_ID}}.middlewares": "hsts@docker"
+      }
     },
     {
       "name": "db-nextcloud",
