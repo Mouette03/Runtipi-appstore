@@ -47,7 +47,7 @@
     },
     {
       "name": "db-galette",
-      "image": "mariadb:12.2",
+      "image": "mariadb:12.2.2",
       "environment": [
         {
           "key": "MARIADB_ROOT_PASSWORD",

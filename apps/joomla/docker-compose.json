@@ -54,7 +54,7 @@
     },
     {
       "name": "db-joomla",
-      "image": "mariadb:12",
+      "image": "mariadb:12.2.2",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",
