@@ -9,14 +9,6 @@ Highlights
 
 Convert web pages, HTML, and documents to PDF
 
-Self‑hosted: no third‑party API, your data stays on‑premises
-
-Lightweight and easy to deploy via Docker
-
-Simple HTTP API for integration into other services
-
-Minimal configuration for basic use cases
-
 🇫🇷 Français
 
 BentoPDF est un service autonome de conversion et de visualisation de PDF qui vous permet de transformer des documents, des pages web et d’autres contenus en PDF propres sur votre propre serveur.
@@ -26,11 +18,3 @@ Que ce soit pour automatiser la génération de PDF ou pour proposer des aperçu
 Points clés
 
 Conversion de pages web, HTML et documents en PDF
-
-Hébergement autonome : pas d’API tiers, vos données restent en local
-
-Léger et facile à déployer via Docker
-
-API HTTP simple pour intégration dans d’autres services
-
-Configuration minimale pour les cas d’usage de base
