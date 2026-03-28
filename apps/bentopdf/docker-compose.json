@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "bentopdf",
+      "image": "ghcr.io/alam00000/bentopdf-simple:2.7.0",
+      "internalPort": 8080,
+      "isMain": true,
+      "environment": [
+        {
+          "key": "DISABLE_IPV6",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}

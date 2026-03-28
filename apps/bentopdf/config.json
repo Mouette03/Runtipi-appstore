@@ -1,0 +1,21 @@
+{
+  "name": "BentoPDF",
+  "available": true,
+  "port": 4985,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "bentopdf",
+  "description": "BentoPDF is a self‑hosted PDF converter and viewer service.",
+  "tipi_version": 1,
+  "version": "2.7.0",
+  "categories": ["utilities"],
+  "short_desc": "PDF converter",
+  "author": "alam00000",
+  "source": "https://github.com/alam00000/bentopdf",
+  "website": "https://github.com/alam00000/bentopdf",
+  "form_fields": [],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1774568500492,
+  "updated_at": 1774568500492,
+  "min_tipi_version": "4.5.0"
+}
