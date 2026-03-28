@@ -7,15 +7,15 @@ BentoPDF is ideal for converting reports, web pages, forms, and internal documen
 Whether you need to automate PDF generation or offer PDF previews in your apps, BentoPDF handles it quietly in the background.
 Highlights
 
-    Convert web pages, HTML, and documents to PDF
+Convert web pages, HTML, and documents to PDF
 
-    Self‑hosted: no third‑party API, your data stays on‑premises
+Self‑hosted: no third‑party API, your data stays on‑premises
 
-    Lightweight and easy to deploy via Docker
+Lightweight and easy to deploy via Docker
 
-    Simple HTTP API for integration into other services
+Simple HTTP API for integration into other services
 
-    Minimal configuration for basic use cases
+Minimal configuration for basic use cases
 
 🇫🇷 Français
 
@@ -25,12 +25,12 @@ BentoPDF est idéal pour convertir des rapports, des pages web, des formulaires 
 Que ce soit pour automatiser la génération de PDF ou pour proposer des aperçus PDF dans vos applications, BentoPDF fonctionne discrètement en arrière‑plan.
 Points clés
 
-    Conversion de pages web, HTML et documents en PDF
+Conversion de pages web, HTML et documents en PDF
 
-    Hébergement autonome : pas d’API tiers, vos données restent en local
+Hébergement autonome : pas d’API tiers, vos données restent en local
 
-    Léger et facile à déployer via Docker
+Léger et facile à déployer via Docker
 
-    API HTTP simple pour intégration dans d’autres services
+API HTTP simple pour intégration dans d’autres services
 
-    Configuration minimale pour les cas d’usage de base
+Configuration minimale pour les cas d’usage de base
