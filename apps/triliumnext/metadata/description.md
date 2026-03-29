@@ -1,10 +1,10 @@
-<details><summary>English</summary>
+<details><summary>🇬🇧 English</summary>
 
-Trilium Notes — Hierarchical note-taking designed for building large personal knowledge bases.
+TriliumNext — Hierarchical note-taking designed for building large personal knowledge bases.
 
 Short description
 
-Trilium Notes is a hierarchical note‑taking application designed to create, organize and explore large personal knowledge bases.
+TriliumNext is a hierarchical note‑taking application designed to create, organize and explore large personal knowledge bases.
 
 Features
 
@@ -27,13 +27,13 @@ Install, create your first note, organise content into branches, add links and t
 
 </details>
 
-<details><summary>Français</summary>
+<details><summary>🇫🇷 Français</summary>
 
-Trilium Notes — Prise de notes hiérarchique pour de grandes bases de connaissances personnelles.
+TriliumNext — Prise de notes hiérarchique pour de grandes bases de connaissances personnelles.
 
 Courte description
 
-Trilium Notes est une application de prise de notes hiérarchique conçue pour créer, organiser et explorer de grandes bases de connaissances personnelles.
+TriliumNext est une application de prise de notes hiérarchique conçue pour créer, organiser et explorer de grandes bases de connaissances personnelles.
 
 Fonctionnalités
 
