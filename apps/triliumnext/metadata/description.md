@@ -25,7 +25,7 @@ Getting started
 
 Install, create your first note, organise content into branches, add links and tags — Trilium grows with your knowledge.
 
-</details>
+
 
 🇫🇷 Français
 
