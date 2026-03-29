@@ -1,4 +1,4 @@
-<details><summary>🇬🇧 English</summary>
+🇬🇧 English
 
 TriliumNext — Hierarchical note-taking designed for building large personal knowledge bases.
 
@@ -27,7 +27,7 @@ Install, create your first note, organise content into branches, add links and t
 
 </details>
 
-<details><summary>🇫🇷 Français</summary>
+🇫🇷 Français
 
 TriliumNext — Prise de notes hiérarchique pour de grandes bases de connaissances personnelles.
 
