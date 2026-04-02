@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "vert",
-      "image": "ghcr.io/vert-sh/vert:sha-9154213",
+      "image": "ghcr.io/vert-sh/vert:sha-438f91a",
       "isMain": true,
       "internalPort": 80
     }
