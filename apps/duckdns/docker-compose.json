@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "duckdns",
-      "image": "lscr.io/linuxserver/duckdns:02448f72-ls75",
+      "image": "ghcr.io/linuxserver/duckdns:version-36a2e3a3",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/config",

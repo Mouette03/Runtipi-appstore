@@ -6,8 +6,8 @@
   "dynamic_config": true,
   "id": "bentopdf",
   "description": "BentoPDF is a self‑hosted PDF converter and viewer service.",
-  "tipi_version": 1,
-  "version": "2.7.0",
+  "tipi_version": 2,
+  "version": "2.8.2",
   "categories": ["utilities"],
   "short_desc": "PDF converter",
   "author": "alam00000",
@@ -16,6 +16,6 @@
   "form_fields": [],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1774568500492,
-  "updated_at": 1774568500492,
+  "updated_at": 1776186517005,
   "min_tipi_version": "4.5.0"
 }
