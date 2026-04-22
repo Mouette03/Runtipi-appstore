@@ -1,0 +1,84 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Filyo",
+  "id": "filyo",
+  "port": 3587,
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 1,
+  "version": "v1.2.0",
+  "categories": ["utilities"],
+  "description": "Self-hosted file sharing with reverse upload requests & password-protected expiry links",
+  "short_desc": "Self-hosted file manager",
+  "author": "Mouette03",
+  "source": "https://github.com/mouette03/filyo",
+  "website": "https://github.com/mouette03/filyo",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "JWT Secret",
+      "min": 32,
+      "max": 32,
+      "env_variable": "FILYO_JWT_SECRET"
+    },
+    {
+      "type": "text",
+      "label": "Log Level",
+      "required": false,
+      "default": "warn",
+      "options": [
+        {"label": "silent", "value": "silent"},
+        {"label": "fatal", "value": "fatal"},
+        {"label": "warn", "value": "warn"},
+        {"label": "info", "value": "info"},
+        {"label": "debug", "value": "debug"}
+      ],
+      "hint": "Minimum log level (Pino). Use debug for verbose output, warn for quiet, silent to disable all logs.",
+      "env_variable": "FILYO_LOG_LEVEL"
+    },
+    {
+      "type": "text",
+      "label": "Trust Proxy",
+      "required": false,
+      "default": "true",
+      "options": [
+        {"label": "false", "value": "false"},
+        {"label": "true", "value": "true"},
+        {"label": "127.0.0.1", "value": "127.0.0.1"}
+      ],
+      "hint": "Trust level for reverse proxy headers (X-Forwarded-*). Accepts false, true, an IP address, or a CIDR range (e.g. 10.0.0.0/8). Enable only if Filyo is behind a trusted proxy.",
+      "env_variable": "FILYO_TRUST_PROXY"
+    },
+    {
+      "type": "number",
+      "label": "TUS Chunk Size (MB)",
+      "required": false,
+      "default": 90,
+      "hint": "Chunk size in MB for proxy-safe upload mode. Lower this if your proxy rejects large requests (Cloudflare: 100 MB, Nginx default: 1 MB, Vercel: 4.5 MB). Has no effect when proxy-safe mode is disabled.",
+      "env_variable": "FILYO_TUS_CHUNK_MB"
+    },
+    {
+      "type": "text",
+      "label": "Cleanup Interval",
+      "required": false,
+      "default": "1h",
+      "placeholder": "1h",
+      "hint": "Interval between scheduled cleanup runs (expired files + incomplete TUS uploads). Accepts formats like 30m or 2h.",
+      "env_variable": "FILYO_CLEANUP_INTERVAL"
+    },
+    {
+      "type": "text",
+      "label": "Default Registration Quota",
+      "required": false,
+      "default": "500MB",
+      "placeholder": "500MB",
+      "hint": "Default storage quota for users who self-register. Accepts formats like 500MB or 2GB. Set to 0 or leave empty for no quota. Has no effect on accounts created by an admin.",
+      "env_variable": "FILYO_REGISTER_DEFAULT_QUOTA"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1775256417005,
+  "updated_at": 1745366400000,
+  "min_tipi_version": "4.5.0"
+}

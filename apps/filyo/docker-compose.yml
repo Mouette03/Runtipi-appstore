@@ -1,0 +1,24 @@
+services:
+  filyo:
+    image: 'ghcr.io/mouette03/filyo:v1.2.0'
+    volumes:
+      - '${APP_DATA_DIR}/data:/data'
+    environment:
+      - 'NODE_ENV=production'
+      - 'JWT_SECRET=${FILYO_JWT_SECRET}'
+      - 'TRUST_PROXY=${FILYO_TRUST_PROXY}'
+      - 'CLEANUP_INTERVAL=${FILYO_CLEANUP_INTERVAL}'
+      - 'TUS_CHUNK_MB=${FILYO_TUS_CHUNK_MB}'
+      - 'REGISTER_DEFAULT_QUOTA=${FILYO_REGISTER_DEFAULT_QUOTA}'
+      - 'LOG_LEVEL=${FILYO_LOG_LEVEL}'
+    healthcheck:
+      test: 'wget -qO- http://127.0.0.1:3001/health'
+      interval: '30s'
+      timeout: '10s'
+      retries: 3
+      start_period: '20s'
+    x-runtipi:
+      internal_port: 3001
+      is_main: true
+x-runtipi:
+  schema_version: 2
