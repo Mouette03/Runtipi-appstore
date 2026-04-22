@@ -1,33 +1,34 @@
 {
-  "services": {
-    "filyo": {
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "filyo",
       "image": "ghcr.io/mouette03/filyo:v1.2.0",
-      "volumes": [
-        "${APP_DATA_DIR}/data:/data"
-      ],
+      "internalPort": 3001,
       "environment": [
-        "NODE_ENV=production",
-        "JWT_SECRET=${FILYO_JWT_SECRET}",
-        "TRUST_PROXY=${FILYO_TRUST_PROXY}",
-        "CLEANUP_INTERVAL=${FILYO_CLEANUP_INTERVAL}",
-        "TUS_CHUNK_MB=${FILYO_TUS_CHUNK_MB}",
-        "REGISTER_DEFAULT_QUOTA=${FILYO_REGISTER_DEFAULT_QUOTA}",
-        "LOG_LEVEL=${FILYO_LOG_LEVEL}"
+        { "key": "NODE_ENV", "value": "production" },
+        { "key": "JWT_SECRET", "value": "${FILYO_JWT_SECRET}" },
+        { "key": "TRUST_PROXY", "value": "${FILYO_TRUST_PROXY}" },
+        { "key": "CLEANUP_INTERVAL", "value": "${FILYO_CLEANUP_INTERVAL}" },
+        { "key": "TUS_CHUNK_MB", "value": "${FILYO_TUS_CHUNK_MB}" },
+        { "key": "REGISTER_DEFAULT_QUOTA", "value": "${FILYO_REGISTER_DEFAULT_QUOTA}" },
+        { "key": "LOG_LEVEL", "value": "${FILYO_LOG_LEVEL}" }
       ],
-      "healthcheck": {
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
         "test": "wget -qO- http://127.0.0.1:3001/health",
         "interval": "30s",
         "timeout": "10s",
         "retries": 3,
-        "start_period": "20s"
+        "startPeriod": "20s"
       },
-      "x-runtipi": {
-        "internal_port": 3001,
-        "is_main": true
-      }
+      "isMain": true
     }
-  },
-  "x-runtipi": {
-    "schema_version": 2
-  }
+  ]
 }
