@@ -1,7 +1,7 @@
 🇬🇧 **English**
 
 # 🇬🇧 Filyo — Private & Local File Transfer
-A modern, privacy-first self-hosted file transfer app with dark glassmorphism UI. 100% data stored locally (SQLite + filesystem), no S3, no external cloud.
+A modern, privacy-first self-hosted file transfer app with glassmorphism UI. 100% data stored locally (SQLite + filesystem), no S3, no external cloud.
 
 **Key features:**
 - Secure share links with optional password protection and max-download limits.
@@ -20,7 +20,7 @@ All data is stored locally (SQLite + local filesystem). No S3, no external depen
 🇫🇷 **Français**
 
 # 🇫🇷 Filyo — Transfert de fichiers local & privé
-Application d'échange de fichiers auto-hébergée, moderne et sécurisée, avec interface glassmorphism sombre. Données 100% locales (SQLite + disque), pas de cloud externe.
+Application d'échange de fichiers auto-hébergée, moderne et sécurisée, avec interface glassmorphism. Données 100% locales (SQLite + disque), pas de cloud externe.
 
 **Fonctionnalités clés :**
 - Liens de partage avec mot de passe optionnel et limites de téléchargements.
