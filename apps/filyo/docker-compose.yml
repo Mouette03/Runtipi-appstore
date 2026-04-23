@@ -1,6 +1,6 @@
 services:
   filyo:
-    image: 'ghcr.io/mouette03/filyo:v1.2.0'
+    image: 'ghcr.io/mouette03/filyo:v1.2.1'
     volumes:
       - '${APP_DATA_DIR}/data:/data'
     environment:
