@@ -1,4 +1,6 @@
-﻿🇬🇧 **English**
+﻿App Beta
+
+🇬🇧 **English**
 
 # Filyo — Private & Local File Transfer
 

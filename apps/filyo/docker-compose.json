@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "filyo",
-      "image": "ghcr.io/mouette03/filyo:v1.2.1",
+      "image": "ghcr.io/mouette03/filyo:v1.2.2",
       "internalPort": 3001,
       "environment": [
         { "key": "NODE_ENV", "value": "production" },
