@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "filyo",
+      "image": "ghcr.io/mouette03/filyo:v1.2.3-mariadb",
+      "internalPort": 3001,
+      "isMain": true,
+      "environment": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "JWT_SECRET",
+          "value": "${FILYO_JWT_SECRET}"
+        },
+        {
+          "key": "TRUST_PROXY",
+          "value": "${FILYO_TRUST_PROXY}"
+        },
+        {
+          "key": "CLEANUP_INTERVAL",
+          "value": "${FILYO_CLEANUP_INTERVAL}"
+        },
+        {
+          "key": "TUS_CHUNK_MB",
+          "value": "${FILYO_TUS_CHUNK_MB}"
+        },
+        {
+          "key": "REGISTER_DEFAULT_QUOTA",
+          "value": "${FILYO_REGISTER_DEFAULT_QUOTA}"
+        },
+        {
+          "key": "LOG_LEVEL",
+          "value": "${FILYO_LOG_LEVEL}"
+        },
+        {
+          "key": "DB_HOST",
+          "value": "db-filyo"
+        },
+        {
+          "key": "DB_USER",
+          "value": "filyo"
+        },
+        {
+          "key": "DB_PASSWORD",
+          "value": "${FILYO_MYSQL_PASSWORD}"
+        },
+        {
+          "key": "DB_NAME",
+          "value": "filyo"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/filyo",
+          "containerPath": "/data"
+        }
+      ],
+      "healthCheck": {
+        "test": "node -e \"require('http').get('http://127.0.0.1:3001/health', r => process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))\"",
+        "interval": "30s",
+        "timeout": "10s",
+        "retries": 3,
+        "startPeriod": "20s"
+      },
+      "dependsOn": {
+        "db-filyo": {
+          "condition": "service_healthy"
+        }
+      }
+    },
+    {
+      "name": "db-filyo",
+      "image": "mariadb:12.2",
+      "environment": [
+        {
+          "key": "MYSQL_ROOT_PASSWORD",
+          "value": "${FILYO_MYSQL_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_PASSWORD",
+          "value": "${FILYO_MYSQL_PASSWORD}"
+        },
+        {
+          "key": "MYSQL_DATABASE",
+          "value": "filyo"
+        },
+        {
+          "key": "MYSQL_USER",
+          "value": "filyo"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/mariadb",
+          "containerPath": "/var/lib/mysql"
+        }
+      ],
+      "healthCheck": {
+        "test": "mariadb-admin ping -h 127.0.0.1 -u\"${MYSQL_USER}\" -p\"${FILYO_MYSQL_PASSWORD}\" --silent",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 10,
+        "startPeriod": "60s"
+      }
+    }
+  ]
+}
