@@ -3,7 +3,7 @@
   "name": "Filyo",
   "id": "filyo",
   "port": 3587,
-  "available": false,
+  "available": true,
   "exposable": true,
   "force_expose": true,
   "dynamic_config": true,
