@@ -10,7 +10,7 @@
   "version": "v1.2.3",
   "categories": ["utilities"],
   "description": "Self-hosted file sharing with reverse upload requests & password-protected expiry links",
-  "short_desc": "Self-hosted file manager",
+  "short_desc": "Self-hosted file sharing",
   "author": "Mouette03",
   "source": "https://github.com/mouette03/filyo",
   "website": "https://github.com/mouette03/filyo",
