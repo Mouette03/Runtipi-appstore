@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "homeassistant",
-      "image": "ghcr.io/home-assistant/home-assistant:2026.4.2",
+      "image": "ghcr.io/home-assistant/home-assistant:2026.4.4",
       "internalPort": 8123,
       "isMain": true,
       "volumes": [
