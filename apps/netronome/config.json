@@ -3,7 +3,7 @@
   "id": "netronome",
   "port": 7596,
   "available": true,
-  "exposable": true,
+  "exposable": false,
   "dynamic_config": true,
   "tipi_version": 5,
   "version": "0.11.0",
