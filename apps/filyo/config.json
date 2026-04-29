@@ -7,7 +7,7 @@
   "exposable": true,
   "force_expose": true,
   "dynamic_config": true,
-  "tipi_version": 5,
+  "tipi_version": 6,
   "version": "v1.2.4",
   "categories": ["utilities"],
   "description": "Self-hosted file sharing with reverse upload requests & password-protected expiry links",
