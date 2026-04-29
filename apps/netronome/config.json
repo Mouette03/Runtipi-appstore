@@ -2,7 +2,7 @@
   "name": "Netronome",
   "id": "netronome",
   "port": 7596,
-  "available": false,
+  "available": true,
   "exposable": true,
   "dynamic_config": true,
   "tipi_version": 6,
