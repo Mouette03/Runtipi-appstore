@@ -9,6 +9,30 @@ Replace `<user>` with your Linux username and `<store>` with the name you gave t
 ```sh
 sudo chown -R 101:102 /home/<user>/runtipi/app-data/<store>/netronome/data
 ```
+
+---
+
+**How to generate the configuration file**
+
+⚠️ The application will not be accessible until the configuration file is generated.
+
+After setting the permissions, you must generate the Netronome configuration file inside the running container.
+
+1. First, find the name of your Netronome container:
+
+```sh
+sudo docker ps
+```
+
+Look for the container name in the last column (for example: `netronome_test-netronome-1`).
+
+2. Then, run the following command, replacing `<container_name>` with the name you found:
+
+```sh
+sudo docker exec -it <container_name> netronome generate-config
+```
+
+Once this is done, the application will now be accessible.
 🇫🇷 **Note :** Pour éviter les erreurs de permissions (par exemple : `Failed to set database directory permissions error=\"chmod /data/.config/netronome: operation not permitted\"`), assurez-vous que le dossier de données monté dans le conteneur (par exemple `/data`) possède les bonnes permissions. Le dossier doit appartenir à l'utilisateur et au groupe avec les IDs `101:102` (ou équivalent). Vous pouvez appliquer cela sur votre hôte avec :
 
 Le chemin par défaut à adapter est généralement :
@@ -20,6 +44,31 @@ Remplacez `<utilisateur>` par votre nom d'utilisateur Linux et `<store>` par le 
 ```sh
 sudo chown -R 101:102 /home/<utilisateur>/runtipi/app-data/<store>/netronome/data
 ```
+
+---
+
+**Générer le fichier de configuration**
+
+⚠️ L'application ne sera pas accessible tant que le fichier de configuration n'aura pas été généré.
+
+Après avoir réglé les permissions, vous devez générer le fichier de configuration Netronome à l'intérieur du conteneur en cours d'exécution.
+
+1. Commencez par trouver le nom de votre conteneur Netronome :
+
+```sh
+sudo docker ps
+```
+
+Repérez le nom du conteneur dans la dernière colonne (par exemple : `netronome_test-netronome-1`).
+
+2. Exécutez ensuite la commande suivante, en remplaçant `<nom_du_conteneur>` par le nom trouvé :
+
+```sh
+sudo docker exec -it <nom_du_conteneur> netronome generate-config
+```
+
+Une fois cette étape terminée, l'application sera accessible.
+
 
 
 🇬🇧 English Description
