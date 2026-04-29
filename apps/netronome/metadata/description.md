@@ -1,3 +1,26 @@
+
+---
+
+🇬🇧 **Post-installation step:**
+
+After the first launch, you need to generate the configuration file.
+1. Run `sudo docker ps` to find the exact name of the Netronome container (for example, `netronome_test-netronome-1`, but it may differ depending on your setup).
+2. Then, execute the following command, replacing `<container_name>` with the actual name:
+
+	docker exec -it <container_name> netronome generate-config
+
+---
+
+🇫🇷 **Étape après installation :**
+
+Après le premier lancement, il est nécessaire de générer le fichier de configuration.
+1. Exécutez `sudo docker ps` pour trouver le nom exact du conteneur Netronome (par exemple `netronome_test-netronome-1`, mais il peut varier selon votre installation).
+2. Lancez ensuite la commande suivante en remplaçant `<nom_du_conteneur>` par le nom trouvé :
+
+	docker exec -it <nom_du_conteneur> netronome generate-config
+
+---
+
 🇬🇧 English Description
 
 🌐 Netronome is a lightweight and modern network monitoring tool that gives you clear insight into your network activity.
