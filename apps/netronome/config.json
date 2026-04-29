@@ -5,7 +5,7 @@
   "available": false,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 5,
+  "tipi_version": 6,
   "version": "0.11.0",
   "categories": ["network"],
   "description": "Netronome is a powerful tool for monitoring release announcements across multiple sources and sending intelligent notifications.",
