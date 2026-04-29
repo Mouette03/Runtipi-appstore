@@ -1,22 +1,26 @@
-🇬🇧 **Post-installation step:**
+🇬🇧 **Note:** To avoid permission errors (e.g., `Failed to set database directory permissions error=\"chmod /data/.config/netronome: operation not permitted\"`), make sure the data directory mounted in the container (e.g., `/data`) has the correct permissions. The directory should be owned by the user and group with IDs `101:102` (or equivalent). You can set this on your host with:
 
-After the first launch, you need to generate the configuration file.
-1. Run `sudo docker ps` to find the exact name of the Netronome container (for example, `netronome_test-netronome-1`, but it may differ depending on your setup).
-2. Then, execute the following command, replacing `<container_name>` with the actual name:
+The default path to set permissions on is usually:
 
-	docker exec -it <container_name> netronome generate-config
+`/home/<user>/runtipi/app-data/<store>/netronome/data`
 
----
+Replace `<user>` with your Linux username and `<store>` with the name you gave to your app store instance.
 
-🇫🇷 **Étape après installation :**
+```sh
+sudo chown -R 101:102 /home/<user>/runtipi/app-data/<store>/netronome/data
+```
+🇫🇷 **Note :** Pour éviter les erreurs de permissions (par exemple : `Failed to set database directory permissions error=\"chmod /data/.config/netronome: operation not permitted\"`), assurez-vous que le dossier de données monté dans le conteneur (par exemple `/data`) possède les bonnes permissions. Le dossier doit appartenir à l'utilisateur et au groupe avec les IDs `101:102` (ou équivalent). Vous pouvez appliquer cela sur votre hôte avec :
 
-Après le premier lancement, il est nécessaire de générer le fichier de configuration.
-1. Exécutez `sudo docker ps` pour trouver le nom exact du conteneur Netronome (par exemple `netronome_test-netronome-1`, mais il peut varier selon votre installation).
-2. Lancez ensuite la commande suivante en remplaçant `<nom_du_conteneur>` par le nom trouvé :
+Le chemin par défaut à adapter est généralement :
 
-	docker exec -it <nom_du_conteneur> netronome generate-config
+`/home/<utilisateur>/runtipi/app-data/<store>/netronome/data`
 
----
+Remplacez `<utilisateur>` par votre nom d'utilisateur Linux et `<store>` par le nom que vous avez donné à votre instance du store.
+
+```sh
+sudo chown -R 101:102 /home/<utilisateur>/runtipi/app-data/<store>/netronome/data
+```
+
 
 🇬🇧 English Description
 
