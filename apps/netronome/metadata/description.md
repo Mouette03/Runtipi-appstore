@@ -1,6 +1,3 @@
-
----
-
 🇬🇧 **Post-installation step:**
 
 After the first launch, you need to generate the configuration file.
