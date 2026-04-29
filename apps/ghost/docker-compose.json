@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "ghost",
-      "image": "ghost:6.30.0",
+      "image": "ghost:6.35.0",
       "dependsOn": {
         "db-ghost": {
           "condition": "service_healthy"
