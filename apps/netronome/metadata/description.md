@@ -33,6 +33,10 @@ sudo docker exec -it <container_name> netronome generate-config
 ```
 
 Once this is done, the application will now be accessible.
+
+---
+
+
 🇫🇷 **Note :** Pour éviter les erreurs de permissions (par exemple : `Failed to set database directory permissions error=\"chmod /data/.config/netronome: operation not permitted\"`), assurez-vous que le dossier de données monté dans le conteneur (par exemple `/data`) possède les bonnes permissions. Le dossier doit appartenir à l'utilisateur et au groupe avec les IDs `101:102` (ou équivalent). Vous pouvez appliquer cela sur votre hôte avec :
 
 Le chemin par défaut à adapter est généralement :
