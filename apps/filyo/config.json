@@ -7,8 +7,8 @@
   "exposable": true,
   "force_expose": true,
   "dynamic_config": true,
-  "tipi_version": 6,
-  "version": "v1.2.4",
+  "tipi_version": 7,
+  "version": "v1.2.5",
   "categories": ["utilities"],
   "description": "Self-hosted file sharing with reverse upload requests & password-protected expiry links",
   "short_desc": "Self-hosted file sharing",
@@ -80,6 +80,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1776897729056,
-  "updated_at": 1777497299615,
+  "updated_at": 1777810360542,
   "min_tipi_version": "4.5.0"
 }
