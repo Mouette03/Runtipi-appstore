@@ -1,0 +1,21 @@
+{
+  "$schema": "../app-info-schema.json",
+  "name": "Uptime Kuma",
+  "id": "uptime-kuma",
+  "port": 4850,
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "tipi_version": 1,
+  "version": "2.3.2",
+  "categories": ["utilities"],
+  "description": "A self-hosted monitoring solution similar to Uptime Robot, designed to track the availability of your services.",
+  "short_desc": "Uptime Kuma is a simple and user-friendly self-hosted monitoring tool.",
+  "author": "louislam",
+  "source": "https://github.com/louislam/uptime-kuma",
+  "form_fields": [],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1777924013242,
+  "updated_at": 1777924013242,
+  "min_tipi_version": "4.5.0"
+}
