@@ -1,4 +1,4 @@
-# Dolibarr ERP/CRM beta
+# Dolibarr ERP/CRM
 
 ## ⚠️ Important - Data Migration (v22.0.4 → v23.0.0)
 
