@@ -64,6 +64,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1752437249000,
-  "updated_at": 1781349417000,
+  "updated_at": 1781349481393,
   "min_tipi_version": "4.5.0"
 }
