@@ -12,7 +12,7 @@
   "short_desc": "An open-source, self-hosted Notion alterative",
   "author": "Trilliumnext",
   "website": "https://triliumnext.com/",
-  "source": "https://github.com/TriliumNext",
+  "source": "https://github.com/TriliumNext/Trilium",
   "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1752620152000,
