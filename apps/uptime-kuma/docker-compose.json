@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "uptime-kuma",
-      "image": "ghcr.io/louislam/uptime-kuma:2.3.2",
+      "image": "ghcr.io/louislam/uptime-kuma:2.4.0",
       "isMain": true,
       "internalPort": 3001,
       "volumes": [

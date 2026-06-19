@@ -6,8 +6,8 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 1,
-  "version": "2.3.2",
+  "tipi_version": 2,
+  "version": "2.4.0",
   "categories": ["utilities"],
   "description": "A self-hosted monitoring solution similar to Uptime Robot, designed to track the availability of your services.",
   "short_desc": "Uptime Kuma is a simple and user-friendly self-hosted monitoring tool.",
@@ -16,6 +16,6 @@
   "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1777924013242,
-  "updated_at": 1777924013242,
+  "updated_at": 1781900976243,
   "min_tipi_version": "4.5.0"
 }
