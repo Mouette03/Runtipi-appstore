@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "zerobyte",
+      "image": "ghcr.io/nicotsx/zerobyte:v0.40.0",
+      "internalPort": 4096,
+      "isMain": true,
+      "environment": [
+        {
+          "key": "TZ",
+          "value": "${TZ}"
+        },
+        {
+          "key": "BASE_URL",
+          "value": "${APP_PROTOCOL}://${APP_DOMAIN}"
+        },
+        {
+          "key": "APP_SECRET",
+          "value": "${APP_SECRET}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/var/lib/zerobyte"
+        },
+        {
+          "hostPath": "${ZEROBYTE_BACKUP_PATH}",
+          "containerPath": "/data",
+          "readOnly": true
+        },
+        {
+          "hostPath": "/etc/localtime",
+          "containerPath": "/etc/localtime",
+          "readOnly": true
+        }
+      ],
+      "restart": "unless-stopped"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "Zerobyte",
+  "available": true,
+  "port": 6874,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "zerobyte",
+  "tipi_version": 1,
+  "version": "0.40",
+  "categories": ["utilities"],
+  "short_desc": "Backup automation for self-hosters, built on top of Restic.",
+  "description": "Zerobyte is a backup automation tool with a web interface to schedule, manage, monitor, and restore encrypted backups across local and remote storage backends.",
+  "author": "nicotsx",
+  "source": "https://github.com/nicotsx/zerobyte",
+  "website": "https://zerobyte.app",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "APP_SECRET",
+      "required": true,
+      "env_variable": "APP_SECRET",
+      "encoding": "hex"
+    },
+    {
+      "type": "text",
+      "label": "Timezone",
+      "hint": "Timezone used for scheduling, for example Europe/Paris.",
+      "required": true,
+      "default": "Europe/Paris",
+      "env_variable": "TZ"
+    },
+    {
+      "type": "text",
+      "label": "Host path to back up",
+      "hint": "Absolute path on the host that will be mounted read-only into the container.",
+      "required": true,
+      "placeholder": "/mnt/data",
+      "env_variable": "ZEROBYTE_BACKUP_PATH"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1782856726804,
+  "updated_at": 1782856726804,
+  "min_tipi_version": "4.5.0"
+}
