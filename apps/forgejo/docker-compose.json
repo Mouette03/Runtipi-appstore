@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "forgejo",
-      "image": "codeberg.org/forgejo/forgejo:15.0.3",
+      "image": "codeberg.org/forgejo/forgejo:15.0.4",
       "isMain": true,
       "internalPort": 3000,
       "addPorts": [
@@ -84,7 +84,7 @@
     },
     {
       "name": "forgejo-db",
-      "image": "mariadb:11",
+      "image": "mariadb:12.3",
       "environment": [
         {
           "key": "MYSQL_DATABASE",
