@@ -403,9 +403,9 @@ jobs:
                           compose_changed = True
                           app_changes.append((primary_service, old_img, new_img))
                           new_tag_str = new_img.rsplit(':', 1)[-1]
-                          _, v_parts, _ = parse_tag_version(new_tag_str)
+                          v_prefix, v_parts, _ = parse_tag_version(new_tag_str)
                           if v_parts:
-                              primary_new_version = version_to_str(v_parts)
+                              primary_new_version = f'{v_prefix}{version_to_str(v_parts)}'
 
                   # Pass 2 — update secondaries only when primary changed
                   for svc in services:
@@ -421,6 +421,11 @@ jobs:
                       if old_img:
                           compose_changed = True
                           app_changes.append((svc_name, old_img, new_img))
+                          if primary_new_version is None:
+                              new_tag_str = new_img.rsplit(':', 1)[-1]
+                              v_prefix, v_parts, _ = parse_tag_version(new_tag_str)
+                              if v_parts:
+                                  primary_new_version = f'{v_prefix}{version_to_str(v_parts)}'
               else:
                   # No primary defined — update all services independently
                   for svc in services:
@@ -431,6 +436,11 @@ jobs:
                       if old_img:
                           compose_changed = True
                           app_changes.append((svc_name, old_img, new_img))
+                          if primary_new_version is None:
+                              new_tag_str = new_img.rsplit(':', 1)[-1]
+                              v_prefix, v_parts, _ = parse_tag_version(new_tag_str)
+                              if v_parts:
+                                  primary_new_version = f'{v_prefix}{version_to_str(v_parts)}'
 
               if compose_changed:
                   new_tipi_version = config.get('tipi_version', 0) + 1
