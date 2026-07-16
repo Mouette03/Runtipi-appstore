@@ -226,11 +226,40 @@ jobs:
                   return []
               return data.get('tags', [])
 
+          def get_codeberg_token(image_name):
+              """
+              Obtain an anonymous pull token from Codeberg's OCI registry.
+              image_name must be in the form '<owner>/<repo>' (without 'codeberg.org/').
+              """
+              url = (
+                  f'https://codeberg.org/v2/token'
+                  f'?scope=repository:{image_name}:pull&service=codeberg.org'
+              )
+              data = fetch_json(url)
+              return data.get('token') if data else None
+
+          def get_codeberg_tags(image_name):
+              """
+              Fetch tags from codeberg.org using anonymous OCI bearer authentication.
+              image_name must be in the form '<owner>/<repo>' (e.g. 'forgejo/forgejo').
+              Returns a flat list of tag strings.
+              """
+              token = get_codeberg_token(image_name)
+              if not token:
+                  return []
+              headers = {'Authorization': 'Bearer ' + token}
+              url = f'https://codeberg.org/v2/{image_name}/tags/list?n=500'
+              data = fetch_json(url, headers=headers)
+              if data is None:
+                  return []
+              return data.get('tags', [])
+
           def find_best_tag(current_tag, registry, image_name, lock):
               """
               Find the highest available tag that is a valid upgrade of
               current_tag under the given lock policy.
               Returns the new tag string, or None if no upgrade is available.
+              Supported registries: docker.io, ghcr.io, lscr.io, codeberg.org
               """
               prefix, cur_parts, suffix = parse_tag_version(current_tag)
               if cur_parts is None:
@@ -245,6 +274,9 @@ jobs:
               elif registry == 'lscr.io':
                   # LinuxServer.io — same bearer-token auth as GHCR
                   all_tags = get_lscr_tags(image_name)
+              elif registry == 'codeberg.org':
+                  # Codeberg OCI registry (e.g. Forgejo)
+                  all_tags = get_codeberg_tags(image_name)
               elif registry == 'docker.io':
                   all_tags = get_dockerhub_tags(image_name, prefix, major)
               else:

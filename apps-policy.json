@@ -37,11 +37,11 @@
   "forgejo": {
     "primary": "forgejo",
     "images": {
-      "forgejo": {
-        "lock": "minor",
-        "_comment": "Uses codeberg.org registry — only Docker Hub and GHCR are supported"
-      },
-      "forgejo-db": { "lock": "minor" }
+      "forgejo": { "lock": "minor" },
+      "forgejo-db": {
+        "lock": "patch",
+        "_comment": "Tag 'mariadb:12.3' is a pinned minor version — only patch updates allowed"
+      }
     }
   },
   "galette": {
