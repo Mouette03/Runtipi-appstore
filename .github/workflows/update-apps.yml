@@ -303,6 +303,32 @@ jobs:
 
               return best_tag  # None → already up-to-date
 
+          def find_update_for_svc(svc, images_policy, default_lock):
+              """
+              Check whether a service image can be upgraded.
+              Returns (old_image_str, new_image_str) when an upgrade exists,
+              or (None, None) when the service is already up-to-date.
+              Does NOT mutate the svc dict.
+              """
+              svc_name  = svc.get('name', '')
+              image_str = svc.get('image', '')
+              if not image_str:
+                  return None, None
+              svc_policy = images_policy.get(svc_name, {})
+              lock       = svc_policy.get('lock', default_lock)
+              print(f'  [{svc_name}] {image_str}  (lock={lock})')
+              registry, img_name, current_tag, base = parse_image(image_str)
+              if not current_tag:
+                  print('    No tag — skipping')
+                  return None, None
+              new_tag = find_best_tag(current_tag, registry, img_name, lock)
+              if new_tag and new_tag != current_tag:
+                  new_image = f'{base}:{new_tag}'
+                  print(f'    ✓ {image_str}  →  {new_image}')
+                  return image_str, new_image
+              print('    Already up-to-date')
+              return None, None
+
           # ── Main loop ────────────────────────────────────────────────────
 
           with open('apps-policy.json') as fh:
@@ -362,62 +388,99 @@ jobs:
                   print('  Unsupported compose format (expected list of services)')
                   continue
 
-              for svc in services:
-                  svc_name  = svc.get('name', '')
-                  image_str = svc.get('image', '')
-                  if not image_str:
-                      continue
-
-                  # Determine lock policy for this service
-                  svc_policy = images_policy.get(svc_name, {})
-                  lock       = svc_policy.get('lock', default_lock)
-
-                  print(f'  [{svc_name}] {image_str}  (lock={lock})')
-
-                  registry, img_name, current_tag, base = parse_image(image_str)
-                  if not current_tag:
-                      print('    No tag — skipping')
-                      continue
-
-                  new_tag = find_best_tag(current_tag, registry, img_name, lock)
-
-                  if new_tag and new_tag != current_tag:
-                      new_image    = f'{base}:{new_tag}'
-                      svc['image'] = new_image
-                      compose_changed = True
-                      app_changes.append((svc_name, image_str, new_image))
-                      print(f'    ✓ {image_str}  →  {new_image}')
-
-                      # Track primary-service version for config.json
-                      if svc_name == primary_service:
-                          _, v_parts, _ = parse_tag_version(new_tag)
+              if primary_service:
+                  # Pass 1 — check primary service first
+                  primary_svc = next(
+                      (s for s in services if s.get('name') == primary_service), None
+                  )
+                  primary_updated = False
+                  if primary_svc:
+                      old_img, new_img = find_update_for_svc(
+                          primary_svc, images_policy, default_lock
+                      )
+                      if old_img:
+                          primary_updated = True
+                          compose_changed = True
+                          app_changes.append((primary_service, old_img, new_img))
+                          new_tag_str = new_img.rsplit(':', 1)[-1]
+                          _, v_parts, _ = parse_tag_version(new_tag_str)
                           if v_parts:
                               primary_new_version = version_to_str(v_parts)
-                  else:
-                      print('    Already up-to-date')
+
+                  # Pass 2 — update secondaries only when primary changed
+                  for svc in services:
+                      if svc.get('name') == primary_service:
+                          continue
+                      svc_name = svc.get('name', '')
+                      if not primary_updated:
+                          print(f'  [{svc_name}] Skipped — primary service not updated')
+                          continue
+                      old_img, new_img = find_update_for_svc(
+                          svc, images_policy, default_lock
+                      )
+                      if old_img:
+                          compose_changed = True
+                          app_changes.append((svc_name, old_img, new_img))
+              else:
+                  # No primary defined — update all services independently
+                  for svc in services:
+                      svc_name = svc.get('name', '')
+                      old_img, new_img = find_update_for_svc(
+                          svc, images_policy, default_lock
+                      )
+                      if old_img:
+                          compose_changed = True
+                          app_changes.append((svc_name, old_img, new_img))
 
               if compose_changed:
-                  # ── Update config.json ──────────────────────────────────
-                  config['tipi_version'] = config.get('tipi_version', 0) + 1
-                  config['updated_at']   = int(datetime.now(timezone.utc).timestamp() * 1000)
-                  # Only update 'version' when the primary service image changed
-                  if primary_new_version is not None:
-                      config['version'] = primary_new_version
+                  new_tipi_version = config.get('tipi_version', 0) + 1
+                  new_updated_at   = int(datetime.now(timezone.utc).timestamp() * 1000)
 
-                  # ── Write compose file ──────────────────────────────────
+                  # ── Write compose file (in-place text replacement) ──────
+                  # Avoids json.dump reformatting arrays onto multiple lines.
                   if compose_path.endswith('.json'):
+                      with open(compose_path) as fh:
+                          compose_text = fh.read()
+                      for _, old_img, new_img in app_changes:
+                          compose_text = compose_text.replace(
+                              f'"image": "{old_img}"',
+                              f'"image": "{new_img}"',
+                          )
                       with open(compose_path, 'w') as fh:
-                          json.dump(compose, fh, indent=2, ensure_ascii=False)
-                          fh.write('\n')
+                          fh.write(compose_text)
                   else:
                       import yaml
+                      img_map = {old: new for _, old, new in app_changes}
+                      for svc in compose.get('services', []):
+                          old = svc.get('image', '')
+                          if old in img_map:
+                              svc['image'] = img_map[old]
                       with open(compose_path, 'w') as fh:
                           yaml.dump(compose, fh, default_flow_style=False, allow_unicode=True)
 
-                  # ── Write config.json ───────────────────────────────────
+                  # ── Write config.json (in-place text replacement) ───────
+                  # Avoids json.dump reformatting arrays (e.g. "categories")
+                  # onto multiple lines.
+                  with open(config_path) as fh:
+                      config_text = fh.read()
+                  config_text = re.sub(
+                      r'("tipi_version"\s*:\s*)\d+',
+                      rf'\g<1>{new_tipi_version}',
+                      config_text,
+                  )
+                  config_text = re.sub(
+                      r'("updated_at"\s*:\s*)\d+',
+                      rf'\g<1>{new_updated_at}',
+                      config_text,
+                  )
+                  if primary_new_version is not None:
+                      config_text = re.sub(
+                          r'("version"\s*:\s*)"[^"]*"',
+                          rf'\g<1>"{primary_new_version}"',
+                          config_text,
+                      )
                   with open(config_path, 'w') as fh:
-                      json.dump(config, fh, indent=2, ensure_ascii=False)
-                      fh.write('\n')
+                      fh.write(config_text)
 
                   changes_summary.extend(
                       (app_name, svc, old, new) for svc, old, new in app_changes
