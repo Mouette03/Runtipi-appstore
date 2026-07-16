@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "filyo",
-      "image": "ghcr.io/mouette03/filyo:v1.2.3-mariadb",
+      "image": "ghcr.io/mouette03/filyo:v1.2.8-mariadb",
       "internalPort": 3001,
       "isMain": true,
       "environment": [
@@ -74,7 +74,7 @@
     },
     {
       "name": "db-filyo",
-      "image": "mariadb:12.2",
+      "image": "mariadb:12.3",
       "command": "--wait_timeout=28800 --interactive_timeout=28800 --log_warnings=1",
       "environment": [
         {
