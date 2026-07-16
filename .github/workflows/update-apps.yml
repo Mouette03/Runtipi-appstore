@@ -1,0 +1,481 @@
+# Workflow: Auto-update Docker images for all Runtipi apps
+#
+# Triggered daily at 03:00 UTC and manually via workflow_dispatch.
+# Reads apps-policy.json for per-app lock policies, queries Docker Hub and
+# GHCR for newer tags, updates docker-compose.json and config.json, then
+# opens (or updates) a pull request with the summary of changes.
+
+name: Auto-update Docker images
+
+on:
+  # Run every day at 03:00 UTC
+  schedule:
+    - cron: '0 3 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+
+# Grant write access to push changes and open/update PRs
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-apps:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout the repository ─────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Run the Python update script ────────────────────────────────
+      # The script:
+      #   • Reads apps-policy.json for lock policies and primary service names
+      #   • For every app, parses docker-compose.json to find service images
+      #   • Queries Docker Hub / GHCR for newer tags matching the lock policy
+      #   • Preserves tag prefix (e.g. "v") and suffix (e.g. "-alpine")
+      #   • Updates docker-compose.json with new image tags
+      #   • Updates config.json: tipi_version +1, updated_at (ms timestamp),
+      #     and version (only if the primary service image changed)
+      #   • Writes a Markdown summary to /tmp/pr_body.md
+      #   • Sets HAS_CHANGES and UPDATE_DATE in GITHUB_ENV
+      - name: Update Docker image tags
+        shell: python3 {0}
+        run: |
+          import json
+          import os
+          import re
+          import sys
+          import time
+          import urllib.request
+          import urllib.error
+          from datetime import datetime, timezone
+
+          # ── Helpers ──────────────────────────────────────────────────────
+
+          def fetch_json(url, headers=None, retries=3, timeout=15):
+              """GET url and return parsed JSON, with retry on transient errors."""
+              req = urllib.request.Request(url)
+              if headers:
+                  for k, v in headers.items():
+                      req.add_header(k, v)
+              for attempt in range(retries):
+                  try:
+                      with urllib.request.urlopen(req, timeout=timeout) as resp:
+                          return json.loads(resp.read().decode())
+                  except urllib.error.HTTPError as exc:
+                      # 401/403 → no point retrying
+                      if exc.code in (401, 403, 404):
+                          print(f"    HTTP {exc.code} for {url}", file=sys.stderr)
+                          return None
+                      if attempt < retries - 1:
+                          time.sleep(2 ** attempt)
+                  except Exception as exc:
+                      if attempt < retries - 1:
+                          time.sleep(2 ** attempt)
+                      else:
+                          print(f"    Request failed ({url}): {exc}", file=sys.stderr)
+              return None
+
+          def parse_image(image_str):
+              """
+              Split an image reference into (registry, image_name, tag, base).
+              • base  = image_str without the tag portion
+              • For official Docker Hub images (no slash), prepends 'library/'.
+              """
+              parts = image_str.split('/')
+              last = parts[-1]
+              if ':' in last:
+                  tag = last.split(':', 1)[1]
+                  parts[-1] = last.split(':', 1)[0]
+              else:
+                  tag = None
+              base = '/'.join(parts)   # image_str without tag
+
+              # Detect non-Docker-Hub registries (contain a dot or colon in the host)
+              if len(parts) >= 2 and ('.' in parts[0] or ':' in parts[0]):
+                  registry = parts[0]
+                  image_name = '/'.join(parts[1:])
+              else:
+                  registry = 'docker.io'
+                  if len(parts) == 1:
+                      # Official library image (e.g. "ghost", "redis")
+                      image_name = 'library/' + parts[0]
+                  else:
+                      # User/org image (e.g. "portainer/portainer-ce")
+                      image_name = '/'.join(parts)
+
+              return registry, image_name, tag, base
+
+          def parse_tag_version(tag):
+              """
+              Decompose a tag into (prefix, version_parts, suffix).
+              • prefix  : optional leading 'v'
+              • version_parts : list of ints, e.g. [34, 0, 1]
+              • suffix  : trailing string, e.g. '-apache'
+
+              Returns (None, None, tag) when the tag cannot be parsed as semver
+              (e.g. 'latest', 'stable', 'sha-abc', 'version-hash', or a bare
+              major-only number like '17' or '11').
+              """
+              m = re.match(
+                  r'^(v?)(\d+)(?:\.(\d+)(?:\.(\d+))?)?(.*)$',
+                  tag
+              )
+              if not m:
+                  return None, None, tag
+
+              prefix  = m.group(1)
+              major   = int(m.group(2))
+              minor   = m.group(3)
+              patch   = m.group(4)
+              suffix  = m.group(5) or ''
+
+              # Bare major version (e.g. "17", "11") → floating tag, skip
+              if minor is None:
+                  return None, None, tag
+
+              version_parts = [major, int(minor)]
+              if patch is not None:
+                  version_parts.append(int(patch))
+
+              return prefix, version_parts, suffix
+
+          def version_to_str(parts):
+              return '.'.join(str(v) for v in parts)
+
+          def is_upgrade(candidate, current, lock):
+              """
+              Return True if candidate is a valid upgrade of current under lock.
+              lock='minor'  → same major, any higher minor or patch
+              lock='patch'  → same major AND minor, only higher patch
+              """
+              if lock == 'minor':
+                  if candidate[0] != current[0]:
+                      return False
+              elif lock == 'patch':
+                  if len(candidate) < 3 or len(current) < 3:
+                      return False
+                  if candidate[0] != current[0] or candidate[1] != current[1]:
+                      return False
+              return candidate > current
+
+          # ── Registry helpers ─────────────────────────────────────────────
+
+          def get_dockerhub_tags(image_name, prefix, major):
+              """
+              Fetch tags from Docker Hub that start with '{prefix}{major}.'.
+              Returns a flat list of tag strings.
+              """
+              tag_prefix = f'{prefix}{major}.'
+              url = (
+                  f'https://hub.docker.com/v2/repositories/{image_name}/tags'
+                  f'?name={tag_prefix}&ordering=last_updated&page_size=100'
+              )
+              data = fetch_json(url)
+              if data is None:
+                  return []
+              return [r['name'] for r in data.get('results', [])]
+
+          def get_ghcr_token(image_name):
+              """
+              Obtain an anonymous pull token from ghcr.io.
+              Works for both GHCR images and lscr.io (LinuxServer.io) images,
+              since lscr.io shares the same auth infrastructure as GHCR.
+              image_name must be in the form '<org>/<repo>' (without registry prefix).
+              """
+              url = (
+                  f'https://ghcr.io/token'
+                  f'?scope=repository:{image_name}:pull&service=ghcr.io'
+              )
+              data = fetch_json(url)
+              return data.get('token') if data else None
+
+          def get_ghcr_tags(image_name):
+              """
+              Fetch tags from GHCR using anonymous bearer authentication.
+              Returns a flat list of tag strings.
+              """
+              token = get_ghcr_token(image_name)
+              if not token:
+                  return []
+              headers = {'Authorization': 'Bearer ' + token}
+              url = f'https://ghcr.io/v2/{image_name}/tags/list?n=500'
+              data = fetch_json(url, headers=headers)
+              if data is None:
+                  return []
+              return data.get('tags', [])
+
+          def get_lscr_tags(image_name):
+              """
+              Fetch tags from lscr.io (LinuxServer.io) using anonymous bearer
+              authentication.  The token is obtained from ghcr.io (shared
+              infrastructure), then used against the lscr.io v2 API.
+              image_name must be in the form 'linuxserver/<repo>'.
+              Tags of the form '1.2.3-ls45' are returned as-is; the '-ls<n>'
+              suffix is treated like any other tag suffix and preserved on update.
+              Returns a flat list of tag strings.
+              """
+              token = get_ghcr_token(image_name)
+              if not token:
+                  return []
+              headers = {'Authorization': 'Bearer ' + token}
+              url = f'https://lscr.io/v2/{image_name}/tags/list?n=500'
+              data = fetch_json(url, headers=headers)
+              if data is None:
+                  return []
+              return data.get('tags', [])
+
+          def get_codeberg_token(image_name):
+              """
+              Obtain an anonymous pull token from Codeberg's OCI registry.
+              image_name must be in the form '<owner>/<repo>' (without 'codeberg.org/').
+              """
+              url = (
+                  f'https://codeberg.org/v2/token'
+                  f'?scope=repository:{image_name}:pull&service=codeberg.org'
+              )
+              data = fetch_json(url)
+              return data.get('token') if data else None
+
+          def get_codeberg_tags(image_name):
+              """
+              Fetch tags from codeberg.org using anonymous OCI bearer authentication.
+              image_name must be in the form '<owner>/<repo>' (e.g. 'forgejo/forgejo').
+              Returns a flat list of tag strings.
+              """
+              token = get_codeberg_token(image_name)
+              if not token:
+                  return []
+              headers = {'Authorization': 'Bearer ' + token}
+              url = f'https://codeberg.org/v2/{image_name}/tags/list?n=500'
+              data = fetch_json(url, headers=headers)
+              if data is None:
+                  return []
+              return data.get('tags', [])
+
+          def find_best_tag(current_tag, registry, image_name, lock):
+              """
+              Find the highest available tag that is a valid upgrade of
+              current_tag under the given lock policy.
+              Returns the new tag string, or None if no upgrade is available.
+              Supported registries: docker.io, ghcr.io, lscr.io, codeberg.org
+              """
+              prefix, cur_parts, suffix = parse_tag_version(current_tag)
+              if cur_parts is None:
+                  print(f'    Skipping non-semver tag: {current_tag}')
+                  return None
+
+              major = cur_parts[0]
+
+              # Fetch candidate tags from the appropriate registry
+              if registry == 'ghcr.io':
+                  all_tags = get_ghcr_tags(image_name)
+              elif registry == 'lscr.io':
+                  # LinuxServer.io — same bearer-token auth as GHCR
+                  all_tags = get_lscr_tags(image_name)
+              elif registry == 'codeberg.org':
+                  # Codeberg OCI registry (e.g. Forgejo)
+                  all_tags = get_codeberg_tags(image_name)
+              elif registry == 'docker.io':
+                  all_tags = get_dockerhub_tags(image_name, prefix, major)
+              else:
+                  print(f'    Unsupported registry: {registry} — skipping')
+                  return None
+
+              if not all_tags:
+                  return None
+
+              best_parts = cur_parts[:]
+              best_tag   = None
+
+              for tag in all_tags:
+                  t_prefix, t_parts, t_suffix = parse_tag_version(tag)
+                  # Must share the same prefix and suffix
+                  if t_prefix != prefix or t_suffix != suffix:
+                      continue
+                  # Skip un-parseable or differently-shaped tags
+                  if t_parts is None or len(t_parts) != len(cur_parts):
+                      continue
+                  if is_upgrade(t_parts, best_parts, lock):
+                      best_parts = t_parts
+                      best_tag   = tag
+
+              return best_tag  # None → already up-to-date
+
+          # ── Main loop ────────────────────────────────────────────────────
+
+          with open('apps-policy.json') as fh:
+              policy = json.load(fh)
+
+          default_lock = policy.get('_default', {}).get('lock', 'minor')
+
+          changes_summary = []  # [(app, svc_name, old_image, new_image)]
+          apps_dir = 'apps'
+
+          for app_name in sorted(os.listdir(apps_dir)):
+              app_dir = os.path.join(apps_dir, app_name)
+              if not os.path.isdir(app_dir):
+                  continue
+
+              # Locate docker-compose file (prefer JSON, fall back to YAML)
+              compose_path = None
+              for fname in ('docker-compose.json', 'docker-compose.yml', 'docker-compose.yaml'):
+                  candidate = os.path.join(app_dir, fname)
+                  if os.path.exists(candidate):
+                      compose_path = candidate
+                      break
+
+              config_path = os.path.join(app_dir, 'config.json')
+              if compose_path is None or not os.path.exists(config_path):
+                  continue
+
+              print(f'\n=== {app_name} ===')
+
+              # Load compose (JSON or YAML)
+              with open(compose_path) as fh:
+                  if compose_path.endswith('.json'):
+                      compose = json.load(fh)
+                  else:
+                      try:
+                          import yaml
+                          compose = yaml.safe_load(fh)
+                      except ImportError:
+                          print('  PyYAML not available — skipping YAML compose')
+                          continue
+
+              with open(config_path) as fh:
+                  config = json.load(fh)
+
+              # Per-app policy
+              app_policy      = policy.get(app_name, {})
+              primary_service = app_policy.get('primary')
+              images_policy   = app_policy.get('images', {})
+
+              compose_changed     = False
+              primary_new_version = None   # set only if the primary service changes
+              app_changes         = []
+
+              # Runtipi compose files use a list of services
+              services = compose.get('services', [])
+              if not isinstance(services, list):
+                  print('  Unsupported compose format (expected list of services)')
+                  continue
+
+              for svc in services:
+                  svc_name  = svc.get('name', '')
+                  image_str = svc.get('image', '')
+                  if not image_str:
+                      continue
+
+                  # Determine lock policy for this service
+                  svc_policy = images_policy.get(svc_name, {})
+                  lock       = svc_policy.get('lock', default_lock)
+
+                  print(f'  [{svc_name}] {image_str}  (lock={lock})')
+
+                  registry, img_name, current_tag, base = parse_image(image_str)
+                  if not current_tag:
+                      print('    No tag — skipping')
+                      continue
+
+                  new_tag = find_best_tag(current_tag, registry, img_name, lock)
+
+                  if new_tag and new_tag != current_tag:
+                      new_image    = f'{base}:{new_tag}'
+                      svc['image'] = new_image
+                      compose_changed = True
+                      app_changes.append((svc_name, image_str, new_image))
+                      print(f'    ✓ {image_str}  →  {new_image}')
+
+                      # Track primary-service version for config.json
+                      if svc_name == primary_service:
+                          _, v_parts, _ = parse_tag_version(new_tag)
+                          if v_parts:
+                              primary_new_version = version_to_str(v_parts)
+                  else:
+                      print('    Already up-to-date')
+
+              if compose_changed:
+                  # ── Update config.json ──────────────────────────────────
+                  config['tipi_version'] = config.get('tipi_version', 0) + 1
+                  config['updated_at']   = int(datetime.now(timezone.utc).timestamp() * 1000)
+                  # Only update 'version' when the primary service image changed
+                  if primary_new_version is not None:
+                      config['version'] = primary_new_version
+
+                  # ── Write compose file ──────────────────────────────────
+                  if compose_path.endswith('.json'):
+                      with open(compose_path, 'w') as fh:
+                          json.dump(compose, fh, indent=2, ensure_ascii=False)
+                          fh.write('\n')
+                  else:
+                      import yaml
+                      with open(compose_path, 'w') as fh:
+                          yaml.dump(compose, fh, default_flow_style=False, allow_unicode=True)
+
+                  # ── Write config.json ───────────────────────────────────
+                  with open(config_path, 'w') as fh:
+                      json.dump(config, fh, indent=2, ensure_ascii=False)
+                      fh.write('\n')
+
+                  changes_summary.extend(
+                      (app_name, svc, old, new) for svc, old, new in app_changes
+                  )
+
+          # ── Output ───────────────────────────────────────────────────────
+
+          update_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+          github_env  = os.environ.get('GITHUB_ENV', '/dev/null')
+
+          if changes_summary:
+              # Build PR body as a Markdown table
+              lines = [
+                  '## Docker image updates',
+                  '',
+                  '| App | Service | Old image | New image |',
+                  '|-----|---------|-----------|-----------|',
+              ]
+              for app, svc, old, new in changes_summary:
+                  lines.append(f'| `{app}` | `{svc}` | `{old}` | `{new}` |')
+
+              pr_body = '\n'.join(lines) + '\n'
+              with open('/tmp/pr_body.md', 'w') as fh:
+                  fh.write(pr_body)
+
+              n_images = len(changes_summary)
+              n_apps   = len({c[0] for c in changes_summary})
+              print(f'\nSummary: {n_images} image(s) updated in {n_apps} app(s).')
+
+              with open(github_env, 'a') as fh:
+                  fh.write(f'HAS_CHANGES=true\n')
+                  fh.write(f'UPDATE_DATE={update_date}\n')
+          else:
+              print('\nNo updates found — everything is up-to-date.')
+              # Write an empty body so the PR step has a valid file
+              with open('/tmp/pr_body.md', 'w') as fh:
+                  fh.write('No Docker image updates found.\n')
+              with open(github_env, 'a') as fh:
+                  fh.write(f'HAS_CHANGES=false\n')
+                  fh.write(f'UPDATE_DATE={update_date}\n')
+
+      # ── 3. Open / update a Pull Request with the changes ───────────────
+      # peter-evans/create-pull-request will silently skip if there are no
+      # staged changes, so the HAS_CHANGES guard is an extra safety net.
+      - name: Create Pull Request
+        if: env.HAS_CHANGES == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Commit message placed on the auto-update branch
+          commit-message: 'chore(apps): auto-update Docker images ${{ env.UPDATE_DATE }}'
+          # Branch that the PR targets
+          base: main
+          # Branch created/updated by this workflow
+          branch: auto-update/docker-images
+          # PR metadata
+          title: 'chore(apps): auto-update ${{ env.UPDATE_DATE }}'
+          body-path: /tmp/pr_body.md
+          labels: auto-update
+          # Delete the branch automatically after merge
+          delete-branch: true
