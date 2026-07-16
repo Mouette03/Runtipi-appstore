@@ -135,10 +135,7 @@
   "vert": {
     "primary": "vert",
     "images": {
-      "vert": {
-        "lock": "minor",
-        "_comment": "Tag 'sha-49821e5' is a git SHA — auto-update skipped"
-      }
+      "vert": { "lock": "minor" }
     }
   },
   "webapp": {

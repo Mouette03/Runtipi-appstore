@@ -14,10 +14,11 @@ on:
   # Allow manual triggering
   workflow_dispatch:
 
-# Grant write access to push changes and open/update PRs
+# Grant write access to push changes, open/update PRs, and read package metadata
 permissions:
   contents: write
   pull-requests: write
+  packages: read
 
 jobs:
   update-apps:
@@ -41,12 +42,15 @@ jobs:
       #   • Sets HAS_CHANGES and UPDATE_DATE in GITHUB_ENV
       - name: Update Docker image tags
         shell: python3 {0}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           import json
           import os
           import re
           import sys
           import time
+          import urllib.parse
           import urllib.request
           import urllib.error
           from datetime import datetime, timezone
@@ -141,8 +145,65 @@ jobs:
 
               return prefix, version_parts, suffix
 
+          def parse_ls_build_tag(tag):
+              """
+              Parse tags like '<anything>-ls82' used by some LinuxServer images.
+              Returns (prefix, build_number) or (None, None) when not matched.
+              """
+              m = re.match(r'^(.*)-ls(\d+)$', tag)
+              if not m:
+                  return None, None
+              return m.group(1), int(m.group(2))
+
           def version_to_str(parts):
               return '.'.join(str(v) for v in parts)
+
+          def config_version_from_tag(tag):
+              """
+              Derive config.json "version" from an image tag.
+              - semver tags keep optional leading 'v' (e.g. v1.2.3)
+              - hash-ls tags keep full tag (e.g. d67e71cc-ls82)
+              - sha-hash tags strip 'sha-' prefix (e.g. sha-e1c83ba → e1c83ba)
+              """
+              if tag.startswith('sha-'):
+                  return tag[4:]
+              v_prefix, v_parts, _ = parse_tag_version(tag)
+              if v_parts:
+                  return f'{v_prefix}{version_to_str(v_parts)}'
+              _, ls_build = parse_ls_build_tag(tag)
+              if ls_build is not None:
+                  return tag
+              return None
+
+          def get_newest_sha_tag_github(owner, package_name):
+              """
+              Query the GitHub Packages API to find the most recently published
+              container version that carries a 'sha-*' tag.
+              Versions are returned newest-first by the API, so the first sha-tag
+              found is the most recent one.
+              Returns the tag string, or None on failure / no sha-tag found.
+              """
+              gh_token = os.environ.get('GH_TOKEN', '')
+              headers = {
+                  'Accept': 'application/vnd.github+json',
+                  'X-GitHub-Api-Version': '2022-11-28',
+              }
+              if gh_token:
+                  headers['Authorization'] = 'Bearer ' + gh_token
+              encoded_pkg = urllib.parse.quote(package_name, safe='')
+              url = (
+                  f'https://api.github.com/users/{owner}/packages'
+                  f'/container/{encoded_pkg}/versions?per_page=100'
+              )
+              data = fetch_json(url, headers=headers)
+              if not data or not isinstance(data, list):
+                  return None
+              for version in data:
+                  tags = version.get('metadata', {}).get('container', {}).get('tags', [])
+                  for t in tags:
+                      if t.startswith('sha-'):
+                          return t
+              return None
 
           def is_upgrade(candidate, current, lock):
               """
@@ -262,11 +323,24 @@ jobs:
               Supported registries: docker.io, ghcr.io, lscr.io, codeberg.org
               """
               prefix, cur_parts, suffix = parse_tag_version(current_tag)
-              if cur_parts is None:
-                  print(f'    Skipping non-semver tag: {current_tag}')
+              _, cur_ls_build = parse_ls_build_tag(current_tag)
+              if cur_parts is None and cur_ls_build is None:
+                  # Handle sha-prefixed commit-hash tags (e.g. sha-e1c83ba)
+                  if re.match(r'^sha-[0-9a-f]+$', current_tag):
+                      if registry != 'ghcr.io':
+                          print(f'    Skipping sha-tag for non-GHCR registry: {current_tag}')
+                          return None
+                      img_parts = image_name.split('/', 1)
+                      if len(img_parts) < 2:
+                          print(f'    Cannot parse owner/package from: {image_name}')
+                          return None
+                      owner, package = img_parts[0], '/'.join(img_parts[1:])
+                      newest = get_newest_sha_tag_github(owner, package)
+                      if newest and newest != current_tag:
+                          return newest
+                      return None
+                  print(f'    Skipping unsupported tag format: {current_tag}')
                   return None
-
-              major = cur_parts[0]
 
               # Fetch candidate tags from the appropriate registry
               if registry == 'ghcr.io':
@@ -278,6 +352,10 @@ jobs:
                   # Codeberg OCI registry (e.g. Forgejo)
                   all_tags = get_codeberg_tags(image_name)
               elif registry == 'docker.io':
+                  if cur_parts is None:
+                      print(f'    Skipping non-semver Docker Hub tag: {current_tag}')
+                      return None
+                  major = cur_parts[0]
                   all_tags = get_dockerhub_tags(image_name, prefix, major)
               else:
                   print(f'    Unsupported registry: {registry} — skipping')
@@ -285,6 +363,19 @@ jobs:
 
               if not all_tags:
                   return None
+
+              # Fallback for hash-like tags ending with '-lsNN' (e.g. d67e71cc-ls82)
+              if cur_parts is None and cur_ls_build is not None:
+                  best_tag      = None
+                  best_ls_build = cur_ls_build
+                  for tag in all_tags:
+                      _, t_ls_build = parse_ls_build_tag(tag)
+                      if t_ls_build is None:
+                          continue
+                      if t_ls_build > best_ls_build:
+                          best_ls_build = t_ls_build
+                          best_tag = tag
+                  return best_tag
 
               best_parts = cur_parts[:]
               best_tag   = None
@@ -388,49 +479,40 @@ jobs:
                   print('  Unsupported compose format (expected list of services)')
                   continue
 
-              if primary_service:
-                  # Pass 1 — check primary service first
-                  primary_svc = next(
-                      (s for s in services if s.get('name') == primary_service), None
-                  )
-                  primary_updated = False
-                  if primary_svc:
-                      old_img, new_img = find_update_for_svc(
-                          primary_svc, images_policy, default_lock
-                      )
-                      if old_img:
-                          primary_updated = True
-                          compose_changed = True
-                          app_changes.append((primary_service, old_img, new_img))
-                          new_tag_str = new_img.rsplit(':', 1)[-1]
-                          _, v_parts, _ = parse_tag_version(new_tag_str)
-                          if v_parts:
-                              primary_new_version = version_to_str(v_parts)
+              if not primary_service:
+                  print('  No primary service configured — skipping app')
+                  continue
 
-                  # Pass 2 — update secondaries only when primary changed
-                  for svc in services:
-                      if svc.get('name') == primary_service:
-                          continue
-                      svc_name = svc.get('name', '')
-                      if not primary_updated:
-                          print(f'  [{svc_name}] Skipped — primary service not updated')
-                          continue
-                      old_img, new_img = find_update_for_svc(
-                          svc, images_policy, default_lock
-                      )
-                      if old_img:
-                          compose_changed = True
-                          app_changes.append((svc_name, old_img, new_img))
-              else:
-                  # No primary defined — update all services independently
-                  for svc in services:
-                      svc_name = svc.get('name', '')
-                      old_img, new_img = find_update_for_svc(
-                          svc, images_policy, default_lock
-                      )
-                      if old_img:
-                          compose_changed = True
-                          app_changes.append((svc_name, old_img, new_img))
+              # Pass 1 — check primary service first
+              primary_svc = next(
+                  (s for s in services if s.get('name') == primary_service), None
+              )
+              primary_updated = False
+              if primary_svc:
+                  old_img, new_img = find_update_for_svc(
+                      primary_svc, images_policy, default_lock
+                  )
+                  if old_img:
+                      primary_updated = True
+                      compose_changed = True
+                      app_changes.append((primary_service, old_img, new_img))
+                      new_tag_str = new_img.rsplit(':', 1)[-1]
+                      primary_new_version = config_version_from_tag(new_tag_str)
+
+              # Pass 2 — update secondaries only when primary changed
+              for svc in services:
+                  if svc.get('name') == primary_service:
+                      continue
+                  svc_name = svc.get('name', '')
+                  if not primary_updated:
+                      print(f'  [{svc_name}] Skipped — primary service not updated')
+                      continue
+                  old_img, new_img = find_update_for_svc(
+                      svc, images_policy, default_lock
+                  )
+                  if old_img:
+                      compose_changed = True
+                      app_changes.append((svc_name, old_img, new_img))
 
               if compose_changed:
                   new_tipi_version = config.get('tipi_version', 0) + 1
