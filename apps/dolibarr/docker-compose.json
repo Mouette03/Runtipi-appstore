@@ -55,7 +55,9 @@
           "value": "1000"
         }
       ],
-      "dependsOn": ["db-dolibarr"],
+      "dependsOn": [
+        "db-dolibarr"
+      ],
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/dolibarr/documents",
@@ -73,7 +75,7 @@
     },
     {
       "name": "db-dolibarr",
-      "image": "mariadb:12.2.2",
+      "image": "mariadb:12.3.2",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",
