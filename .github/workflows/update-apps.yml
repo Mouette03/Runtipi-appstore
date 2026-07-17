@@ -31,13 +31,14 @@ jobs:
 
       # ── 2. Run the Python update script ────────────────────────────────
       # The script:
-      #   • Reads apps-policy.json for lock policies and primary service names
-      #   • For every app, parses docker-compose.json to find service images
+      #   • Reads apps-policy.json for per-app lock policies
+      #   • For every app, parses the compose file to find service images
+      #   • Detects the main service via isMain (JSON) or x-runtipi.is_main (YAML)
       #   • Queries Docker Hub / GHCR for newer tags matching the lock policy
       #   • Preserves tag prefix (e.g. "v") and suffix (e.g. "-alpine")
-      #   • Updates docker-compose.json with new image tags
+      #   • Updates the compose file with new image tags
       #   • Updates config.json: tipi_version +1, updated_at (ms timestamp),
-      #     and version (only if the primary service image changed)
+      #     and version (only if the main service image changed)
       #   • Writes a Markdown summary to /tmp/pr_body.md
       #   • Sets HAS_CHANGES and UPDATE_DATE in GITHUB_ENV
       - name: Update Docker image tags
