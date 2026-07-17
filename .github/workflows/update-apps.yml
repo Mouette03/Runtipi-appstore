@@ -31,13 +31,14 @@ jobs:
 
       # ── 2. Run the Python update script ────────────────────────────────
       # The script:
-      #   • Reads apps-policy.json for lock policies and primary service names
-      #   • For every app, parses docker-compose.json to find service images
+      #   • Reads apps-policy.json for per-app lock policies
+      #   • For every app, parses the compose file to find service images
+      #   • Detects the main service via isMain (JSON) or x-runtipi.is_main (YAML)
       #   • Queries Docker Hub / GHCR for newer tags matching the lock policy
       #   • Preserves tag prefix (e.g. "v") and suffix (e.g. "-alpine")
-      #   • Updates docker-compose.json with new image tags
+      #   • Updates the compose file with new image tags
       #   • Updates config.json: tipi_version +1, updated_at (ms timestamp),
-      #     and version (only if the primary service image changed)
+      #     and version (only if the main service image changed)
       #   • Writes a Markdown summary to /tmp/pr_body.md
       #   • Sets HAS_CHANGES and UPDATE_DATE in GITHUB_ENV
       - name: Update Docker image tags
@@ -435,9 +436,9 @@ jobs:
               if not os.path.isdir(app_dir):
                   continue
 
-              # Locate docker-compose file (prefer JSON, fall back to YAML)
+              # Locate docker-compose file (prefer YAML, fall back to JSON)
               compose_path = None
-              for fname in ('docker-compose.json', 'docker-compose.yml', 'docker-compose.yaml'):
+              for fname in ('docker-compose.yml', 'docker-compose.yaml', 'docker-compose.json'):
                   candidate = os.path.join(app_dir, fname)
                   if os.path.exists(candidate):
                       compose_path = candidate
@@ -465,23 +466,42 @@ jobs:
                   config = json.load(fh)
 
               # Per-app policy
-              app_policy      = policy.get(app_name, {})
-              primary_service = app_policy.get('primary')
-              images_policy   = app_policy.get('images', {})
+              app_policy    = policy.get(app_name, {})
+              images_policy = app_policy.get('images', {})
 
               compose_changed     = False
               primary_new_version = None   # set only if the primary service changes
               app_changes         = []
 
-              # Runtipi compose files use a list of services
-              services = compose.get('services', [])
-              if not isinstance(services, list):
-                  print('  Unsupported compose format (expected list of services)')
+              # Normalise services to a list with a 'name' field, supporting
+              # both Runtipi list format and standard docker-compose dict format.
+              raw_services = compose.get('services', [])
+              if isinstance(raw_services, dict):
+                  services = [{'name': k, **v} for k, v in raw_services.items()
+                              if isinstance(v, dict)]
+              elif isinstance(raw_services, list):
+                  services = raw_services
+              else:
+                  print('  Unsupported compose format')
                   continue
 
+              # Detect main service from compose file:
+              #   • docker-compose.json  → isMain: true on the service object
+              #   • docker-compose.yml   → x-runtipi.is_main: true on the service
+              if compose_path.endswith('.json'):
+                  primary_service = next(
+                      (s.get('name') for s in services if s.get('isMain')), None
+                  )
+              else:
+                  primary_service = next(
+                      (s.get('name') for s in services
+                       if isinstance(s.get('x-runtipi'), dict)
+                       and s['x-runtipi'].get('is_main')),
+                      None
+                  )
+
               if not primary_service:
-                  print('  No primary service configured — skipping app')
-                  continue
+                  print('  No main service defined in compose — version will not be updated')
 
               # Pass 1 — check primary service first
               primary_svc = next(
@@ -533,10 +553,18 @@ jobs:
                   else:
                       import yaml
                       img_map = {old: new for _, old, new in app_changes}
-                      for svc in compose.get('services', []):
-                          old = svc.get('image', '')
-                          if old in img_map:
-                              svc['image'] = img_map[old]
+                      raw_svcs = compose.get('services', [])
+                      if isinstance(raw_svcs, dict):
+                          for svc_data in raw_svcs.values():
+                              if isinstance(svc_data, dict):
+                                  old = svc_data.get('image', '')
+                                  if old in img_map:
+                                      svc_data['image'] = img_map[old]
+                      else:
+                          for svc in raw_svcs:
+                              old = svc.get('image', '')
+                              if old in img_map:
+                                  svc['image'] = img_map[old]
                       with open(compose_path, 'w') as fh:
                           yaml.dump(compose, fh, default_flow_style=False, allow_unicode=True)
 
