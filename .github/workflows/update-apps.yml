@@ -539,34 +539,22 @@ jobs:
                   new_updated_at   = int(datetime.now(timezone.utc).timestamp() * 1000)
 
                   # ── Write compose file (in-place text replacement) ──────
-                  # Avoids json.dump reformatting arrays onto multiple lines.
-                  if compose_path.endswith('.json'):
-                      with open(compose_path) as fh:
-                          compose_text = fh.read()
-                      for _, old_img, new_img in app_changes:
+                  # Avoids reformatting the file (key reordering, quote removal,
+                  # indentation changes) that json.dump / yaml.dump would cause.
+                  with open(compose_path) as fh:
+                      compose_text = fh.read()
+                  for _, old_img, new_img in app_changes:
+                      if compose_path.endswith('.json'):
                           compose_text = compose_text.replace(
                               f'"image": "{old_img}"',
                               f'"image": "{new_img}"',
                           )
-                      with open(compose_path, 'w') as fh:
-                          fh.write(compose_text)
-                  else:
-                      import yaml
-                      img_map = {old: new for _, old, new in app_changes}
-                      raw_svcs = compose.get('services', [])
-                      if isinstance(raw_svcs, dict):
-                          for svc_data in raw_svcs.values():
-                              if isinstance(svc_data, dict):
-                                  old = svc_data.get('image', '')
-                                  if old in img_map:
-                                      svc_data['image'] = img_map[old]
                       else:
-                          for svc in raw_svcs:
-                              old = svc.get('image', '')
-                              if old in img_map:
-                                  svc['image'] = img_map[old]
-                      with open(compose_path, 'w') as fh:
-                          yaml.dump(compose, fh, default_flow_style=False, allow_unicode=True)
+                          # YAML values may be quoted or unquoted; replace the
+                          # bare image string directly to preserve formatting.
+                          compose_text = compose_text.replace(old_img, new_img)
+                  with open(compose_path, 'w') as fh:
+                      fh.write(compose_text)
 
                   # ── Write config.json (in-place text replacement) ───────
                   # Avoids json.dump reformatting arrays (e.g. "categories")
