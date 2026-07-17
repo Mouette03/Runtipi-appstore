@@ -48,14 +48,14 @@
     "primary": "galette",
     "images": {
       "galette": { "lock": "minor" },
-      "db-galette": { "lock": "minor" }
+      "db-galette": { "lock": "patch" }
     }
   },
   "ghost": {
     "primary": "ghost",
     "images": {
       "ghost": { "lock": "minor" },
-      "db-ghost": { "lock": "minor" }
+      "db-ghost": { "lock": "patch" }
     }
   },
   "home-assistant": {
@@ -83,7 +83,7 @@
     "primary": "joomla",
     "images": {
       "joomla": { "lock": "minor" },
-      "db-joomla": { "lock": "minor" }
+      "db-joomla": { "lock": "patch" }
     }
   },
   "netronome": {
@@ -113,7 +113,7 @@
   "portainer": {
     "primary": "portainer",
     "images": {
-      "portainer": { "lock": "minor" }
+      "portainer": { "lock": "patch" }
     }
   },
   "sync-in": {
@@ -142,14 +142,14 @@
     "primary": "webapp",
     "images": {
       "webapp": { "lock": "minor" },
-      "db-webapp": { "lock": "minor" }
+      "db-webapp": { "lock": "patch" }
     }
   },
   "wordpress": {
     "primary": "wordpress",
     "images": {
       "wordpress": { "lock": "minor" },
-      "wordpress-db": { "lock": "minor" }
+      "wordpress-db": { "lock": "patch" }
     }
   }
 }
