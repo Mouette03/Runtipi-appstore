@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "ghost",
-      "image": "ghost:6.52.1",
+      "image": "ghost:6.53.0",
       "dependsOn": {
         "db-ghost": {
           "condition": "service_healthy"
@@ -79,7 +79,7 @@
     },
     {
       "name": "db-ghost",
-      "image": "mariadb:12.3.1",
+      "image": "mariadb:12.3.2",
       "environment": [
         {
           "key": "MYSQL_ROOT_PASSWORD",
