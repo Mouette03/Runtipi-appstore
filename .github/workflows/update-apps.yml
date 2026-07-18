@@ -640,5 +640,3 @@ jobs:
           labels: auto-update
           # Delete the branch automatically after merge
           delete-branch: true
-
-          
