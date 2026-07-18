@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "filyo",
-      "image": "ghcr.io/mouette03/filyo:v1.2.8-mariadb",
+      "image": "ghcr.io/mouette03/filyo:v1.2.9-mariadb",
       "internalPort": 3001,
       "isMain": true,
       "environment": [
