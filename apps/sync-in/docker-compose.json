@@ -4,7 +4,7 @@
   "services": [
     {
       "name": "syncin",
-      "image": "syncin/server:2.4.2",
+      "image": "syncin/server:2.4.3",
       "internalPort": 8080,
       "isMain": true,
       "environment": [
@@ -87,7 +87,7 @@
     },
     {
       "name": "db-syncin",
-      "image": "mariadb:12.3.1",
+      "image": "mariadb:12.3.2",
       "environment": [
         {
           "key": "MARIADB_ROOT_PASSWORD",
