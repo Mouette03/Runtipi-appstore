@@ -77,44 +77,48 @@ Une fois cette étape terminée, l'application sera accessible.
 
 🇬🇧 English Description
 
-🌐 Netronome is a lightweight and modern network monitoring tool that gives you clear insight into your network activity.
+🌐 Netronome is a modern network speed testing and performance monitoring tool built with Go and React.
 
-📊 Monitor network traffic in real time, keep track of connected devices, and analyze performance through a clean and intuitive dashboard.
+📶 Test your internet speed across multiple providers (Speedtest.net, iperf3, LibreSpeed) with real-time progress and historical tracking.
 
-⚡ Designed to be efficient and easy to use, Netronome runs with low resource usage, making it ideal for home servers, self-hosted setups, and small infrastructures.
+📉 Track packet loss and run network diagnostics (traceroute, MTR) to get clear insight into your connection health.
+
+🖥️ Deploy lightweight agents to monitor multiple servers from a single dashboard, with CPU, memory, disk and temperature metrics.
 
 ✨ Key features:
 
-📡 Real-time network traffic monitoring
-
-🖥️ Visibility into connected devices and active connections
+📡 Speed testing with multiple providers and historical tracking
 
 🧭 Clean and intuitive dashboard
 
-🪶 Lightweight and self-hosted
+🪶 Lightweight, self-hosted and resource efficient
+
+🖥️ Distributed agents for multi-server monitoring
 
 🔧 Easy to deploy and maintain
 
-Netronome is perfect for users who want a simple, efficient, and reliable way to monitor their network.
+Netronome is perfect for users who want to monitor their internet speed and network health in a simple, efficient and reliable way.
 
 🇫🇷 Description Française
 
-🌐 Netronome est un outil de surveillance réseau léger et moderne qui offre une vision claire de l’activité de votre réseau.
+🌐 Netronome est un outil moderne de test de débit et de surveillance des performances réseau, développé avec Go et React.
 
-📊 Suivez le trafic réseau en temps réel, surveillez les appareils connectés et analysez les performances grâce à un tableau de bord clair et intuitif.
+📶 Testez votre débit internet auprès de plusieurs fournisseurs (Speedtest.net, iperf3, LibreSpeed) avec progression en temps réel et suivi historique.
 
-⚡ Conçu pour être simple et efficace, Netronome consomme peu de ressources et convient parfaitement aux serveurs personnels, aux environnements auto-hébergés et aux petites infrastructures.
+📉 Suivez la perte de paquets et lancez des diagnostics réseau (traceroute, MTR) pour obtenir une vision claire de la santé de votre connexion.
+
+🖥️ Déployez des agents légers pour surveiller plusieurs serveurs depuis un seul tableau de bord, avec les métriques CPU, mémoire, disque et température.
 
 ✨ Fonctionnalités principales :
 
-📡 Surveillance du trafic réseau en temps réel
-
-🖥️ Visibilité des appareils connectés et des connexions actives
+📡 Tests de débit multi-fournisseurs avec suivi historique
 
 🧭 Tableau de bord clair et intuitif
 
-🪶 Application légère et auto-hébergée
+🪶 Application légère, auto-hébergée et économe en ressources
+
+🖥️ Agents distribués pour la surveillance multi-serveurs
 
 🔧 Déploiement et maintenance simplifiés
 
-Netronome est idéal pour ceux qui souhaitent surveiller leur réseau de manière simple, efficace et fiable.
+Netronome est idéal pour ceux qui souhaitent surveiller leur débit internet et la santé de leur réseau de manière simple, efficace et fiable.
