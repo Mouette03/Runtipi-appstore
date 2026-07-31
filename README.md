@@ -1,7 +1,5 @@
 # 🛒 Runtipi App Store – Mouette03
 
-[![Add to Runtipi](https://img.shields.io/badge/Add%20to-Runtipi-blue?style=for-the-badge&logo=appveyor)](https://github.com/Mouette03/Runtipi-appstore)
-
 ## 📋 Lien du dépôt à copier / Repository link to copy
 🇫🇷 Copiez ce lien pour ajouter le store dans Runtipi :  
 🇬🇧 Copy this link to add the store in Runtipi:   https://github.com/Mouette03/Runtipi-appstore
