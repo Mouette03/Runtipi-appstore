@@ -1,8 +1,7 @@
 # 🛒 Runtipi App Store – Mouette03
 
 ## 📋 Lien du dépôt à copier / Repository link to copy
-🇫🇷 Copiez ce lien pour ajouter le store dans Runtipi :  
-🇬🇧 Copy this link to add the store in Runtipi:   https://github.com/Mouette03/Runtipi-appstore
+https://github.com/Mouette03/Runtipi-appstore
 
 ---
 
