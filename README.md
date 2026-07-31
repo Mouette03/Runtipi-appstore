@@ -6,7 +6,7 @@ https://github.com/Mouette03/Runtipi-appstore
 ---
 
 ## 🇬🇧 English
-Welcome to my **custom App Store for Runtipi** 🎉  
+Welcome to my **custom App Store for Runtipi** 
 This repository contains several applications you can install directly via **Runtipi**.
 
 ### 📦 Available Applications
@@ -40,12 +40,12 @@ This repository contains several applications you can install directly via **Run
 2. Go to **Settings → Appstore**.  
 3. Click **Add a store**.  
 4. Paste the repository URL above.  
-5. The applications will appear directly in the **Runtipi store** 🎉
+5. The applications will appear directly in the **Runtipi store**
 
 ---
 
 ## 🇫🇷 Français
-Bienvenue dans mon **App Store personnalisé pour Runtipi** 🎉  
+Bienvenue dans mon **App Store personnalisé pour Runtipi**  
 Ce dépôt contient plusieurs applications que vous pouvez installer directement via **Runtipi**.
 
 ### 📦 Applications disponibles
@@ -79,4 +79,4 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 2. Allez dans **Paramètres → Appstore**.  
 3. Cliquez sur **Ajouter un store**.  
 4. Collez l’URL du dépôt ci-dessus.  
-5. Les applications apparaîtront directement dans le **store Runtipi** 🎉 
+5. Les applications apparaîtront directement dans le **store Runtipi** 
