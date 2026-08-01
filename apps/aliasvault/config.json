@@ -1,6 +1,6 @@
 {
   "name": "AliasVault",
-  "available": false,
+  "available": true,
   "exposable": true,
   "dynamic_config": true,
   "port": 5896,
