@@ -1,0 +1,45 @@
+{
+  "name": "AliasVault",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 5896,
+  "id": "aliasvault",
+  "tipi_version": 1,
+  "version": "0.30.2",
+  "categories": ["security"],
+  "description": "AliasVault is a self-hosted password manager and email alias service for Runtipi.",
+  "short_desc": "Self-hosted password manager with email aliases",
+  "author": "AliasVault",
+  "source": "https://docs.aliasvault.com/installation/docker-compose/",
+  "website": "https://www.aliasvault.net",
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Force HTTPS redirect",
+      "required": true,
+      "options": [
+        {"label": "true", "value": "true"},
+        {"label": "false", "value": "false"}
+      ],
+      "hint": "Redirect all HTTP requests to HTTPS. Set to true when your app is served behind an HTTPS reverse proxy.",
+      "env_variable": "FORCE_HTTPS_REDIRECT"
+    },
+    {
+      "type": "text",
+      "label": "Public registration enabled",
+      "required": false,
+      "default": "true",
+      "options": [
+        {"label": "true", "value": "true"},
+        {"label": "false", "value": "false"}
+      ],
+      "hint": "Allow anyone to create an account. Set to false to restrict access to invited or existing users only.",
+      "env_variable": "PUBLIC_REGISTRATION_ENABLED"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1785621872727,
+  "updated_at": 1785621872727,
+  "min_tipi_version": "4.5.0"
+}

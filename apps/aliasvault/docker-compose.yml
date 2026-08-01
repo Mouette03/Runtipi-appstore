@@ -1,0 +1,20 @@
+services:
+  aliasvault:
+    image: ghcr.io/aliasvault/aliasvault:0.30.2
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:80"
+    volumes:
+      - ${APP_DATA_DIR}/data/database:/database
+      - ${APP_DATA_DIR}/data/logs:/logs
+      - ${APP_DATA_DIR}/data/secrets:/secrets
+      - ${APP_DATA_DIR}/data/certificates:/certificates
+    environment:
+      FORCE_HTTPS_REDIRECT: "${FORCE_HTTPS_REDIRECT:-false}"
+      PUBLIC_REGISTRATION_ENABLED: "${PUBLIC_REGISTRATION_ENABLED:-true}"
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+
+x-runtipi:
+  schema_version: 2
