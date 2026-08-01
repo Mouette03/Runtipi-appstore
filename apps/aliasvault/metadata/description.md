@@ -21,6 +21,8 @@ This app follows the minimal Docker Compose example retained for the Runtipi pac
 - `FORCE_HTTPS_REDIRECT`: redirects traffic to HTTPS when TLS is correctly handled upstream.[1]
 - `PUBLIC_REGISTRATION_ENABLED`: allows or blocks new user registrations.[1]
 
+> **First launch:** the `Public registration enabled` option must be enabled (`true`) on the first launch so you can create the initial admin account. You can then disable it afterwards to block new registrations.
+
 ### Storage
 
 Persistent data is stored in the directories `/database`, `/logs`, `/secrets`, and `/certificates`, matching the official Docker Compose layout.[4]
@@ -49,6 +51,8 @@ Cette app suit l'exemple Docker Compose minimal retenu pour le paquet Runtipi et
 
 - `FORCE_HTTPS_REDIRECT` : redirige le trafic vers HTTPS lorsque le TLS est correctement géré en amont.[1]
 - `PUBLIC_REGISTRATION_ENABLED` : autorise ou bloque l'inscription de nouveaux utilisateurs.[1]
+
+> **Premier lancement :** l'option « Public registration enabled » doit être activée (`true`) lors du premier lancement afin de pouvoir créer le premier compte administrateur. Vous pouvez ensuite la désactiver pour bloquer les nouvelles inscriptions.
 
 ### Stockage
 
