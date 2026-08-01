@@ -11,6 +11,7 @@ This repository contains several applications you can install directly via **Run
 
 ### 📦 Available Applications
 - 🎮 [**Arcane**](./apps/arcane) – Modern Docker management interface.
+- 🔐 [**AliasVault**](./apps/aliasvault) – Self-hosted password manager with email aliases.
 - 📄 [**BentoPDF**](./apps/bentopdf) – Self-hosted PDF converter and viewer.
 - 🏢 [**Dolibarr**](./apps/dolibarr) – Open-source ERP & CRM for business management.
 - 🦆 [**DuckDNS**](./apps/duckdns) – Free dynamic DNS service.
@@ -50,6 +51,7 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 
 ### 📦 Applications disponibles
 - 🎮 [**Arcane**](./apps/arcane) – Interface moderne de gestion Docker.
+- 🔐 [**AliasVault**](./apps/aliasvault) – Gestionnaire de mots de passe self-hosted avec alias email.
 - 📄 [**BentoPDF**](./apps/bentopdf) – Convertisseur et visualiseur PDF self-hosted.
 - 🏢 [**Dolibarr**](./apps/dolibarr) – ERP & CRM open source pour la gestion d'entreprise.
 - 🦆 [**DuckDNS**](./apps/duckdns) – Service de DNS dynamique gratuit.
