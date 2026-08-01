@@ -16,17 +16,6 @@
   "form_fields": [
     {
       "type": "text",
-      "label": "Force HTTPS redirect",
-      "required": true,
-      "options": [
-        {"label": "true", "value": "true"},
-        {"label": "false", "value": "false"}
-      ],
-      "hint": "Redirect all HTTP requests to HTTPS. Set to true when your app is served behind an HTTPS reverse proxy.",
-      "env_variable": "FORCE_HTTPS_REDIRECT"
-    },
-    {
-      "type": "text",
       "label": "Public registration enabled",
       "required": false,
       "default": "true",
