@@ -43,7 +43,7 @@
       "env_variable": "ADMIN_IP_ALLOWLIST"
     },
     {
-      "type": "select",
+      "type": "text",
       "label": "IP logging enabled",
       "required": false,
       "default": "true",
