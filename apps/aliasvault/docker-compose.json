@@ -1,0 +1,53 @@
+{
+  "services": [
+    {
+      "name": "aliasvault",
+      "image": "ghcr.io/aliasvault/aliasvault:0.30.2",
+      "isMain": true,
+      "internalPort": 80,
+      "restart": "unless-stopped",
+      "environment": [
+        {
+          "key": "FORCE_HTTPS_REDIRECT",
+          "value": "false"
+        },
+        {
+          "key": "PUBLIC_REGISTRATION_ENABLED",
+          "value": "${PUBLIC_REGISTRATION_ENABLED}"
+        },
+        {
+          "key": "TRUSTED_PROXIES",
+          "value": "${TRUSTED_PROXIES}"
+        },
+        {
+          "key": "ADMIN_IP_ALLOWLIST",
+          "value": "${ADMIN_IP_ALLOWLIST}"
+        },
+        {
+          "key": "IP_LOGGING_ENABLED",
+          "value": "${IP_LOGGING_ENABLED}"
+        }
+      ],
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/database",
+          "containerPath": "/database"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/logs",
+          "containerPath": "/logs"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/secrets",
+          "containerPath": "/secrets"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/data/certificates",
+          "containerPath": "/certificates"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 2,
+  "$schema": "https://schemas.runtipi.io/dynamic-compose.json"
+}
