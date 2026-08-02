@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 5896,
   "id": "aliasvault",
-  "tipi_version": 2,
+  "tipi_version": 3,
   "version": "0.30.2",
   "categories": ["security"],
   "description": "AliasVault is a self-hosted password manager and email alias service for Runtipi.",
