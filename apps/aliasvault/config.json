@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 5896,
   "id": "aliasvault",
-  "tipi_version": 1,
+  "tipi_version": 2,
   "version": "0.30.2",
   "categories": ["security"],
   "description": "AliasVault is a self-hosted password manager and email alias service for Runtipi.",
@@ -25,7 +25,35 @@
       ],
       "hint": "Allow anyone to create an account. Set to false to restrict access to invited or existing users only.",
       "env_variable": "PUBLIC_REGISTRATION_ENABLED"
-    }
+    },
+    {
+      "type": "text",
+      "label": "Trusted proxies",
+      "required": false,
+      "default": "false",
+      "hint": "Comma-separated list of trusted proxy IPs or CIDR ranges (e.g. 172.18.0.0/16,10.0.0.0/8). Required when AliasVault is behind another reverse proxy.",
+      "env_variable": "TRUSTED_PROXIES"
+    },
+    {
+      "type": "text",
+      "label": "Admin IP allowlist",
+      "required": false,
+      "default": "false",
+      "hint": "Comma-separated list of IP addresses or CIDR ranges allowed to access the admin interface (e.g. 192.168.1.0/24,203.0.113.10). Leave empty to disable IP restrictions.",
+      "env_variable": "ADMIN_IP_ALLOWLIST"
+    },
+    {
+      "type": "select",
+      "label": "IP logging enabled",
+      "required": false,
+      "default": "true",
+      "options": [
+        {"label": "true", "value": "true"},
+        {"label": "false", "value": "false"}
+     ],
+      "hint": "Enable logging of client IP addresses. Disable this for increased privacy if you do not need IPs in logs.",
+      "env_variable": "IP_LOGGING_ENABLED"
+}
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1785621872727,

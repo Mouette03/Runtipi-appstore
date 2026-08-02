@@ -11,7 +11,10 @@ services:
       - ${APP_DATA_DIR}/data/certificates:/certificates
     environment:
       FORCE_HTTPS_REDIRECT: "false"
-      PUBLIC_REGISTRATION_ENABLED: "${PUBLIC_REGISTRATION_ENABLED:-true}"
+      PUBLIC_REGISTRATION_ENABLED: "${PUBLIC_REGISTRATION_ENABLED}"
+      TRUSTED_PROXIES: "${TRUSTED_PROXIES}"
+      ADMIN_IP_ALLOWLIST: "${ADMIN_IP_ALLOWLIST}"
+      IP_LOGGING_ENABLED: ${IP_LOGGING_ENABLED}
     x-runtipi:
       internal_port: 80
       is_main: true
