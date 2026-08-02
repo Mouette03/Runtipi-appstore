@@ -5,7 +5,7 @@
   "dynamic_config": true,
   "port": 5896,
   "id": "aliasvault",
-  "tipi_version": 3,
+  "tipi_version": 2,
   "version": "0.30.2",
   "categories": ["security"],
   "description": "AliasVault is a self-hosted password manager and email alias service for Runtipi.",
@@ -53,7 +53,7 @@
      ],
       "hint": "Enable logging of client IP addresses. Disable this for increased privacy if you do not need IPs in logs.",
       "env_variable": "IP_LOGGING_ENABLED"
-}
+    }
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1785621872727,
