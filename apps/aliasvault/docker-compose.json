@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "aliasvault",
-      "image": "ghcr.io/aliasvault/aliasvault:0.30.2",
+      "image": "ghcr.io/aliasvault/aliasvault:0.30.3",
       "isMain": true,
       "internalPort": 80,
       "restart": "unless-stopped",
