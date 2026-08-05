@@ -177,6 +177,13 @@
       }
     }
   },
+  "uptime-kuma": {
+    "images": {
+      "uptime-kuma": {
+        "lock": "minor"
+      }
+    }
+  },
   "wordpress": {
     "images": {
       "wordpress": {
