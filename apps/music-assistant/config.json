@@ -5,8 +5,8 @@
   "dynamic_config": true,
   "exposable": true,
   "port": 6875,
-  "tipi_version": 1,
-  "version": "2.7.0",
+  "tipi_version": 2,
+  "version": "2.7.11",
   "short_desc": "Multiroom music server for Home Assistant.",
   "description": "Music Assistant is an open source music management and playback system.",
   "author": "music-assistant",
@@ -19,6 +19,6 @@
     "amd64"
   ],
   "created_at": 1766089098500,
-  "updated_at": 1766089098500,
+  "updated_at": 1785960979111,
   "min_tipi_version": "4.5.0"
 }
