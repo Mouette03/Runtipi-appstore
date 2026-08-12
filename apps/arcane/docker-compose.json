@@ -15,6 +15,14 @@
       ],
       "environment": [
         {
+          "key": "PUID",
+          "value": "1000"
+        },
+        {
+          "key": "PGID",
+          "value": "1000"
+        },
+        {
           "key": "ENCRYPTION_KEY",
           "value": "${ENCRYPTION_KEY}"
         },
@@ -28,14 +36,13 @@
         },
         {
           "key": "APP_URL",
-          "value": "${APP_URL}"
+          "value": "${APP_PROTOCOL}://${APP_DOMAIN}"
         },
         {
           "key": "ANALYTICS_DISABLED",
           "value": "true"
         }
       ],
-      "user": "1000:1000",
       "dependsOn": [
         "docker-socket-proxy"
       ],
@@ -106,6 +113,50 @@
         {
           "key": "VOLUMES",
           "value": "1"
+        },
+        {
+          "key": "DISTRIBUTION",
+          "value": "1"
+        },
+        {
+          "key": "BUILD",
+          "value": "0"
+        },
+        {
+          "key": "COMMIT",
+          "value": "0"
+        },
+        {
+          "key": "CONFIGS",
+          "value": "0"
+        },
+        {
+          "key": "NODES",
+          "value": "0"
+        },
+        {
+          "key": "PLUGINS",
+          "value": "0"
+        },
+        {
+          "key": "SERVICES",
+          "value": "0"
+        },
+        {
+          "key": "SESSION",
+          "value": "0"
+        },
+        {
+          "key": "SWARM",
+          "value": "0"
+        },
+        {
+          "key": "SYSTEM",
+          "value": "0"
+        },
+        {
+          "key": "TASKS",
+          "value": "0"
         }
       ],
       "securityOpt": [
