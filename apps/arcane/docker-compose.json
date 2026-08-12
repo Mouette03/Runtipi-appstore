@@ -40,7 +40,7 @@
         "docker-socket-proxy"
       ],
       "healthCheck": {
-        "test": "curl -fsS http://127.0.0.1:3552/api/health || exit 1",
+        "test": "./arcane health --timeout 2s",
         "interval": "10s",
         "timeout": "3s",
         "retries": 5,
@@ -54,7 +54,8 @@
       "volumes": [
         {
           "hostPath": "/var/run/docker.sock",
-          "containerPath": "/var/run/docker.sock:ro"
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": true
         }
       ],
       "environment": [

@@ -1,6 +1,5 @@
 # Arcane Docker
 
-⚠️ **BETA APPLICATION / APPLICATION EN BETA**
 
 🔐 **Default Credentials / Identifiants par défaut**  
 Username / Nom d'utilisateur: `arcane`  
