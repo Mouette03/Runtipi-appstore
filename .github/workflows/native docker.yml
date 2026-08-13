@@ -45,15 +45,15 @@ jobs:
 
             if [ "${{ github.event.inputs.delete_json }}" = "true" ]; then
               echo "🗑️ JSON deletion enabled"
-              npx codemod@latest @runtipi/native-docker --param write=true --param force=true --param delete_json=true
+              npx codemod@latest @runtipi/native-docker --param write=true --param force=true --param delete_json=true --no-interactive
             else
               echo "📁 JSON files kept"
-              npx codemod@latest @runtipi/native-docker --param write=true --param force=true
+              npx codemod@latest @runtipi/native-docker --param write=true --param force=true --no-interactive
             fi
 
           else
             echo "🔍 Running in DRY-RUN mode (simulation)"
-            npx codemod@latest @runtipi/native-docker
+            npx codemod@latest @runtipi/native-docker --no-interactive
           fi
 
       - name: Commit changes (write mode only)

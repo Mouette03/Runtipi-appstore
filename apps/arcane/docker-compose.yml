@@ -1,0 +1,58 @@
+services:
+  arcane:
+    image: 'ghcr.io/getarcaneapp/arcane:v2.7.0'
+    volumes:
+      - '${APP_DATA_DIR}/data:/app/data'
+    environment:
+      - 'PUID=1000'
+      - 'PGID=1000'
+      - 'ENCRYPTION_KEY=${ENCRYPTION_KEY}'
+      - 'JWT_SECRET=${JWT_SECRET}'
+      - 'DOCKER_HOST=tcp://docker-socket-proxy:2375'
+      - 'APP_URL=${APP_PROTOCOL}://${APP_DOMAIN}'
+      - 'ANALYTICS_DISABLED=true'
+    depends_on:
+      - 'docker-socket-proxy'
+    healthcheck:
+      test: ['CMD', './arcane', 'health', '--timeout', '2s']
+      interval: '10s'
+      timeout: '3s'
+      retries: 5
+      start_period: '15s'
+    x-runtipi:
+      internal_port: 3552
+      is_main: true
+  docker-socket-proxy:
+    image: 'tecnativa/docker-socket-proxy:latest'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    environment:
+      - 'EVENTS=1'
+      - 'PING=1'
+      - 'VERSION=1'
+      - 'AUTH=0'
+      - 'SECRETS=0'
+      - 'POST=1'
+      - 'CONTAINERS=1'
+      - 'EXEC=1'
+      - 'IMAGES=1'
+      - 'INFO=1'
+      - 'NETWORKS=1'
+      - 'VOLUMES=1'
+      - 'DISTRIBUTION=1'
+      - 'BUILD=0'
+      - 'COMMIT=0'
+      - 'CONFIGS=0'
+      - 'NODES=0'
+      - 'PLUGINS=0'
+      - 'SERVICES=0'
+      - 'SESSION=0'
+      - 'SWARM=0'
+      - 'SYSTEM=0'
+      - 'TASKS=0'
+    security_opt:
+      - 'no-new-privileges:true'
+    x-runtipi:
+      internal_port: 2375
+x-runtipi:
+  schema_version: 2
