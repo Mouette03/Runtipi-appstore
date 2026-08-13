@@ -14,7 +14,7 @@ services:
     depends_on:
       - 'docker-socket-proxy'
     healthcheck:
-      test: './arcane health --timeout 2s'
+      test: ['CMD', './arcane', 'health', '--timeout', '2s']
       interval: '10s'
       timeout: '3s'
       retries: 5
@@ -50,8 +50,6 @@ services:
       - 'SWARM=0'
       - 'SYSTEM=0'
       - 'TASKS=0'
-    cap_add:
-      - 'SYS_ADMIN'
     security_opt:
       - 'no-new-privileges:true'
     x-runtipi:
