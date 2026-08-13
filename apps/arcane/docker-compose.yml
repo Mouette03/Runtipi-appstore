@@ -1,6 +1,6 @@
 services:
   arcane:
-    image: 'ghcr.io/getarcaneapp/arcane:v2.7.0'
+    image: 'ghcr.io/getarcaneapp/arcane:v2.8.0'
     volumes:
       - '${APP_DATA_DIR}/data:/app/data'
     environment:
@@ -14,7 +14,7 @@ services:
     depends_on:
       - 'docker-socket-proxy'
     healthcheck:
-      test: ['CMD', './arcane', 'health', '--timeout', '2s']
+      test: './arcane health --timeout 2s'
       interval: '10s'
       timeout: '3s'
       retries: 5
@@ -50,6 +50,8 @@ services:
       - 'SWARM=0'
       - 'SYSTEM=0'
       - 'TASKS=0'
+    cap_add:
+      - 'SYS_ADMIN'
     security_opt:
       - 'no-new-privileges:true'
     x-runtipi:

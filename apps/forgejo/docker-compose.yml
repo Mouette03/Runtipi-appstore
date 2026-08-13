@@ -1,0 +1,49 @@
+services:
+  forgejo:
+    image: 'codeberg.org/forgejo/forgejo:15.0.6'
+    ports:
+      - '222:22/tcp'
+    volumes:
+      - '${APP_DATA_DIR}/data/forgejo:/data'
+    environment:
+      - 'FORGEJO__database__DB_TYPE=mysql'
+      - 'FORGEJO__database__HOST=forgejo-db:3306'
+      - 'FORGEJO__database__NAME=forgejo'
+      - 'FORGEJO__database__USER=${FORGEJO_DB_USERNAME}'
+      - 'FORGEJO__database__PASSWD=${FORGEJO_DB_PASSWORD}'
+      - 'FORGEJO__server__ROOT_URL=${APP_PROTOCOL}://${APP_DOMAIN}/'
+      - 'FORGEJO__server__DOMAIN=${APP_HOST}'
+      - 'FORGEJO__server__PROTOCOL=http'
+      - 'FORGEJO__server__SSH_DOMAIN=${APP_HOST}'
+      - 'FORGEJO__server__SSH_PORT=222'
+      - 'FORGEJO__actions__ENABLED=false'
+      - 'FORGEJO__server__DISABLE_SSH=${APP_SSH_DISABLED}'
+    depends_on:
+      forgejo-db:
+        condition: 'service_healthy'
+    healthcheck:
+      test: 'curl -fsS http://127.0.0.1:3000/api/healthz | grep -Eq ''"status"[[:space:]]*:[[:space:]]*"pass"'' || (echo "Healthcheck failed" >&2; exit 1)'
+      interval: '1m'
+      timeout: '10s'
+      retries: 3
+      start_period: '1m'
+    x-runtipi:
+      internal_port: 3000
+      is_main: true
+  forgejo-db:
+    image: 'mariadb:12.3.2'
+    volumes:
+      - '${APP_DATA_DIR}/data/mariadb:/var/lib/mysql'
+    environment:
+      - 'MYSQL_DATABASE=forgejo'
+      - 'MYSQL_USER=${FORGEJO_DB_USERNAME}'
+      - 'MYSQL_ROOT_PASSWORD=${FORGEJO_DB_ROOT_PASSWORD}'
+      - 'MYSQL_PASSWORD=${FORGEJO_DB_PASSWORD}'
+    healthcheck:
+      test: 'mariadb-admin ping -h 127.0.0.1 -u root --password=${FORGEJO_DB_ROOT_PASSWORD} || exit 1'
+      interval: '5s'
+      timeout: '5s'
+      retries: 20
+      start_period: '30s'
+x-runtipi:
+  schema_version: 2

@@ -1,0 +1,36 @@
+services:
+  dolibarr:
+    image: 'dolibarr/dolibarr:23.0.3'
+    volumes:
+      - '${APP_DATA_DIR}/data/dolibarr/documents:/var/www/documents'
+      - '${APP_DATA_DIR}/data/dolibarr/conf:/var/www/html/conf'
+      - '${APP_DATA_DIR}/data/dolibarr/custom:/var/www/html/custom'
+    environment:
+      - 'DOLI_INIT_DEMO=0'
+      - 'DOLI_DB_HOST=db-dolibarr'
+      - 'DOLI_DB_NAME=dolibarrdb'
+      - 'DOLI_DB_USER=doli'
+      - 'DOLI_DB_PASSWORD=dolibarrpwd'
+      - 'DOLI_ADMIN_LOGIN=${DOLIBARR_ADMIN_USER}'
+      - 'DOLI_ADMIN_PASSWORD=${DOLIBARR_ADMIN_PASSWORD}'
+      - 'DOLI_CRON=0'
+      - 'DOLI_CRON_KEY=securekey'
+      - 'DOLI_COMPANY_NAME=${DOLI_COMPANY_NAME}'
+      - 'WWW_USER_ID=1000'
+      - 'WWW_GROUP_ID=1000'
+    depends_on:
+      - 'db-dolibarr'
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+  db-dolibarr:
+    image: 'mariadb:12.3.1'
+    volumes:
+      - '${APP_DATA_DIR}/data/db_data:/var/lib/mysql'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=rootpass'
+      - 'MYSQL_DATABASE=dolibarrdb'
+      - 'MYSQL_USER=doli'
+      - 'MYSQL_PASSWORD=dolibarrpwd'
+x-runtipi:
+  schema_version: 2

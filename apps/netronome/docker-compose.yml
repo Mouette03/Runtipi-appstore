@@ -1,0 +1,10 @@
+services:
+  netronome:
+    image: 'ghcr.io/autobrr/netronome:v0.13.0'
+    volumes:
+      - '${APP_DATA_DIR}/data:/data'
+    x-runtipi:
+      internal_port: 7575
+      is_main: true
+x-runtipi:
+  schema_version: 2

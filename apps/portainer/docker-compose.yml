@@ -1,0 +1,11 @@
+services:
+  portainer:
+    image: 'portainer/portainer-ce:2.39.6-alpine'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '${APP_DATA_DIR}/data:/data'
+    x-runtipi:
+      internal_port: 9000
+      is_main: true
+x-runtipi:
+  schema_version: 2

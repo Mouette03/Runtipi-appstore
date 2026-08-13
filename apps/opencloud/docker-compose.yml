@@ -1,0 +1,32 @@
+services:
+  opencloud:
+    image: 'opencloudeu/opencloud:4.0.8'
+    command:
+      - '-c'
+      - 'opencloud init --insecure true || true; opencloud server'
+    entrypoint: '/bin/sh'
+    volumes:
+      - '${APP_DATA_DIR}/data/config:/etc/opencloud'
+      - '${APP_DATA_DIR}/data/data:/var/lib/opencloud'
+    environment:
+      - 'OC_URL=https://${APP_DOMAIN}'
+      - 'OC_INSECURE=true'
+      - 'PROXY_HTTP_ADDR=0.0.0.0:9200'
+      - 'PROXY_TLS=false'
+      - 'IDM_ADMIN_PASSWORD=${OPENCLOUD_ADMIN_PASSWORD}'
+      - 'IDM_CREATE_DEMO_USERS=false'
+      - 'OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD=false'
+      - 'START_ADDITIONAL_SERVICES=${OPENCLOUD_ENABLE_NOTIFICATIONS}'
+      - 'NOTIFICATIONS_SMTP_HOST=${OPENCLOUD_SMTP_HOST}'
+      - 'NOTIFICATIONS_SMTP_PORT=${OPENCLOUD_SMTP_PORT}'
+      - 'NOTIFICATIONS_SMTP_SENDER=${OPENCLOUD_SMTP_SENDER}'
+      - 'NOTIFICATIONS_SMTP_USERNAME=${OPENCLOUD_SMTP_USERNAME}'
+      - 'NOTIFICATIONS_SMTP_PASSWORD=${OPENCLOUD_SMTP_PASSWORD}'
+      - 'NOTIFICATIONS_SMTP_TRANSPORT_ENCRYPTION=${OPENCLOUD_SMTP_TRANSPORT_ENCRYPTION}'
+      - 'NOTIFICATIONS_SMTP_INSECURE=false'
+      - 'NOTIFICATIONS_SMTP_AUTHENTICATION=auto'
+    x-runtipi:
+      internal_port: 9200
+      is_main: true
+x-runtipi:
+  schema_version: 2

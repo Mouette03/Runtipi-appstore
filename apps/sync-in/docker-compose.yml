@@ -1,0 +1,37 @@
+services:
+  syncin:
+    image: 'syncin/server:2.4.4'
+    volumes:
+      - '${APP_DATA_DIR}/data/sync-in:/data'
+    environment:
+      - 'SYNCIN_APPLICATIONS_FILES_DATAPATH=/data'
+      - 'SYNCIN_SERVER_HOST=0.0.0.0'
+      - 'INIT_ADMIN=true'
+      - 'INIT_ADMIN_LOGIN=${SYNCIN_ADMIN_LOGIN}'
+      - 'INIT_ADMIN_PASSWORD=${SYNCIN_ADMIN_PASSWORD}'
+      - 'SYNCIN_AUTH_ENCRYPTIONKEY=${SYNCIN_ENCRYPTION_KEY}'
+      - 'SYNCIN_AUTH_TOKEN_ACCESS_SECRET=${SYNCIN_ACCESS_SECRET}'
+      - 'SYNCIN_AUTH_TOKEN_REFRESH_SECRET=${SYNCIN_REFRESH_SECRET}'
+      - 'SYNCIN_MYSQL_URL=mysql://root:${SYNCIN_DB_ROOT_PASSWORD}@db-syncin:3306/sync_in'
+      - 'SYNCIN_LOGGER_LEVEL=info'
+      - 'SYNCIN_MAIL_HOST=${SYNCIN_MAIL_HOST}'
+      - 'SYNCIN_MAIL_PORT=${SYNCIN_MAIL_PORT}'
+      - 'SYNCIN_MAIL_SECURE=${SYNCIN_MAIL_SECURE}'
+      - 'SYNCIN_MAIL_SENDER=${SYNCIN_MAIL_SENDER}'
+      - 'SYNCIN_MAIL_AUTH_USER=${SYNCIN_MAIL_USER}'
+      - 'SYNCIN_MAIL_AUTH_PASS=${SYNCIN_MAIL_PASSWORD}'
+    depends_on:
+      db-syncin:
+        condition: 'service_started'
+    x-runtipi:
+      internal_port: 8080
+      is_main: true
+  db-syncin:
+    image: 'mariadb:12.3.2'
+    volumes:
+      - '${APP_DATA_DIR}/data/db:/var/lib/mysql'
+    environment:
+      - 'MARIADB_ROOT_PASSWORD=${SYNCIN_DB_ROOT_PASSWORD}'
+      - 'MYSQL_DATABASE=sync_in'
+x-runtipi:
+  schema_version: 2

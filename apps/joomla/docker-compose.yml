@@ -1,0 +1,41 @@
+services:
+  joomla:
+    image: 'joomla:6.1.2-php8.3-apache'
+    volumes:
+      - '${APP_DATA_DIR}/data/html:/var/www/html'
+      - '${APP_DATA_DIR}/data/php.ini:/usr/local/etc/php/conf.d/php.ini'
+    environment:
+      - 'JOOMLA_DB_HOST=db-joomla'
+      - 'JOOMLA_DB_USER=${MYSQL_USER}'
+      - 'JOOMLA_DB_PASSWORD=${MYSQL_PASSWORD}'
+      - 'JOOMLA_DB_NAME=joomla_db'
+      - 'JOOMLA_DB_TYPE=mysqli'
+    depends_on:
+      db-joomla:
+        condition: 'service_healthy'
+    healthcheck:
+      test: 'curl -f http://127.0.0.1:80/ || exit 1'
+      interval: '30s'
+      timeout: '10s'
+      retries: 3
+      start_period: '90s'
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+  db-joomla:
+    image: 'mariadb:12.3.1'
+    volumes:
+      - '${APP_DATA_DIR}/data/db:/var/lib/mysql'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+      - 'MYSQL_USER=${MYSQL_USER}'
+      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
+      - 'MYSQL_DATABASE=joomla_db'
+    healthcheck:
+      test: 'mariadb-admin ping -h 127.0.0.1 -u root -p${MYSQL_ROOT_PASSWORD} || exit 1'
+      interval: '10s'
+      timeout: '5s'
+      retries: 5
+      start_period: '30s'
+x-runtipi:
+  schema_version: 2

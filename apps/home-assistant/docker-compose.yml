@@ -1,0 +1,19 @@
+services:
+  homeassistant:
+    image: 'ghcr.io/home-assistant/home-assistant:2026.8.1'
+    restart: 'unless-stopped'
+    volumes:
+      - '${APP_DATA_DIR}/data/config:/config'
+      - '${APP_DATA_DIR}/data/localtime:/etc/localtime'
+      - '/run/dbus:/run/dbus'
+    x-runtipi:
+      internal_port: 8123
+      is_main: true
+  matter-server:
+    image: 'ghcr.io/home-assistant-libs/python-matter-server:stable'
+    restart: 'unless-stopped'
+    volumes:
+      - '${APP_DATA_DIR}/data/matter:/data'
+    network_mode: 'host'
+x-runtipi:
+  schema_version: 2

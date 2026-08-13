@@ -1,0 +1,17 @@
+services:
+  palmr:
+    image: 'kyantech/palmr:v3.3.2-beta'
+    ports:
+      - '9379:9379/tcp'
+    volumes:
+      - '${APP_DATA_DIR}/data/server:/app/server'
+    environment:
+      - 'STORAGE_URL=${APP_PROTOCOL}://${APP_HOST}:9379'
+      - 'SECURE_SITE=${SECURE_SITE}'
+      - 'DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE}'
+      - 'PRESIGNED_URL_EXPIRATION=${PRESIGNED_URL_EXPIRATION}'
+    x-runtipi:
+      internal_port: 5487
+      is_main: true
+x-runtipi:
+  schema_version: 2

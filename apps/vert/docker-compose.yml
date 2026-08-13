@@ -1,0 +1,8 @@
+services:
+  vert:
+    image: 'ghcr.io/vert-sh/vert:sha-e1c83ba'
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+x-runtipi:
+  schema_version: 2

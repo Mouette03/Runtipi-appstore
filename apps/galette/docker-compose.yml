@@ -1,0 +1,29 @@
+services:
+  galette:
+    image: 'galette/galette:1.2.1'
+    volumes:
+      - '${APP_DATA_DIR}/data/data:/var/www/galette/data'
+      - '${APP_DATA_DIR}/data/config:/var/www/galette/config'
+    environment:
+      - 'DB_TYPE=mysqli'
+      - 'DB_HOST=db-galette'
+      - 'DB_NAME=galettedb'
+      - 'DB_USER=galetteuser'
+      - 'DB_PASS=${GALETTE_MYSQL_PASSWORD}'
+    depends_on:
+      db-galette:
+        condition: 'service_started'
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+  db-galette:
+    image: 'mariadb:12.3.2'
+    volumes:
+      - '${APP_DATA_DIR}/data/galette_db:/var/lib/mysql'
+    environment:
+      - 'MARIADB_ROOT_PASSWORD=rootpass'
+      - 'MYSQL_DATABASE=galettedb'
+      - 'MYSQL_USER=galetteuser'
+      - 'MYSQL_PASSWORD=${GALETTE_MYSQL_PASSWORD}'
+x-runtipi:
+  schema_version: 2

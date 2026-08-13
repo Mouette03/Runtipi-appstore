@@ -1,0 +1,12 @@
+services:
+  phpmyadmin:
+    image: 'phpmyadmin:5.2.3-apache'
+    volumes:
+      - '${APP_DATA_DIR}/data:/etc/phpmyadmin/conf.d:ro'
+    environment:
+      - 'PMA_ARBITRARY=1'
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+x-runtipi:
+  schema_version: 2

@@ -1,0 +1,10 @@
+services:
+  bentopdf:
+    image: 'ghcr.io/alam00000/bentopdf-simple:2.8.7'
+    environment:
+      - 'DISABLE_IPV6=true'
+    x-runtipi:
+      internal_port: 8080
+      is_main: true
+x-runtipi:
+  schema_version: 2

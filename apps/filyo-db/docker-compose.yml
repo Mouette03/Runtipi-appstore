@@ -1,0 +1,47 @@
+services:
+  filyo:
+    image: 'ghcr.io/mouette03/filyo:v1.2.9-mariadb'
+    volumes:
+      - '${APP_DATA_DIR}/data/filyo:/data'
+    environment:
+      - 'NODE_ENV=production'
+      - 'JWT_SECRET=${FILYO_JWT_SECRET}'
+      - 'TRUST_PROXY=${FILYO_TRUST_PROXY}'
+      - 'CLEANUP_INTERVAL=${FILYO_CLEANUP_INTERVAL}'
+      - 'TUS_CHUNK_MB=${FILYO_TUS_CHUNK_MB}'
+      - 'REGISTER_DEFAULT_QUOTA=${FILYO_REGISTER_DEFAULT_QUOTA}'
+      - 'LOG_LEVEL=${FILYO_LOG_LEVEL}'
+      - 'DB_HOST=db-filyo'
+      - 'DB_USER=filyo'
+      - 'DB_PASSWORD=${FILYO_MYSQL_PASSWORD}'
+      - 'DB_NAME=filyo'
+    depends_on:
+      db-filyo:
+        condition: 'service_healthy'
+    healthcheck:
+      test: 'node -e "require(''http'').get(''http://127.0.0.1:3001/health'', r => process.exit(r.statusCode===200?0:1)).on(''error'',()=>process.exit(1))"'
+      interval: '30s'
+      timeout: '10s'
+      retries: 3
+      start_period: '20s'
+    x-runtipi:
+      internal_port: 3001
+      is_main: true
+  db-filyo:
+    image: 'mariadb:12.3.2'
+    command: '--wait_timeout=28800 --interactive_timeout=28800 --log_warnings=1'
+    volumes:
+      - '${APP_DATA_DIR}/data/mariadb:/var/lib/mysql'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${FILYO_MYSQL_PASSWORD}'
+      - 'MYSQL_PASSWORD=${FILYO_MYSQL_PASSWORD}'
+      - 'MYSQL_DATABASE=filyo'
+      - 'MYSQL_USER=filyo'
+    healthcheck:
+      test: 'mariadb-admin ping -h 127.0.0.1 -u"${MYSQL_USER}" -p"${FILYO_MYSQL_PASSWORD}" --silent'
+      interval: '10s'
+      timeout: '5s'
+      retries: 10
+      start_period: '60s'
+x-runtipi:
+  schema_version: 2

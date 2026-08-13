@@ -1,0 +1,37 @@
+services:
+  webapp:
+    image: 'ghcr.io/mouette03/webapp:v1.0.0'
+    command:
+      - 'apache2-foreground'
+    volumes:
+      - '${APP_DATA_DIR}/data/www:/var/www/html'
+      - '${APP_DATA_DIR}/data/conf.d/zz-custom-settings.ini:/usr/local/etc/php/conf.d/zz-custom-settings.ini'
+    environment:
+      - 'APACHE_DOCUMENT_ROOT=/var/www/html'
+    depends_on:
+      db-webapp:
+        condition: 'service_started'
+    healthcheck:
+      test: 'curl --fail http://localhost || exit 1'
+      interval: '30s'
+      timeout: '10s'
+      retries: 3
+    x-runtipi:
+      internal_port: 80
+      is_main: true
+  db-webapp:
+    image: 'mariadb:12.3.2'
+    volumes:
+      - '${APP_DATA_DIR}/data/database:/var/lib/mysql'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}'
+      - 'MYSQL_DATABASE=${MYSQL_DATABASE}'
+      - 'MYSQL_USER=${MYSQL_USER}'
+      - 'MYSQL_PASSWORD=${MYSQL_PASSWORD}'
+    healthcheck:
+      test: 'mariadb-admin ping -h localhost -u root --password=${MYSQL_ROOT_PASSWORD}'
+      interval: '10s'
+      timeout: '5s'
+      retries: 15
+x-runtipi:
+  schema_version: 2

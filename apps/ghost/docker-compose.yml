@@ -1,0 +1,43 @@
+services:
+  ghost:
+    image: 'ghost:6.57.1'
+    volumes:
+      - '${APP_DATA_DIR}/data/content:/var/lib/ghost/content'
+    environment:
+      - 'database__client=mysql'
+      - 'database__connection__host=db-ghost'
+      - 'database__connection__user=ghosttipiuser'
+      - 'database__connection__password=${GHOST_DATABASE_PASSWORD}'
+      - 'database__connection__database=ghosttipidatabase'
+      - 'url=${APP_PROTOCOL:-https}://${APP_DOMAIN}'
+      - 'NODE_ENV=production'
+      - 'mail__transport=SMTP'
+      - 'mail__options__host=${GHOST_MAIL_HOST}'
+      - 'mail__options__port=${GHOST_MAIL_PORT}'
+      - 'mail__options__secure=true'
+      - 'mail__options__auth__user=${GHOST_MAIL_USER}'
+      - 'mail__options__auth__pass=${GHOST_MAIL_PASSWORD}'
+      - 'mail__from=${GHOST_MAIL_FROM}'
+    depends_on:
+      db-ghost:
+        condition: 'service_healthy'
+    x-runtipi:
+      internal_port: 2368
+      is_main: true
+  db-ghost:
+    image: 'mariadb:12.3.2'
+    volumes:
+      - '${APP_DATA_DIR}/data/db:/var/lib/mysql'
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=${GHOST_DATABASE_PASSWORD}'
+      - 'MYSQL_USER=ghosttipiuser'
+      - 'MYSQL_PASSWORD=${GHOST_DATABASE_PASSWORD}'
+      - 'MYSQL_DATABASE=ghosttipidatabase'
+    healthcheck:
+      test: 'mariadb-admin ping -h 127.0.0.1 -u ghosttipiuser -p${GHOST_DATABASE_PASSWORD} --silent'
+      interval: '10s'
+      timeout: '5s'
+      retries: 20
+      start_period: '30s'
+x-runtipi:
+  schema_version: 2

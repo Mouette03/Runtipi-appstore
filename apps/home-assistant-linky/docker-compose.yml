@@ -1,0 +1,40 @@
+services:
+  homeassistant:
+    image: 'ghcr.io/home-assistant/home-assistant:2026.8.1'
+    restart: 'unless-stopped'
+    volumes:
+      - '${APP_DATA_DIR}/data/config:/config'
+      - '${APP_DATA_DIR}/data/localtime:/etc/localtime'
+      - '/run/dbus:/run/dbus'
+    depends_on:
+      - 'matter-server'
+    healthcheck:
+      test: 'curl --fail --silent http://127.0.0.1:8123/ >/dev/null 2>&1 || exit 1'
+      interval: '10s'
+      timeout: '5s'
+      retries: 30
+      start_period: '60s'
+    x-runtipi:
+      internal_port: 8123
+      is_main: true
+  matter-server:
+    image: 'ghcr.io/home-assistant-libs/python-matter-server:stable'
+    restart: 'unless-stopped'
+    volumes:
+      - '${APP_DATA_DIR}/data/matter:/data'
+    network_mode: 'host'
+  ha-linky:
+    image: 'ghcr.io/bokub/ha-linky-aarch64:1.8.0'
+    restart: 'unless-stopped'
+    volumes:
+      - '${APP_DATA_DIR}/data/ha-linky:/data'
+      - '${APP_DATA_DIR}/data/ha-linky/config:/config'
+    environment:
+      - 'SUPERVISOR_TOKEN=${SUPERVISOR_TOKEN}'
+      - 'WS_URL=ws://homeassistant:8123/api/websocket'
+      - 'TZ=${TIMEZONE}'
+    depends_on:
+      homeassistant:
+        condition: 'service_healthy'
+x-runtipi:
+  schema_version: 2
