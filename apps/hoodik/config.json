@@ -44,7 +44,7 @@
       "type": "text",
       "label": "Mailer type (none or smtp)",
       "hint": "Leave as 'none' if you don't want verification/share emails",
-      "required": true,
+      "required": false,
       "default": "none",
       "env_variable": "MAILER_TYPE",
       "options": [
