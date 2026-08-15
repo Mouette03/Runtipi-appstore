@@ -1,6 +1,6 @@
 services:
   nextcloud:
-    image: 'nextcloud:34.0.2-apache'
+    image: 'nextcloud:34.0.3-apache'
     volumes:
       - '${APP_DATA_DIR}/data/nextcloud:/var/www/html'
     environment:
@@ -35,12 +35,12 @@ services:
       - 'POSTGRES_USER=tipi'
       - 'POSTGRES_DB=nextcloud'
   redis-nextcloud:
-    image: 'redis:7.4.9'
+    image: 'redis:7.4.10'
     user: '1000:1000'
     volumes:
       - '${APP_DATA_DIR}/data/redis:/data'
   cron:
-    image: 'nextcloud:34.0.2-apache'
+    image: 'nextcloud:34.0.3-apache'
     entrypoint: '/cron.sh'
     volumes:
       - '${APP_DATA_DIR}/data/nextcloud:/var/www/html'
