@@ -1,6 +1,6 @@
 services:
   homeassistant:
-    image: 'ghcr.io/home-assistant/home-assistant:2026.8.1'
+    image: 'ghcr.io/home-assistant/home-assistant:2026.8.2'
     restart: 'unless-stopped'
     volumes:
       - '${APP_DATA_DIR}/data/config:/config'

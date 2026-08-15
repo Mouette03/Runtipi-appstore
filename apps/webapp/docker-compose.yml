@@ -1,6 +1,6 @@
 services:
   webapp:
-    image: 'ghcr.io/mouette03/webapp:v1.0.0'
+    image: 'ghcr.io/mouette03/webapp:v1.0.1'
     command:
       - 'apache2-foreground'
     volumes:
