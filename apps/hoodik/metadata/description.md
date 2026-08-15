@@ -9,7 +9,6 @@ Hoodik is a lightweight, self-hosted cloud storage solution focused on end-to-en
 - **Encrypted sharing**: share files and folders with other Hoodik users while keeping end-to-end encryption intact.
 - **Flexible storage**: use local disk storage or an S3-compatible provider as the backend for encrypted blobs.
 - **SQLite by default**: no external database required for a simple, self-contained install (an external Postgres database is also supported).
-- **Built for reverse proxies**: designed to run behind Traefik, Nginx, or Caddy, which is exactly how Runtipi exposes it.
 
 ## Configuration notes
 
@@ -35,7 +34,6 @@ Hoodik est une solution de stockage cloud auto-hébergée, légère, centrée su
 - **Partage chiffré** : partagez fichiers et dossiers avec d'autres utilisateurs Hoodik en conservant le chiffrement de bout en bout.
 - **Stockage flexible** : stockage local sur disque ou fournisseur compatible S3 pour les blobs chiffrés.
 - **SQLite par défaut** : aucune base de données externe requise pour une installation simple et autonome (une base Postgres externe est également supportée).
-- **Pensé pour les reverse proxy** : conçu pour tourner derrière Traefik, Nginx ou Caddy, exactement comme Runtipi l'expose.
 
 ## Notes de configuration
 
