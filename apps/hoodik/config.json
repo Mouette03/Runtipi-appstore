@@ -35,13 +35,6 @@
     },
     {
       "type": "text",
-      "label": "Public application URL (APP_URL)",
-      "hint": "E.g. https://hoodik.yourdomain.com - must match the domain exposed via Traefik",
-      "required": true,
-      "env_variable": "APP_URL"
-    },
-    {
-      "type": "text",
       "label": "Mailer type (none or smtp)",
       "hint": "Leave as 'none' if you don't want verification/share emails",
       "required": false,
