@@ -1,0 +1,104 @@
+{
+  "name": "Hoodik",
+  "available": true,
+  "exposable": true,
+  "dynamic_config": true,
+  "port": 5698,
+  "id": "hoodik",
+  "tipi_version": 1,
+  "version": "2.4.1",
+  "categories": ["data"],
+  "description": "Hoodik is a self-hosted cloud storage solution with end-to-end encryption (E2EE). Files are encrypted/decrypted client-side (hybrid RSA + AES), so the server never sees plaintext data. Written in Rust (backend) and Vue (frontend), very lightweight (~20 MB RAM).",
+  "short_desc": "Self-hosted, end-to-end encrypted cloud storage.",
+  "author": "hudikhq",
+  "website": "https://hoodik.io",
+  "source": "https://github.com/hudikhq/hoodik",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "JWT Secret",
+      "min": 32,
+      "env_variable": "JWT_SECRET"
+    },
+    {
+      "type": "text",
+      "label": "Cookie secure flag",
+      "hint": "Set to false only for local HTTP testing (e.g. accessing via IP:port without TLS)",
+      "description": "Controls whether the session cookie is only sent over HTTPS. Keep this set to true in production behind Traefik/Runtipi, which already terminates TLS. Set it to false only when testing locally over plain HTTP, otherwise the browser will silently drop the cookie and every request will fail with a 'no_claims' authentication error.",
+      "required": true,
+      "default": "true",
+      "env_variable": "COOKIE_SECURE",
+      "options": [
+        { "label": "TRUE", "value": "true" },
+        { "label": "FALSE", "value": "false" }
+     ]
+    },
+    {
+      "type": "text",
+      "label": "Public application URL (APP_URL)",
+      "hint": "E.g. https://hoodik.yourdomain.com - must match the domain exposed via Traefik",
+      "required": true,
+      "env_variable": "APP_URL"
+    },
+    {
+      "type": "text",
+      "label": "Mailer type (none or smtp)",
+      "hint": "Leave as 'none' if you don't want verification/share emails",
+      "required": true,
+      "default": "none",
+      "env_variable": "MAILER_TYPE",
+      "options": [
+        { "label": "NONE", "value": "none" },
+        { "label": "SMTP", "value": "smtp" }
+     ]
+    },
+    {
+      "type": "text",
+      "label": "SMTP address",
+      "hint": "SMTP server hostname, e.g. smtp.gmail.com",
+      "required": false,
+      "env_variable": "SMTP_ADDRESS"
+    },
+    {
+      "type": "text",
+      "label": "SMTP username",
+      "hint": "Login/email used to authenticate with the SMTP server, e.g. you@gmail.com",
+      "required": false,
+      "env_variable": "SMTP_USERNAME"
+    },
+    {
+      "type": "password",
+      "label": "SMTP password",
+      "hint": "SMTP account password",
+      "required": false,
+      "env_variable": "SMTP_PASSWORD"
+    },
+    {
+      "type": "number",
+      "label": "SMTP port",
+      "hint": "Default is 465",
+      "required": false,
+      "default": 465,
+      "env_variable": "SMTP_PORT"
+    },
+    {
+      "type": "text",
+      "label": "Default sender email",
+      "hint": "Email address shown as the sender of outgoing emails, e.g. you@gmail.com",
+      "required": false,
+      "env_variable": "SMTP_DEFAULT_FROM_EMAIL"
+    },
+    {
+      "type": "text",
+      "label": "Default sender name",
+      "hint": "Display name shown alongside the sender email",
+      "required": false,
+      "default": "hoodik",
+      "env_variable": "SMTP_DEFAULT_FROM_NAME"
+    }
+  ],
+  "supported_architectures": ["amd64", "arm64"],
+  "created_at": 1786836632991,
+  "updated_at": 1786836632991,
+  "min_tipi_version": "4.5.0"
+}

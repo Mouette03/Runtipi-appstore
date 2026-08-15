@@ -1,0 +1,25 @@
+services:
+  hoodik:
+    image: hudik/hoodik:v2.4.1
+    container_name: hoodik
+    restart: unless-stopped
+    environment:
+      - DATA_DIR=/data
+      - JWT_SECRET=${JWT_SECRET}
+      - COOKIE_SECURE=${COOKIE_SECURE}
+      - APP_URL=${APP_URL}
+      - SSL_DISABLED=true
+      - MAILER_TYPE=${MAILER_TYPE}
+      - SMTP_ADDRESS=${SMTP_ADDRESS}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_DEFAULT_FROM=${SMTP_DEFAULT_FROM}
+      - SMTP_DEFAULT_FROM_NAME=${SMTP_DEFAULT_FROM_NAME}
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    x-runtipi: 
+      internal_port: 5443
+      is_main: true
+x-runtipi:
+  schema_version: 2
