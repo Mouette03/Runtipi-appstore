@@ -321,9 +321,9 @@ jobs:
               Fetch tags from Docker Hub. When `major` is given, restrict the
               search to tags starting with '{prefix}{major}.' (fast path for
               SemVer images, where the major rarely changes). When `major` is
-              None (used for CalVer images, whose leading number is a year
-              that changes every ~12 releases), fetch the full tag list
-              instead so year rollovers aren't missed.
+              None (used for CalVer images and hash-like '-lsNN' tags, whose
+              leading token isn't a stable SemVer major), fetch the full tag
+              list instead so relevant updates aren't missed.
               Uses authenticated Docker Hub requests when DOCKERHUB_USERNAME/
               DOCKERHUB_TOKEN secrets are configured (higher, non-shared
               quota); otherwise falls back transparently to anonymous
@@ -505,14 +505,24 @@ jobs:
                   # Codeberg OCI registry (e.g. Forgejo)
                   all_tags = get_codeberg_tags(image_name)
               elif registry == 'docker.io':
-                  if cur_parts is None:
+                  if cur_parts is not None:
+                      # For CalVer, the leading number is a year, not a stable
+                      # major version — don't filter by it, or tags from a new
+                      # year would be missed once it rolls over.
+                      major = None if version_scheme == 'calver' else cur_parts[0]
+                      all_tags = get_dockerhub_tags(image_name, prefix, major)
+                  elif cur_ls_build is not None:
+                      # Hash-like '-lsNN' tag mirrored on Docker Hub (e.g.
+                      # LinuxServer.io images are published identically on
+                      # docker.io, ghcr.io and lscr.io). No version prefix
+                      # to filter by, so fetch the full tag list — same
+                      # approach already used for GHCR/lscr.io/Codeberg,
+                      # kept consistent here so this registry isn't the
+                      # only one that can't resolve -lsNN updates.
+                      all_tags = get_dockerhub_tags(image_name, prefix, major=None)
+                  else:
                       print(f'    Skipping non-semver Docker Hub tag: {current_tag}')
                       return None
-                  # For CalVer, the leading number is a year, not a stable
-                  # major version — don't filter by it, or tags from a new
-                  # year would be missed once it rolls over.
-                  major = None if version_scheme == 'calver' else cur_parts[0]
-                  all_tags = get_dockerhub_tags(image_name, prefix, major)
               else:
                   print(f'    Unsupported registry: {registry} — skipping')
                   return None
