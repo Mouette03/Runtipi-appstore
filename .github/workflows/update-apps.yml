@@ -282,6 +282,8 @@ jobs:
           def is_upgrade(candidate, current, lock, version_scheme='semver'):
               """
               Return True if candidate is a valid upgrade of current under lock.
+              lock='none'   → never a valid upgrade (auto-update disabled)
+              lock='major'  → any strictly newer version, including major bumps
               lock='minor'  → same major, any higher minor or patch
               lock='patch'  → same major AND minor, only higher patch
 
@@ -291,11 +293,16 @@ jobs:
               (which pin the leading number) would wrongly block updates
               across a year boundary. CalVer images are therefore compared
               purely chronologically: any strictly newer date is an upgrade,
-              regardless of lock.
+              regardless of lock (unless lock='none', which still disables
+              updates entirely for calver images too).
               """
+              if lock == 'none':
+                  return False
               if version_scheme == 'calver':
                   return candidate > current
-              if lock == 'minor':
+              if lock == 'major':
+                  pass  # any strictly newer version qualifies, checked below
+              elif lock == 'minor':
                   if candidate[0] != current[0]:
                       return False
               elif lock == 'patch':
@@ -303,6 +310,8 @@ jobs:
                       return False
                   if candidate[0] != current[0] or candidate[1] != current[1]:
                       return False
+              else:
+                  print(f'    Unknown lock value "{lock}" — treating as "major"', file=sys.stderr)
               return candidate > current
 
           # ── Registry helpers ─────────────────────────────────────────────
@@ -547,6 +556,8 @@ jobs:
               Returns (old_image_str, new_image_str) when an upgrade exists,
               or (None, None) when the service is already up-to-date.
               Does NOT mutate the svc dict.
+              A service with lock='none' in apps-policy.json is skipped
+              before any network call, since it can never be upgraded.
               """
               svc_name  = svc.get('name', '')
               image_str = svc.get('image', '')
@@ -556,6 +567,9 @@ jobs:
               lock           = svc_policy.get('lock', default_lock)
               version_scheme = svc_policy.get('versionScheme', 'semver')
               print(f'  [{svc_name}] {image_str}  (lock={lock}, versionScheme={version_scheme})')
+              if lock == 'none':
+                  print('    Skipped — lock=none in apps-policy.json')
+                  return None, None
               registry, img_name, current_tag, base = parse_image(image_str)
               if not current_tag:
                   print('    No tag — skipping')
@@ -647,8 +661,15 @@ jobs:
                       None
                   )
 
+              # If no service is explicitly flagged as primary, but the app
+              # only has one service defined, that service is unambiguously
+              # the primary one — no need to require the flag in that case.
               if not primary_service:
-                  print('  No main service defined in compose — version will not be updated')
+                  if len(services) == 1:
+                      primary_service = services[0].get('name')
+                      print(f'  No isMain/is_main flag — defaulting to sole service: {primary_service}')
+                  else:
+                      print('  No main service defined in compose — version will not be updated')
 
               # Pass 1 — check primary service first
               primary_svc = next(
