@@ -2,6 +2,13 @@
   "_default": {
     "lock": "patch"
   },
+  "aliasvault": {
+    "images": {
+      "aliasvault": {
+        "lock": "patch"
+      }
+    }
+  },
   "arcane": {
     "images": {
       "arcane": {
@@ -9,7 +16,14 @@
       },
       "docker-socket-proxy": {
         "lock": "minor",
-        "_comment": "Tag 'latest' has no version \u2014 auto-update skipped"
+        "_comment": "Tag 'latest' has no version — auto-update skipped"
+      }
+    }
+  },
+  "bentopdf": {
+    "images": {
+      "bentopdf": {
+        "lock": "patch"
       }
     }
   },
@@ -26,8 +40,8 @@
   "duckdns": {
     "images": {
       "duckdns": {
-        "lock": "minor",
-        "_comment": "Tag 'version-d67e71cc' is a git hash \u2014 auto-update skipped"
+        "lock": "major",
+        "_comment": "Tag 'version-d67e71cc' is a git hash — auto-update explicitly disabled"
       }
     }
   },
@@ -38,6 +52,20 @@
       }
     }
   },
+  "filyo": {
+    "images": {
+      "filyo": {
+        "lock": "patch"
+      }
+    }
+  },
+  "filyo-db": {
+    "images": {
+      "filyo": {
+        "lock": "patch"
+      }
+    }
+  },
   "forgejo": {
     "images": {
       "forgejo": {
@@ -45,7 +73,7 @@
       },
       "forgejo-db": {
         "lock": "patch",
-        "_comment": "Tag 'mariadb:12.3' is a pinned minor version \u2014 only patch updates allowed"
+        "_comment": "Tag 'mariadb:12.3' is a pinned minor version — only patch updates allowed"
       }
     }
   },
@@ -76,7 +104,7 @@
       },
       "matter-server": {
         "lock": "minor",
-        "_comment": "Tag 'stable' has no version \u2014 auto-update skipped"
+        "_comment": "Tag 'stable' has no version — auto-update skipped"
       }
     }
   },
@@ -87,10 +115,17 @@
       },
       "matter-server": {
         "lock": "minor",
-        "_comment": "Tag 'stable' has no version \u2014 auto-update skipped"
+        "_comment": "Tag 'stable' has no version — auto-update skipped"
       },
       "ha-linky": {
         "lock": "minor"
+      }
+    }
+  },
+  "hoodik": {
+    "images": {
+      "hoodik": {
+        "lock": "patch"
       }
     }
   },
@@ -100,6 +135,13 @@
         "lock": "minor"
       },
       "db-joomla": {
+        "lock": "patch"
+      }
+    }
+  },
+  "music-assistant": {
+    "images": {
+      "music-assistant": {
         "lock": "patch"
       }
     }
@@ -118,13 +160,27 @@
       },
       "db-nextcloud": {
         "lock": "patch",
-        "_comment": "Tag 'postgres:17' is a floating major version \u2014 auto-update skipped"
+        "_comment": "Tag 'postgres:17' is a floating major version — auto-update skipped"
       },
       "redis-nextcloud": {
         "lock": "minor"
       },
       "cron": {
         "lock": "minor"
+      }
+    }
+  },
+  "opencloud": {
+    "images": {
+      "opencloud": {
+        "lock": "patch"
+      }
+    }
+  },
+  "palmr": {
+    "images": {
+      "palmr": {
+        "lock": "patch"
       }
     }
   },
@@ -149,7 +205,7 @@
       },
       "db-syncin": {
         "lock": "patch",
-        "_comment": "Tag 'mariadb:11' is a floating major version \u2014 auto-update skipped"
+        "_comment": "Tag 'mariadb:11' is a floating major version — auto-update skipped"
       }
     }
   },
@@ -190,6 +246,13 @@
         "lock": "minor"
       },
       "wordpress-db": {
+        "lock": "patch"
+      }
+    }
+  },
+  "zerobyte": {
+    "images": {
+      "zerobyte": {
         "lock": "patch"
       }
     }

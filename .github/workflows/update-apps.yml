@@ -45,6 +45,8 @@ jobs:
         shell: python3 {0}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
           import json
           import os
@@ -59,17 +61,40 @@ jobs:
           # ── Helpers ──────────────────────────────────────────────────────
 
           def fetch_json(url, headers=None, retries=3, timeout=15):
-              """GET url and return parsed JSON, with retry on transient errors."""
+              """GET url and return parsed JSON, with retry on transient errors.
+
+              Docker Hub's anonymous v2 API frequently returns 403 for requests
+              without a browser-like User-Agent, or transient rate-limiting —
+              different from a real auth failure (401) or missing resource
+              (404). To avoid silently treating a rate-limited Docker Hub as
+              "already up-to-date", 403 on hub.docker.com is retried with
+              backoff like a transient error instead of failing fast.
+              """
               req = urllib.request.Request(url)
+              default_headers = {
+                  'User-Agent': 'Mozilla/5.0 (compatible; runtipi-appstore-updater/1.0; +https://github.com/Mouette03/Runtipi-appstore)',
+                  'Accept': 'application/json',
+              }
+              for k, v in default_headers.items():
+                  req.add_header(k, v)
               if headers:
                   for k, v in headers.items():
                       req.add_header(k, v)
+              is_dockerhub = 'hub.docker.com' in url
               for attempt in range(retries):
                   try:
                       with urllib.request.urlopen(req, timeout=timeout) as resp:
                           return json.loads(resp.read().decode())
                   except urllib.error.HTTPError as exc:
-                      # 401/403 → no point retrying
+                      # 403 on Docker Hub is often transient rate-limiting or a
+                      # missing User-Agent, not a real permission failure —
+                      # retry it like a transient error so real Docker updates
+                      # aren't missed. 401/404, and 403 on any other registry,
+                      # still fail fast since retrying would not help.
+                      if exc.code == 403 and is_dockerhub and attempt < retries - 1:
+                          print(f"    HTTP 403 for {url} (attempt {attempt + 1}/{retries}) — retrying", file=sys.stderr)
+                          time.sleep(2 ** attempt)
+                          continue
                       if exc.code in (401, 403, 404):
                           print(f"    HTTP {exc.code} for {url}", file=sys.stderr)
                           return None
@@ -81,6 +106,55 @@ jobs:
                       else:
                           print(f"    Request failed ({url}): {exc}", file=sys.stderr)
               return None
+
+          # ── Docker Hub authentication (optional) ───────────────────
+
+          _DOCKERHUB_TOKEN_CACHE = {}
+
+          def get_dockerhub_auth_headers():
+              """
+              Build an Authorization header for Docker Hub if DOCKERHUB_USERNAME
+              and DOCKERHUB_TOKEN are both set as repo secrets/env vars.
+
+              This is entirely optional: forks or local runs that don't
+              configure these secrets simply get {} back, and every caller
+              falls back to Docker Hub's anonymous API (100 pulls/6h per IP)
+              exactly as before — nothing breaks for users without a
+              Docker Hub account. When configured, authenticated requests get
+              a per-account quota (200 pulls/6h) that isn't shared with every
+              other anonymous CI job running on the same GitHub-hosted
+              runner IP, which is what actually caused the persistent 403s.
+              """
+              if 'headers' in _DOCKERHUB_TOKEN_CACHE:
+                  return _DOCKERHUB_TOKEN_CACHE['headers']
+
+              username = os.environ.get('DOCKERHUB_USERNAME', '').strip()
+              password = os.environ.get('DOCKERHUB_TOKEN', '').strip()
+              if not username or not password:
+                  _DOCKERHUB_TOKEN_CACHE['headers'] = {}
+                  return {}
+
+              try:
+                  login_url = 'https://hub.docker.com/v2/users/login'
+                  body = json.dumps({'username': username, 'password': password}).encode()
+                  req = urllib.request.Request(login_url, data=body, method='POST')
+                  req.add_header('Content-Type', 'application/json')
+                  req.add_header('User-Agent', 'Mozilla/5.0 (compatible; runtipi-appstore-updater/1.0)')
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      data = json.loads(resp.read().decode())
+                  token = data.get('token')
+                  if token:
+                      headers = {'Authorization': f'Bearer {token}'}
+                      _DOCKERHUB_TOKEN_CACHE['headers'] = headers
+                      print('  Using authenticated Docker Hub requests (DOCKERHUB_USERNAME set)')
+                      return headers
+              except Exception as exc:
+                  # Never let an auth failure break the run — just fall back
+                  # to anonymous requests, same as if no secrets were set.
+                  print(f'    Docker Hub authentication failed, falling back to anonymous: {exc}', file=sys.stderr)
+
+              _DOCKERHUB_TOKEN_CACHE['headers'] = {}
+              return {}
 
           def parse_image(image_str):
               """
@@ -118,7 +192,6 @@ jobs:
               • prefix  : optional leading 'v'
               • version_parts : list of ints, e.g. [34, 0, 1]
               • suffix  : trailing string, e.g. '-apache'
-
               Returns (None, None, tag) when the tag cannot be parsed as semver
               (e.g. 'latest', 'stable', 'sha-abc', 'version-hash', or a bare
               major-only number like '17' or '11').
@@ -206,13 +279,36 @@ jobs:
                           return t
               return None
 
-          def is_upgrade(candidate, current, lock):
+          def is_upgrade(candidate, current, lock, version_scheme='semver'):
               """
               Return True if candidate is a valid upgrade of current under lock.
+              lock='none'   → never a valid upgrade (auto-update disabled)
+              lock='major'  → any strictly newer version, including major bumps
               lock='minor'  → same major, any higher minor or patch
               lock='patch'  → same major AND minor, only higher patch
+
+              For version_scheme='calver', the leading number is a year
+              (e.g. YYYY.MM.P), not a SemVer major — it is expected to roll
+              over roughly every 12 releases, so the lock constraints above
+              (which pin the leading number) would wrongly block updates
+              across a year boundary. CalVer images are therefore compared
+              purely chronologically: any strictly newer date is an upgrade,
+              regardless of lock (unless lock='none', which still disables
+              updates entirely for calver images too).
+
+              An unrecognized lock value (e.g. a typo in apps-policy.json) is
+              treated as 'none' rather than the most permissive option —
+              failing safe (no update) is preferable to silently allowing an
+              unintended major-version jump because of a config mistake. A
+              warning is still printed so the mistake is visible in the log.
               """
-              if lock == 'minor':
+              if lock == 'none':
+                  return False
+              if version_scheme == 'calver':
+                  return candidate > current
+              if lock == 'major':
+                  pass  # any strictly newer version qualifies, checked below
+              elif lock == 'minor':
                   if candidate[0] != current[0]:
                       return False
               elif lock == 'patch':
@@ -220,24 +316,37 @@ jobs:
                       return False
                   if candidate[0] != current[0] or candidate[1] != current[1]:
                       return False
+              else:
+                  print(f'    Unknown lock value "{lock}" — treating as "none" (auto-update disabled for safety)', file=sys.stderr)
+                  return False
               return candidate > current
 
           # ── Registry helpers ─────────────────────────────────────────────
 
-          def get_dockerhub_tags(image_name, prefix, major):
+          def get_dockerhub_tags(image_name, prefix, major=None):
               """
-              Fetch tags from Docker Hub that start with '{prefix}{major}.',
-              following pagination until all matching tags are collected.
+              Fetch tags from Docker Hub. When `major` is given, restrict the
+              search to tags starting with '{prefix}{major}.' (fast path for
+              SemVer images, where the major rarely changes). When `major` is
+              None (used for CalVer images and hash-like '-lsNN' tags, whose
+              leading token isn't a stable SemVer major), fetch the full tag
+              list instead so relevant updates aren't missed.
+              Uses authenticated Docker Hub requests when DOCKERHUB_USERNAME/
+              DOCKERHUB_TOKEN secrets are configured (higher, non-shared
+              quota); otherwise falls back transparently to anonymous
+              requests, so this works with zero setup for forks/local runs.
               Returns a flat list of tag strings.
               """
-              tag_prefix = f'{prefix}{major}.'
+              tag_prefix = f'{prefix}{major}.' if major is not None else None
               tags = []
               url = (
                   f'https://hub.docker.com/v2/repositories/{image_name}/tags'
-                  f'?name={tag_prefix}&ordering=last_updated&page_size=100'
+                  f'?ordering=last_updated&page_size=100'
+                  + (f'&name={tag_prefix}' if tag_prefix else '')
               )
+              auth_headers = get_dockerhub_auth_headers()
               while url:
-                  data = fetch_json(url)
+                  data = fetch_json(url, headers=auth_headers)
                   if data is None:
                       break
                   tags.extend(r['name'] for r in data.get('results', []))
@@ -366,7 +475,7 @@ jobs:
               url = f'https://codeberg.org/v2/{image_name}/tags/list?n=500'
               return get_paginated_tags(url, headers)
 
-          def find_best_tag(current_tag, registry, image_name, lock):
+          def find_best_tag(current_tag, registry, image_name, lock, version_scheme='semver'):
               """
               Find the highest available tag that is a valid upgrade of
               current_tag under the given lock policy.
@@ -374,7 +483,7 @@ jobs:
               Supported registries: docker.io, ghcr.io, lscr.io, codeberg.org
               """
               prefix, cur_parts, suffix = parse_tag_version(current_tag)
-              _, cur_ls_build = parse_ls_build_tag(current_tag)
+              cur_ls_prefix, cur_ls_build = parse_ls_build_tag(current_tag)
               if cur_parts is None and cur_ls_build is None:
                   # Handle sha-prefixed commit-hash tags (e.g. sha-e1c83ba)
                   if re.match(r'^sha-[0-9a-f]+$', current_tag):
@@ -403,11 +512,24 @@ jobs:
                   # Codeberg OCI registry (e.g. Forgejo)
                   all_tags = get_codeberg_tags(image_name)
               elif registry == 'docker.io':
-                  if cur_parts is None:
+                  if cur_parts is not None:
+                      # For CalVer, the leading number is a year, not a stable
+                      # major version — don't filter by it, or tags from a new
+                      # year would be missed once it rolls over.
+                      major = None if version_scheme == 'calver' else cur_parts[0]
+                      all_tags = get_dockerhub_tags(image_name, prefix, major)
+                  elif cur_ls_build is not None:
+                      # Hash-like '-lsNN' tag mirrored on Docker Hub (e.g.
+                      # LinuxServer.io images are published identically on
+                      # docker.io, ghcr.io and lscr.io). No version prefix
+                      # to filter by, so fetch the full tag list — same
+                      # approach already used for GHCR/lscr.io/Codeberg,
+                      # kept consistent here so this registry isn't the
+                      # only one that can't resolve -lsNN updates.
+                      all_tags = get_dockerhub_tags(image_name, prefix, major=None)
+                  else:
                       print(f'    Skipping non-semver Docker Hub tag: {current_tag}')
                       return None
-                  major = cur_parts[0]
-                  all_tags = get_dockerhub_tags(image_name, prefix, major)
               else:
                   print(f'    Unsupported registry: {registry} — skipping')
                   return None
@@ -420,8 +542,15 @@ jobs:
                   best_tag      = None
                   best_ls_build = cur_ls_build
                   for tag in all_tags:
-                      _, t_ls_build = parse_ls_build_tag(tag)
+                      t_ls_prefix, t_ls_build = parse_ls_build_tag(tag)
                       if t_ls_build is None:
+                          continue
+                      # Must share the same prefix (e.g. the same commit-hash
+                      # or architecture family). A higher build number on a
+                      # completely different prefix (e.g. an "amd64-<other
+                      # hash>" variant tag) is not a valid upgrade of the
+                      # current tag — it is just a different, unrelated tag.
+                      if t_ls_prefix != cur_ls_prefix:
                           continue
                       if t_ls_build > best_ls_build:
                           best_ls_build = t_ls_build
@@ -439,7 +568,7 @@ jobs:
                   # Skip un-parseable or differently-shaped tags
                   if t_parts is None or len(t_parts) != len(cur_parts):
                       continue
-                  if is_upgrade(t_parts, best_parts, lock):
+                  if is_upgrade(t_parts, best_parts, lock, version_scheme):
                       best_parts = t_parts
                       best_tag   = tag
 
@@ -451,19 +580,25 @@ jobs:
               Returns (old_image_str, new_image_str) when an upgrade exists,
               or (None, None) when the service is already up-to-date.
               Does NOT mutate the svc dict.
+              A service with lock='none' in apps-policy.json is skipped
+              before any network call, since it can never be upgraded.
               """
               svc_name  = svc.get('name', '')
               image_str = svc.get('image', '')
               if not image_str:
                   return None, None
-              svc_policy = images_policy.get(svc_name, {})
-              lock       = svc_policy.get('lock', default_lock)
-              print(f'  [{svc_name}] {image_str}  (lock={lock})')
+              svc_policy     = images_policy.get(svc_name, {})
+              lock           = svc_policy.get('lock', default_lock)
+              version_scheme = svc_policy.get('versionScheme', 'semver')
+              print(f'  [{svc_name}] {image_str}  (lock={lock}, versionScheme={version_scheme})')
+              if lock == 'none':
+                  print('    Skipped — lock=none in apps-policy.json')
+                  return None, None
               registry, img_name, current_tag, base = parse_image(image_str)
               if not current_tag:
                   print('    No tag — skipping')
                   return None, None
-              new_tag = find_best_tag(current_tag, registry, img_name, lock)
+              new_tag = find_best_tag(current_tag, registry, img_name, lock, version_scheme)
               if new_tag and new_tag != current_tag:
                   new_image = f'{base}:{new_tag}'
                   print(f'    ✓ {image_str}  →  {new_image}')
@@ -550,8 +685,15 @@ jobs:
                       None
                   )
 
+              # If no service is explicitly flagged as primary, but the app
+              # only has one service defined, that service is unambiguously
+              # the primary one — no need to require the flag in that case.
               if not primary_service:
-                  print('  No main service defined in compose — version will not be updated')
+                  if len(services) == 1:
+                      primary_service = services[0].get('name')
+                      print(f'  No isMain/is_main flag — defaulting to sole service: {primary_service}')
+                  else:
+                      print('  No main service defined in compose — version will not be updated')
 
               # Pass 1 — check primary service first
               primary_svc = next(
