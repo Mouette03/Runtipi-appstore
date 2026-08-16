@@ -295,6 +295,12 @@ jobs:
               purely chronologically: any strictly newer date is an upgrade,
               regardless of lock (unless lock='none', which still disables
               updates entirely for calver images too).
+
+              An unrecognized lock value (e.g. a typo in apps-policy.json) is
+              treated as 'none' rather than the most permissive option —
+              failing safe (no update) is preferable to silently allowing an
+              unintended major-version jump because of a config mistake. A
+              warning is still printed so the mistake is visible in the log.
               """
               if lock == 'none':
                   return False
@@ -311,7 +317,8 @@ jobs:
                   if candidate[0] != current[0] or candidate[1] != current[1]:
                       return False
               else:
-                  print(f'    Unknown lock value "{lock}" — treating as "major"', file=sys.stderr)
+                  print(f'    Unknown lock value "{lock}" — treating as "none" (auto-update disabled for safety)', file=sys.stderr)
+                  return False
               return candidate > current
 
           # ── Registry helpers ─────────────────────────────────────────────
