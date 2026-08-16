@@ -45,6 +45,8 @@ jobs:
         shell: python3 {0}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
           import json
           import os
@@ -104,6 +106,55 @@ jobs:
                       else:
                           print(f"    Request failed ({url}): {exc}", file=sys.stderr)
               return None
+
+          # ── Docker Hub authentication (optional) ───────────────────
+
+          _DOCKERHUB_TOKEN_CACHE = {}
+
+          def get_dockerhub_auth_headers():
+              """
+              Build an Authorization header for Docker Hub if DOCKERHUB_USERNAME
+              and DOCKERHUB_TOKEN are both set as repo secrets/env vars.
+
+              This is entirely optional: forks or local runs that don't
+              configure these secrets simply get {} back, and every caller
+              falls back to Docker Hub's anonymous API (100 pulls/6h per IP)
+              exactly as before — nothing breaks for users without a
+              Docker Hub account. When configured, authenticated requests get
+              a per-account quota (200 pulls/6h) that isn't shared with every
+              other anonymous CI job running on the same GitHub-hosted
+              runner IP, which is what actually caused the persistent 403s.
+              """
+              if 'headers' in _DOCKERHUB_TOKEN_CACHE:
+                  return _DOCKERHUB_TOKEN_CACHE['headers']
+
+              username = os.environ.get('DOCKERHUB_USERNAME', '').strip()
+              password = os.environ.get('DOCKERHUB_TOKEN', '').strip()
+              if not username or not password:
+                  _DOCKERHUB_TOKEN_CACHE['headers'] = {}
+                  return {}
+
+              try:
+                  login_url = 'https://hub.docker.com/v2/users/login'
+                  body = json.dumps({'username': username, 'password': password}).encode()
+                  req = urllib.request.Request(login_url, data=body, method='POST')
+                  req.add_header('Content-Type', 'application/json')
+                  req.add_header('User-Agent', 'Mozilla/5.0 (compatible; runtipi-appstore-updater/1.0)')
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      data = json.loads(resp.read().decode())
+                  token = data.get('token')
+                  if token:
+                      headers = {'Authorization': f'Bearer {token}'}
+                      _DOCKERHUB_TOKEN_CACHE['headers'] = headers
+                      print('  Using authenticated Docker Hub requests (DOCKERHUB_USERNAME set)')
+                      return headers
+              except Exception as exc:
+                  # Never let an auth failure break the run — just fall back
+                  # to anonymous requests, same as if no secrets were set.
+                  print(f'    Docker Hub authentication failed, falling back to anonymous: {exc}', file=sys.stderr)
+
+              _DOCKERHUB_TOKEN_CACHE['headers'] = {}
+              return {}
 
           def parse_image(image_str):
               """
@@ -264,6 +315,10 @@ jobs:
               None (used for CalVer images, whose leading number is a year
               that changes every ~12 releases), fetch the full tag list
               instead so year rollovers aren't missed.
+              Uses authenticated Docker Hub requests when DOCKERHUB_USERNAME/
+              DOCKERHUB_TOKEN secrets are configured (higher, non-shared
+              quota); otherwise falls back transparently to anonymous
+              requests, so this works with zero setup for forks/local runs.
               Returns a flat list of tag strings.
               """
               tag_prefix = f'{prefix}{major}.' if major is not None else None
@@ -273,8 +328,9 @@ jobs:
                   f'?ordering=last_updated&page_size=100'
                   + (f'&name={tag_prefix}' if tag_prefix else '')
               )
+              auth_headers = get_dockerhub_auth_headers()
               while url:
-                  data = fetch_json(url)
+                  data = fetch_json(url, headers=auth_headers)
                   if data is None:
                       break
                   tags.extend(r['name'] for r in data.get('results', []))
