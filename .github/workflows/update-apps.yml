@@ -59,17 +59,40 @@ jobs:
           # ── Helpers ──────────────────────────────────────────────────────
 
           def fetch_json(url, headers=None, retries=3, timeout=15):
-              """GET url and return parsed JSON, with retry on transient errors."""
+              """GET url and return parsed JSON, with retry on transient errors.
+
+              Docker Hub's anonymous v2 API frequently returns 403 for requests
+              without a browser-like User-Agent, or transient rate-limiting —
+              different from a real auth failure (401) or missing resource
+              (404). To avoid silently treating a rate-limited Docker Hub as
+              "already up-to-date", 403 on hub.docker.com is retried with
+              backoff like a transient error instead of failing fast.
+              """
               req = urllib.request.Request(url)
+              default_headers = {
+                  'User-Agent': 'Mozilla/5.0 (compatible; runtipi-appstore-updater/1.0; +https://github.com/Mouette03/Runtipi-appstore)',
+                  'Accept': 'application/json',
+              }
+              for k, v in default_headers.items():
+                  req.add_header(k, v)
               if headers:
                   for k, v in headers.items():
                       req.add_header(k, v)
+              is_dockerhub = 'hub.docker.com' in url
               for attempt in range(retries):
                   try:
                       with urllib.request.urlopen(req, timeout=timeout) as resp:
                           return json.loads(resp.read().decode())
                   except urllib.error.HTTPError as exc:
-                      # 401/403 → no point retrying
+                      # 403 on Docker Hub is often transient rate-limiting or a
+                      # missing User-Agent, not a real permission failure —
+                      # retry it like a transient error so real Docker updates
+                      # aren't missed. 401/404, and 403 on any other registry,
+                      # still fail fast since retrying would not help.
+                      if exc.code == 403 and is_dockerhub and attempt < retries - 1:
+                          print(f"    HTTP 403 for {url} (attempt {attempt + 1}/{retries}) — retrying", file=sys.stderr)
+                          time.sleep(2 ** attempt)
+                          continue
                       if exc.code in (401, 403, 404):
                           print(f"    HTTP {exc.code} for {url}", file=sys.stderr)
                           return None
