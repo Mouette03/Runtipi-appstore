@@ -2,6 +2,13 @@
   "_default": {
     "lock": "patch"
   },
+  "aliasvault": {
+    "images": {
+      "aliasvault": {
+        "lock": "patch"
+      }
+    }
+  },
   "arcane": {
     "images": {
       "arcane": {
@@ -10,6 +17,13 @@
       "docker-socket-proxy": {
         "lock": "minor",
         "_comment": "Tag 'latest' has no version — auto-update skipped"
+      }
+    }
+  },
+  "bentopdf": {
+    "images": {
+      "bentopdf": {
+        "lock": "patch"
       }
     }
   },
@@ -26,8 +40,8 @@
   "duckdns": {
     "images": {
       "duckdns": {
-        "lock": "minor",
-        "_comment": "Tag 'version-d67e71cc' is a git hash — auto-update skipped"
+        "lock": "none",
+        "_comment": "Tag 'version-d67e71cc' is a git hash — auto-update explicitly disabled"
       }
     }
   },
@@ -35,6 +49,20 @@
     "images": {
       "erugo": {
         "lock": "minor"
+      }
+    }
+  },
+  "filyo": {
+    "images": {
+      "filyo": {
+        "lock": "patch"
+      }
+    }
+  },
+  "filyo-db": {
+    "images": {
+      "filyo": {
+        "lock": "patch"
       }
     }
   },
@@ -72,9 +100,7 @@
   "home-assistant": {
     "images": {
       "homeassistant": {
-        "lock": "minor",
-        "versionScheme": "calver",
-        "_comment": "CalVer tags (YYYY.MM.P) — compared as date, not SemVer"
+        "lock": "minor"
       },
       "matter-server": {
         "lock": "minor",
@@ -85,9 +111,7 @@
   "home-assistant-linky": {
     "images": {
       "homeassistant": {
-        "lock": "minor",
-        "versionScheme": "calver",
-        "_comment": "CalVer tags (YYYY.MM.P) — compared as date, not SemVer"
+        "lock": "minor"
       },
       "matter-server": {
         "lock": "minor",
@@ -98,12 +122,26 @@
       }
     }
   },
+  "hoodik": {
+    "images": {
+      "hoodik": {
+        "lock": "patch"
+      }
+    }
+  },
   "joomla": {
     "images": {
       "joomla": {
         "lock": "minor"
       },
       "db-joomla": {
+        "lock": "patch"
+      }
+    }
+  },
+  "music-assistant": {
+    "images": {
+      "music-assistant": {
         "lock": "patch"
       }
     }
@@ -129,6 +167,20 @@
       },
       "cron": {
         "lock": "minor"
+      }
+    }
+  },
+  "opencloud": {
+    "images": {
+      "opencloud": {
+        "lock": "patch"
+      }
+    }
+  },
+  "palmr": {
+    "images": {
+      "palmr": {
+        "lock": "patch"
       }
     }
   },
@@ -194,6 +246,13 @@
         "lock": "minor"
       },
       "wordpress-db": {
+        "lock": "patch"
+      }
+    }
+  },
+  "zerobyte": {
+    "images": {
+      "zerobyte": {
         "lock": "patch"
       }
     }
