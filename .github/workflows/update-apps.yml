@@ -483,7 +483,7 @@ jobs:
               Supported registries: docker.io, ghcr.io, lscr.io, codeberg.org
               """
               prefix, cur_parts, suffix = parse_tag_version(current_tag)
-              _, cur_ls_build = parse_ls_build_tag(current_tag)
+              cur_ls_prefix, cur_ls_build = parse_ls_build_tag(current_tag)
               if cur_parts is None and cur_ls_build is None:
                   # Handle sha-prefixed commit-hash tags (e.g. sha-e1c83ba)
                   if re.match(r'^sha-[0-9a-f]+$', current_tag):
@@ -542,8 +542,15 @@ jobs:
                   best_tag      = None
                   best_ls_build = cur_ls_build
                   for tag in all_tags:
-                      _, t_ls_build = parse_ls_build_tag(tag)
+                      t_ls_prefix, t_ls_build = parse_ls_build_tag(tag)
                       if t_ls_build is None:
+                          continue
+                      # Must share the same prefix (e.g. the same commit-hash
+                      # or architecture family). A higher build number on a
+                      # completely different prefix (e.g. an "amd64-<other
+                      # hash>" variant tag) is not a valid upgrade of the
+                      # current tag — it is just a different, unrelated tag.
+                      if t_ls_prefix != cur_ls_prefix:
                           continue
                       if t_ls_build > best_ls_build:
                           best_ls_build = t_ls_build
