@@ -1,6 +1,6 @@
 services:
   aliasvault:
-    image: 'ghcr.io/aliasvault/aliasvault:0.30.3'
+    image: 'ghcr.io/aliasvault/aliasvault:0.30.4'
     restart: 'unless-stopped'
     volumes:
       - '${APP_DATA_DIR}/data/database:/database'
