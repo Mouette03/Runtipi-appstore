@@ -38,8 +38,11 @@ should be auto-updated, and how aggressively.
 | `minor`  | Same major version required; any higher minor or patch is accepted. |
 | `patch`  | Same major **and** minor version required; only a higher patch is accepted. |
 
-An unrecognized `lock` value (e.g. a typo) is treated as `"major"`, with a
-warning printed to the workflow log — it is never silently ignored.
+An unrecognized `lock` value (e.g. a typo) is treated as **`"none"`**
+(auto-update disabled), not as the most permissive option — failing safe
+is preferable to silently allowing an unintended major-version jump
+because of a config mistake. A warning is still printed to the workflow
+log so the mistake is visible and can be corrected.
 
 ## `versionScheme` values
 
