@@ -253,7 +253,7 @@
   "zerobyte": {
     "images": {
       "zerobyte": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   }
