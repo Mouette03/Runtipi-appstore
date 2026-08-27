@@ -23,7 +23,7 @@
   "bentopdf": {
     "images": {
       "bentopdf": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   },
@@ -55,14 +55,14 @@
   "filyo": {
     "images": {
       "filyo": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   },
   "filyo-db": {
     "images": {
       "filyo": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   },
@@ -125,7 +125,7 @@
   "hoodik": {
     "images": {
       "hoodik": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   },
