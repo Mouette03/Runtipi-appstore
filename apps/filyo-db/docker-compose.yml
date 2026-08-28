@@ -1,6 +1,6 @@
 services:
   filyo:
-    image: 'ghcr.io/mouette03/filyo:v1.2.9-mariadb'
+    image: 'ghcr.io/mouette03/filyo:v1.4.1-mariadb'
     volumes:
       - '${APP_DATA_DIR}/data/filyo:/data'
     environment:
@@ -28,7 +28,7 @@ services:
       internal_port: 3001
       is_main: true
   db-filyo:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     command: '--wait_timeout=28800 --interactive_timeout=28800 --log_warnings=1'
     volumes:
       - '${APP_DATA_DIR}/data/mariadb:/var/lib/mysql'
