@@ -5,8 +5,8 @@
   "dynamic_config": true,
   "port": 5698,
   "id": "hoodik",
-  "tipi_version": 1,
-  "version": "2.4.1",
+  "tipi_version": 2,
+  "version": "v2.5.0",
   "categories": ["data"],
   "description": "Hoodik is a self-hosted cloud storage solution with end-to-end encryption (E2EE). Files are encrypted/decrypted client-side (hybrid RSA + AES), so the server never sees plaintext data. Written in Rust (backend) and Vue (frontend), very lightweight (~20 MB RAM).",
   "short_desc": "Self-hosted, end-to-end encrypted cloud storage.",
@@ -92,6 +92,6 @@
   ],
   "supported_architectures": ["amd64", "arm64"],
   "created_at": 1786836632991,
-  "updated_at": 1786836632991,
+  "updated_at": 1787895938354,
   "min_tipi_version": "4.5.0"
 }
