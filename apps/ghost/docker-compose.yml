@@ -1,6 +1,6 @@
 services:
   ghost:
-    image: 'ghost:6.60.0'
+    image: 'ghost:6.61.0'
     volumes:
       - '${APP_DATA_DIR}/data/content:/var/lib/ghost/content'
     environment:
