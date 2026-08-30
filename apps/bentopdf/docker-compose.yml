@@ -1,6 +1,6 @@
 services:
   bentopdf:
-    image: 'ghcr.io/alam00000/bentopdf-simple:2.8.7'
+    image: 'ghcr.io/alam00000/bentopdf-simple:2.8.8'
     environment:
       - 'DISABLE_IPV6=true'
     x-runtipi:
