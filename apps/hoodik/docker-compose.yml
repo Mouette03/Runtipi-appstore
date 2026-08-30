@@ -1,6 +1,6 @@
 services:
   hoodik:
-    image: hudik/hoodik:v2.5.1
+    image: hudik/hoodik:v2.5.2
     container_name: hoodik
     restart: unless-stopped
     environment:
