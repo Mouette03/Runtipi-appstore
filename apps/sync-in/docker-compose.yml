@@ -1,6 +1,6 @@
 services:
   syncin:
-    image: 'syncin/server:2.4.4'
+    image: 'syncin/server:2.5.0'
     volumes:
       - '${APP_DATA_DIR}/data/sync-in:/data'
     environment:
@@ -27,7 +27,7 @@ services:
       internal_port: 8080
       is_main: true
   db-syncin:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     volumes:
       - '${APP_DATA_DIR}/data/db:/var/lib/mysql'
     environment:
