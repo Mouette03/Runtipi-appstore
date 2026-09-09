@@ -5,8 +5,8 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "tipi_version": 8,
-  "version": "v0.13.0",
+  "tipi_version": 9,
+  "version": "v0.14.0",
   "categories": ["network"],
   "description": "Netronome is a modern network speed testing and performance monitoring tool to test your internet speed, track packet loss and monitor network health from a clean web interface.",
   "short_desc": "Network speed testing and performance monitoring tool.",
@@ -16,6 +16,6 @@
   "form_fields": [],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1767055448723,
-  "updated_at": 1785471048116,
+  "updated_at": 1788923751337,
   "min_tipi_version": "4.5.0"
 }
