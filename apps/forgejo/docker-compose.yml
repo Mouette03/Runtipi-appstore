@@ -1,6 +1,6 @@
 services:
   forgejo:
-    image: 'codeberg.org/forgejo/forgejo:15.0.7'
+    image: 'codeberg.org/forgejo/forgejo:15.0.8'
     ports:
       - '222:22/tcp'
     volumes:
@@ -31,7 +31,7 @@ services:
       internal_port: 3000
       is_main: true
   forgejo-db:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     volumes:
       - '${APP_DATA_DIR}/data/mariadb:/var/lib/mysql'
     environment:
