@@ -1,6 +1,6 @@
 services:
   arcane:
-    image: 'ghcr.io/getarcaneapp/arcane:v2.10.2'
+    image: 'ghcr.io/getarcaneapp/arcane:v2.11.0'
     volumes:
       - '${APP_DATA_DIR}/data:/app/data'
     environment:
