@@ -1,6 +1,6 @@
 services:
   syncin:
-    image: 'syncin/server:2.5.0'
+    image: 'syncin/server:2.5.1'
     volumes:
       - '${APP_DATA_DIR}/data/sync-in:/data'
     environment:
