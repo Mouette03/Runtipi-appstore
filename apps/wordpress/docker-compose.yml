@@ -1,6 +1,6 @@
 services:
   wordpress:
-    image: 'wordpress:7.1.0'
+    image: 'wordpress:7.1.1'
     volumes:
       - '${APP_DATA_DIR}/data/wordpress:/var/www/html'
     environment:
@@ -15,7 +15,7 @@ services:
       internal_port: 80
       is_main: true
   wordpress-db:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     volumes:
       - '${APP_DATA_DIR}/data/mariadb:/var/lib/mysql'
     environment:
