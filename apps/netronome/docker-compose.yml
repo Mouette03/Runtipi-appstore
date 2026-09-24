@@ -1,6 +1,6 @@
 services:
   netronome:
-    image: 'ghcr.io/autobrr/netronome:v0.14.0'
+    image: 'ghcr.io/autobrr/netronome:v0.14.1'
     volumes:
       - '${APP_DATA_DIR}/data:/data'
     x-runtipi:
