@@ -22,14 +22,6 @@
       "env_variable": "FORGEJO_DB_ROOT_PASSWORD"
     },
     {
-      "type": "password",
-      "label": "Forgejo DB password",
-      "max": 32,
-      "min": 8,
-      "required": true,
-      "env_variable": "FORGEJO_DB_PASSWORD"
-    },
-    {
       "type": "text",
       "label": "Forgejo DB username",
       "max": 32,
@@ -37,6 +29,14 @@
       "required": true,
       "default": "forgejo",
       "env_variable": "FORGEJO_DB_USERNAME"
+    },
+    {
+      "type": "password",
+      "label": "Forgejo DB password",
+      "max": 32,
+      "min": 8,
+      "required": true,
+      "env_variable": "FORGEJO_DB_PASSWORD"
     },
     {
       "type": "boolean",
