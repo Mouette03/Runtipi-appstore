@@ -1,6 +1,6 @@
 services:
   dolibarr:
-    image: 'dolibarr/dolibarr:23.0.4'
+    image: 'dolibarr/dolibarr:24.0.0'
     volumes:
       - '${APP_DATA_DIR}/data/dolibarr/documents:/var/www/documents'
       - '${APP_DATA_DIR}/data/dolibarr/conf:/var/www/html/conf'
