@@ -1,6 +1,6 @@
 services:
   webapp:
-    image: 'ghcr.io/mouette03/webapp:v1.0.1'
+    image: 'ghcr.io/mouette03/webapp:v1.0.2'
     command:
       - 'apache2-foreground'
     volumes:
@@ -20,7 +20,7 @@ services:
       internal_port: 80
       is_main: true
   db-webapp:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     volumes:
       - '${APP_DATA_DIR}/data/database:/var/lib/mysql'
     environment:
