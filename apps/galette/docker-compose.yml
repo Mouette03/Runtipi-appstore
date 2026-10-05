@@ -1,6 +1,6 @@
 services:
   galette:
-    image: 'galette/galette:1.2.1'
+    image: 'galette/galette:1.3.0'
     volumes:
       - '${APP_DATA_DIR}/data/data:/var/www/galette/data'
       - '${APP_DATA_DIR}/data/config:/var/www/galette/config'
@@ -17,7 +17,7 @@ services:
       internal_port: 80
       is_main: true
   db-galette:
-    image: 'mariadb:12.3.2'
+    image: 'mariadb:12.3.3'
     volumes:
       - '${APP_DATA_DIR}/data/galette_db:/var/lib/mysql'
     environment:
