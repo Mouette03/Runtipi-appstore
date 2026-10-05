@@ -80,7 +80,7 @@
   "galette": {
     "images": {
       "galette": {
-        "lock": "minor"
+        "lock": "patch"
       },
       "db-galette": {
         "lock": "patch"
