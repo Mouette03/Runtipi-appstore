@@ -5,7 +5,7 @@
   "aliasvault": {
     "images": {
       "aliasvault": {
-        "lock": "patch"
+        "lock": "minor"
       }
     }
   },
