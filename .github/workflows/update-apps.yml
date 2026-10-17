@@ -516,7 +516,13 @@ jobs:
                       # For CalVer, the leading number is a year, not a stable
                       # major version — don't filter by it, or tags from a new
                       # year would be missed once it rolls over.
-                      major = None if version_scheme == 'calver' else cur_parts[0]
+                      # Likewise, with lock='major' a higher major is a valid
+                      # upgrade, so the search must not be pinned to the
+                      # current major (e.g. nextcloud 34.x -> 35.x).
+                      if version_scheme == 'calver' or lock == 'major':
+                          major = None
+                      else:
+                          major = cur_parts[0]
                       all_tags = get_dockerhub_tags(image_name, prefix, major)
                   elif cur_ls_build is not None:
                       # Hash-like '-lsNN' tag mirrored on Docker Hub (e.g.
