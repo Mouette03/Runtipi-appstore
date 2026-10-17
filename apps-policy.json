@@ -156,17 +156,17 @@
   "nextcloud": {
     "images": {
       "nextcloud": {
-        "lock": "minor"
+        "lock": "major"
       },
       "db-nextcloud": {
-        "lock": "patch",
+        "lock": "minor",
         "_comment": "Tag 'postgres:17' is a floating major version — auto-update skipped"
       },
       "redis-nextcloud": {
         "lock": "minor"
       },
       "cron": {
-        "lock": "minor"
+        "lock": "major"
       }
     }
   },
