@@ -2,13 +2,10 @@ BETA
 
 # OpenCode — AI Coding Agent
 
-> **Open-source AI coding agent with a web interface** — explore codebases, implement features, fix bugs and run commands from your browser.
-
-> **Agent de code IA open source avec interface web** — explorez vos projets, implémentez des fonctionnalités, corrigez des bugs et lancez des commandes depuis votre navigateur.
-
----
 
 ## 🇬🇧 English
+
+> **Open-source AI coding agent with a web interface** — explore codebases, implement features, fix bugs and run commands from your browser.
 
 ### ✨ Key Features
 
@@ -49,6 +46,8 @@ Put your projects in the `workspace/` subfolder (container path `/home/opencode/
 ---
 
 ## 🇫🇷 Français
+
+> **Agent de code IA open source avec interface web** — explorez vos projets, implémentez des fonctionnalités, corrigez des bugs et lancez des commandes depuis votre navigateur.
 
 ### ✨ Fonctionnalités principales
 
