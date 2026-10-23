@@ -1,6 +1,6 @@
 services:
   galette:
-    image: 'galette/galette:1.3.1'
+    image: 'ghcr.io/galette/galette:1.3.1'
     volumes:
       - '${APP_DATA_DIR}/data/data:/var/www/galette/data'
       - '${APP_DATA_DIR}/data/config:/var/www/galette/config'
