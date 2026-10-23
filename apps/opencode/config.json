@@ -21,7 +21,7 @@
       "min": 3,
       "default": "opencode",
       "hint": "Username used for HTTP Basic Auth.",
-      "required": true,
+      "required": false,
       "env_variable": "OPENCODE_SERVER_USERNAME"
     },
     {
