@@ -20,6 +20,8 @@ BETA
 
 Open the app URL provided by Runtipi (local or exposed). Your browser will prompt for the username and password set at installation (default username: `opencode`). This login comes from OpenCode itself, not from Runtipi.
 
+> ⚠️ **Known issue:** for now, keep the default username `opencode`. Custom usernames are affected by a bug reported to OpenCode.
+
 ### 🤖 Provider setup
 
 - Run **`/connect`** in the UI to sign in to an AI provider, **or**
@@ -61,6 +63,8 @@ Put your projects in the `workspace/` subfolder (container path `/home/opencode/
 ### 🔑 Accès
 
 Ouvrez l'URL de l'application fournie par Runtipi (locale ou exposée). Votre navigateur vous demandera l'identifiant et le mot de passe définis à l'installation (identifiant par défaut : `opencode`). Cette connexion est fournie par OpenCode lui-même, pas par Runtipi.
+
+> ⚠️ **Probléme connu :** pour le moment, gardez l'identifiant par défaut `opencode`. Les identifiants personnalisés sont touchés par un bug signalé à OpenCode.
 
 ### 🤖 Configuration du fournisseur IA
 
