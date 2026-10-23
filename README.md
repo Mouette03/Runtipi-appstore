@@ -26,6 +26,7 @@ This repository contains several applications you can install directly via **Run
 - 📊 [**Netronome**](./apps/netronome) – Network speed testing and performance monitoring (Speedtest, iperf3, packet loss).
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Personal cloud solution to store, share, and sync your files.
 - 🔐 [**OpenCloud**](./apps/opencloud) – Secure and private cloud storage solution.
+- 🤖 [**OpenCode**](./apps/opencode) - Open-source AI coding agent with a web interface (beta).
 - 🗄️ [**phpMyAdmin**](./apps/phpmyadmin) – Web interface for MySQL/MariaDB administration.
 - 🖥️ [**Portainer**](./apps/portainer) – Docker & Kubernetes management made easy.
 - 🔄 [**Sync-in**](./apps/sync-in) – Self-hosted file synchronization and collaboration suite.
@@ -66,6 +67,7 @@ Ce dépôt contient plusieurs applications que vous pouvez installer directement
 - 📊 [**Netronome**](./apps/netronome) – Test de débit et surveillance des performances réseau (Speedtest, iperf3, perte de paquets).
 - ☁️ [**Nextcloud**](./apps/nextcloud) – Solution de cloud personnel pour stocker, partager et synchroniser vos fichiers.
 - 🔐 [**OpenCloud**](./apps/opencloud) – Solution de stockage cloud sécurisée et privée.
+- 🤖 [**OpenCode**](./apps/opencode) - Agent de code IA open source avec interface web (bêta).
 - 🗄️ [**phpMyAdmin**](./apps/phpmyadmin) – Interface web pour l'administration MySQL/MariaDB.
 - 🖥️ [**Portainer**](./apps/portainer) – Simplifie la gestion de Docker et Kubernetes.
 - 🔄 [**Sync-in**](./apps/sync-in) – Suite de synchronisation et de collaboration de fichiers self-hosted.

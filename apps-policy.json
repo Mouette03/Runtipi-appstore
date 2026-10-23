@@ -177,6 +177,13 @@
       }
     }
   },
+  "opencode": {
+    "images": {
+      "opencode": {
+        "lock": "minor"
+      }
+    }
+  },
   "palmr": {
     "images": {
       "palmr": {
