@@ -3,7 +3,7 @@
   "available": true,
   "exposable": true,
   "dynamic_config": true,
-  "port": 4096,
+  "port": 8761,
   "id": "opencode",
   "tipi_version": 1,
   "version": "2.1.4",
