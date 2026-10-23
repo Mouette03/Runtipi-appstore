@@ -1,0 +1,19 @@
+services:
+  opencode:
+    image: 'ghcr.io/anomalyco/opencode:2.1.4'
+    command:
+      - 'serve'
+      - '--hostname'
+      - '0.0.0.0'
+    working_dir: '/home/opencode/workspace'
+    volumes:
+      - '${APP_DATA_DIR}/data/home:/home/opencode'
+    environment:
+      - 'HOME=/home/opencode'
+      - 'OPENCODE_SERVER_USERNAME=${OPENCODE_SERVER_USERNAME}'
+      - 'OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD}'
+    x-runtipi:
+      internal_port: 4096
+      is_main: true
+x-runtipi:
+  schema_version: 2
