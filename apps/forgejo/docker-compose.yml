@@ -1,6 +1,6 @@
 services:
   forgejo:
-    image: 'codeberg.org/forgejo/forgejo:15.0.10'
+    image: 'codeberg.org/forgejo/forgejo:15.0.11'
     ports:
       - '222:22/tcp'
     volumes:
