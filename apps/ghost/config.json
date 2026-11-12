@@ -5,8 +5,8 @@
   "exposable": true,
   "dynamic_config": true,
   "id": "ghost",
-  "tipi_version": 38,
-  "version": "6.76.0",
+  "tipi_version": 39,
+  "version": "6.77.0",
   "categories": ["social"],
   "description": "Ghost is a modern open-source CMS for writers with Markdown editor, newsletters, memberships.",
   "short_desc": "Ghost is a simple, open-source CMS for publishing content and newsletters.",
@@ -68,6 +68,6 @@
   ],
   "supported_architectures": ["arm64", "amd64"],
   "created_at": 1764631199572,
-  "updated_at": 1794366580591,
+  "updated_at": 1794453001370,
   "min_tipi_version": "4.5.0"
 }
