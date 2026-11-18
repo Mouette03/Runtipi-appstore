@@ -58,6 +58,8 @@ This is before all a free software (as in free speech), community and free (as i
 
 👉  More information : https://galette.eu		https://github.com/galette-community/docker
 
+👉 If you like Galette, please consider starring the developer's repository: https://github.com/galette/galette
+
  
 
 🇫🇷 Description (Français)
@@ -115,6 +117,8 @@ Galette est une application web de gestion d’adhérents, adaptée aux associat
 * Historique d'utilisation
 
 👉 Plus d’info : https://galette.eu			https://github.com/galette-community/docker
+
+👉 Si vous aimez Galette, n'hésitez pas à mettre une étoile sur le dépôt du développeur : https://github.com/galette/galette
 
 
 Thanks @sergi0g
