@@ -1,6 +1,6 @@
 services:
   vert:
-    image: 'ghcr.io/vert-sh/vert:sha-35ebeb1'
+    image: 'ghcr.io/vert-sh/vert:sha-9d2c9d8'
     x-runtipi:
       internal_port: 80
       is_main: true
