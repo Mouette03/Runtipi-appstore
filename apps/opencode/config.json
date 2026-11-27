@@ -15,16 +15,6 @@
   "source": "https://github.com/anomalyco/opencode",
   "form_fields": [
     {
-      "type": "text",
-      "label": "OpenCode username",
-      "max": 64,
-      "min": 3,
-      "default": "opencode",
-      "hint": "Username used for HTTP Basic Auth.",
-      "required": false,
-      "env_variable": "OPENCODE_SERVER_USERNAME"
-    },
-    {
       "type": "password",
       "label": "OpenCode password",
       "max": 32,

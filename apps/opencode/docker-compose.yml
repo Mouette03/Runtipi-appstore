@@ -10,7 +10,6 @@ services:
       - '${APP_DATA_DIR}/data/home:/home/opencode'
     environment:
       - 'HOME=/home/opencode'
-      - 'OPENCODE_SERVER_USERNAME=${OPENCODE_SERVER_USERNAME}'
       - 'OPENCODE_SERVER_PASSWORD=${OPENCODE_SERVER_PASSWORD}'
     x-runtipi:
       internal_port: 4096
